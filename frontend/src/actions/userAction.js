@@ -33,9 +33,7 @@ const register = (name, email, password) => async (dispatch) =>{
 
 const detailsUser =(userId) => async (dispatch,getState)=>{
     dispatch({type: USER_DETAIL_REQUEST, payload: userId});
-    const {
-        userLogin :{userInfo},
-    }= getState();
+    const { userLogin :{userInfo}}= getState();
     try{    
         const {data} = await axios.get(`/api/users/${userId}`,{
             // headers: {Athorization:`Phu ${userInfo.token}`},

@@ -1,0 +1,40 @@
+.header-slider {
+position: relative;
+width: 100%;
+}
+
+.header-slider .header-slider-item {
+position: relative;
+}
+
+.header-slider .header-slider-caption {
+position: absolute;
+top: 20%;
+left: 20%;
+width: 60%;
+height: 60%;
+padding: 15px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+background: rgba(255, 111, 97, .7);
+transition: all 0.3s;
+z-index: 1;
+}
+
+.header-slider .header-slider-caption p {
+text-align: center;
+color: #ffffff;
+font-size: 22px;
+font-family: 'Source Code Pro', monospace;
+font-weight: 700;
+}
+
+.header-slider .header-slider-caption .btn {
+border-color: #ffffff;
+}
+
+.header-slider .header-slider-caption .btn i {
+margin-right: 5px;
+}
