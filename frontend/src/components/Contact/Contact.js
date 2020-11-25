@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 
 export default function ContactScreen(){
@@ -12,11 +13,11 @@ export default function ContactScreen(){
                             <h3><i className="fa fa-envelope" />Phu@gmail.com</h3>
                             <h3><i className="fa fa-phone" />+034-304-8571</h3>
                             <div className="social">
-                            <a href><i className="fab fa-twitter" /></a>
-                            <a href><i className="fab fa-facebook-f" /></a>
-                            <a href><i className="fab fa-linkedin-in" /></a>
-                            <a href><i className="fab fa-instagram" /></a>
-                            <a href><i className="fab fa-youtube" /></a>
+                            <Link to=""><i className="fab fa-twitter" /></Link>
+                            <Link to=""><i className="fab fa-facebook-f" /></Link>
+                            <Link to=""><i className="fab fa-linkedin-in" /></Link>
+                            <Link to=""><i className="fab fa-instagram" /></Link>
+                            <Link to=""><i className="fab fa-youtube" /></Link>
                             </div>
                         </div>
                     </div>
@@ -27,11 +28,11 @@ export default function ContactScreen(){
                             <h3><i className="fa fa-envelope" />phumap@gmail.com</h3>
                             <h3><i className="fa fa-phone" />+123-456-7890</h3>
                             <div className="social">
-                                <a href><i className="fab fa-twitter" /></a>
-                                <a href><i className="fab fa-facebook-f" /></a>
-                                <a href><i className="fab fa-linkedin-in" /></a>
-                                <a href><i className="fab fa-instagram" /></a>
-                                <a href><i className="fab fa-youtube" /></a>
+                                <Link to=""><i className="fab fa-twitter" /></Link>
+                                <Link to=""><i className="fab fa-facebook-f" /></Link>
+                                <Link to=""><i className="fab fa-linkedin-in" /></Link>
+                                <Link to=""><i className="fab fa-instagram" /></Link>
+                                <Link to=""><i className="fab fa-youtube" /></Link>
                             </div>
                         </div>
                     </div>

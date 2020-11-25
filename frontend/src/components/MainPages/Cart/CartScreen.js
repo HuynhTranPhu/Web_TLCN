@@ -182,7 +182,7 @@ function CartScreen(props){
                                                 <h2>Grand Total<span>${cartItems.reduce((a,c) => a+c.price * c.qty,0)}</span></h2>
                                             </div>
                                             <div className="cart-btn">
-                                                <Link to="/"><button>Update Cart</button></Link>
+                                                <Link to="/product-list"><button>Update Cart</button></Link>
                                                 <button onClick={checkoutHandler} disabled={cartItems.length ===0}>Proceed to Checkout</button>
                                             </div>
                                         </div>

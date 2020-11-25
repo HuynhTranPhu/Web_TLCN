@@ -1,4 +1,5 @@
 import React, {useEffect } from 'react';
+import Slider from "react-slick";
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { listProducts } from '../../../actions/productActions';
@@ -10,7 +11,7 @@ import Review from '../../Review/Review';
 import HeaderSlider from '../../Header/HeaderSlider/HeaderSlider';
 function HomeScreen(props){
     const productList = useSelector(state => state.productList);
-    const {products, loading , error} = productList;
+    const {products,loading , error} = productList;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -18,11 +19,44 @@ function HomeScreen(props){
         return () => {
         };
     }, [])
-    const handleAddToCart = (productId) =>{
-        // //  props.history.push("/cart/" + `${productId}` +"?qty=" + 1)
-        //  props.history.push(`/cart/${productId}?qty=1`)
-        // console.log(props);
-    }
+    const settings = {
+        autoplay: true,
+        infinite: true,
+        dots: false,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 1200,
+                settings: {
+                    slidesToShow: 4,
+                }
+            },
+            {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 3,
+                }
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 576,
+                settings: {
+                    slidesToShow: 1,
+                }
+            },
+        ]
+    };
+    // const handleAddToCart = (productId) =>{
+    //     // //  props.history.push("/cart/" + `${productId}` +"?qty=" + 1)
+    //     //  props.history.push(`/cart/${productId}?qty=1`)
+    //     // console.log(props);
+    // }
     return(
         loading?(
             <LoadingBox></LoadingBox>
@@ -222,18 +256,19 @@ function HomeScreen(props){
               {/* <!-- Call to Action End -->       
               
               <!-- Featured Product Start --> */}
-              <div className="featured-product product">
+               <div className="featured-product product">
                   <div className="container-fluid">
                       <div className="section-header">
                           <h1>Featured Product</h1>
                       </div>
-                      <div className="row align-items-center product-slider product-slider-4">
-                            {
-                                products.map( (product) =>
-                                <div className="col-lg-3" key={product._id}>
+                      {/* <div className="align-items-center "> */}
+                        <Slider {...settings}>
+                        {
+                            products.map( (product) =>
+                                <div className="col-lg-12" key={product._id}>
                                     <div className="product-item">
                                         <div className="product-title">
-                                            <Link to={'/product/' + product._id}>{product.name}</Link>
+                                            <Link to={'/product-detail/' + product._id}>{product.name}</Link>
                                             <div className="ratting">
                                                 <i className="fa fa-star"></i>
                                                 <i className="fa fa-star"></i>
@@ -243,7 +278,7 @@ function HomeScreen(props){
                                             </div>
                                         </div>
                                         <div className="product-image">
-                                            <Link to={'/product/' + product._id}>{
+                                            <Link to={'/product-detail/' + product._id}>{
                                                 <img src={product.image} alt="Product Image"/>
                                             }  
                                             </Link>
@@ -259,9 +294,11 @@ function HomeScreen(props){
                                             }
                                         </div>
                                     </div>
-                                </div>  )
-                            }     
-                      </div>
+                                </div> 
+                                )
+                        } 
+                        </Slider>   
+                      {/* </div> */}
                   </div>
               </div>
               {/* <!-- Featured Product End -->           
@@ -272,10 +309,11 @@ function HomeScreen(props){
                       <div className="section-header">
                           <h1>Recent Product</h1>
                       </div>
-                      <div className="row align-items-center product-slider product-slider-4">
+                      {/* <div className="align-items-center"> */}
+                          <Slider {...settings}>
                             {
                                 products.map( (product) =>
-                                <div className="col-lg-3" key={product._id}>
+                                <div className="col-lg-12" key={product._id}>
                                     <div className="product-item">
                                         <div className="product-title">
                                             <Link to={'/product/' + product._id}>{product.name}</Link>
@@ -306,8 +344,8 @@ function HomeScreen(props){
                                     </div>
                                 </div>  )
                             } 
-                          
-                      </div>
+                         </Slider> 
+                      {/* </div> */}
                   </div>
               </div>
               <Review/>

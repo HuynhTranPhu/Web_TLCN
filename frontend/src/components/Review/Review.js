@@ -23,7 +23,7 @@ export default class Review extends Component {
       return (
             <div className="review">
                   <div className="container-fluid">
-                        <div className="align-items-center review-slider normal-slider">
+                        <div className="review-slider normal-slider">
                           <Slider {...settings}>
                             <div className="col-md-12">
                                 <div className="review-slider-item">

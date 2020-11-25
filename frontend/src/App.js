@@ -2,6 +2,7 @@ import React from 'react';
 import {
   BrowserRouter ,
   Link,
+  NavLink,
   Route
 } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,6 +21,8 @@ import {logout} from './actions/userAction'
 // import PaymentScreen from './components/screens/PaymentScreen';
 // import PlaceOrderScreen from './components/screens/PlaceOrderScreen';
 import ProfileScreen from './components/MainPages/ProfileUser/ProfileScreen';
+import ProductScreen from './components/MainPages/Products/ProductScreen';
+import ProductDetailScreen from './components/MainPages/ProductDetails/ProductDetails';
 import ContactScreen from './components/Contact/Contact';
 import FooterPage from './components/Footer/Footer';
 
@@ -101,19 +104,18 @@ function App() {
               <div className="nav">
                   <div className="container-fluid">
                       <nav className="navbar navbar-expand-md bg-dark navbar-dark">
-                          <a href="#" className="navbar-brand">MENU</a>
+                          <Link to="" className="navbar-brand">MENU</Link>
                           <button type="button" className="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                               <span className="navbar-toggler-icon"></span>
                           </button>
 
                           <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                               <div className="navbar-nav mr-auto">
-                                  <Link to="/" className="nav-item nav-link active">Home</Link>
-                                  <Link to="/" className="nav-item nav-link">Products</Link>
-                                  <Link to="/" className="nav-item nav-link">Product Detail</Link>
-                                  <Link to="/cart" className="nav-item nav-link">Cart</Link>
-                                  <Link to="/profile" className="nav-item nav-link">My Account</Link>
-                                  <Link to="/contact" className="nav-item nav-link">Contact Us</Link>
+                                  <NavLink to="/" className="nav-item nav-link">Home</NavLink>
+                                  <NavLink to="/product-list" className="nav-item nav-link">Products</NavLink>
+                                  <NavLink to="/cart" className="nav-item nav-link">Cart</NavLink>
+                                  <NavLink to="/profile" className="nav-item nav-link">My Account</NavLink>
+                                  <NavLink to="/contact" className="nav-item nav-link">Contact Us</NavLink>
                               </div>
                               <div className="navbar-nav ml-auto">
                                   {
@@ -179,6 +181,8 @@ function App() {
                 <Route path="/login" component={LoginScreen}></Route>
                 <Route path="/register" component={RegisterScreen}></Route>
                 <Route path="/profile" component={ProfileScreen}></Route>
+                <Route path="/product-list" component={ProductScreen}></Route>
+                <Route path="/product-detail/:id" component={ProductDetailScreen}></Route>
                 <Route path="/contact" component={ContactScreen}></Route>
               </div>
               {/* <!-- Bottom Bar End -->       
