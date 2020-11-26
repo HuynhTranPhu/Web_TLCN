@@ -134,135 +134,137 @@ function ProductDetailScreen(props){
             <div className="product-detail">
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-lg-8">
-                            <div className="product-detail-top">
-                                <div className="row align-items-center">
-                                    <div className="col-md-5">
-                                        <div className="product-slider-single ">
-                                            <img src={product.image} alt="Product Image" />  
+                        <div className="col-lg-12">
+                            <div className="col-lg-10">
+                                <div className="product-detail-top">
+                                    <div className="row align-items-center">
+                                        <div className="col-md-3">
+                                            <div className="product-slider-single ">
+                                                <img src={product.image} alt="Product Image" />  
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="col-md-7">
-                                        <div className="product-content">
-                                            <div className="title">
-                                                <h2>{product.name}</h2>
-                                            </div>
-                                                <div className="ratting">
-                                                    <i className="fa fa-star" />
-                                                    <i className="fa fa-star" />
-                                                    <i className="fa fa-star" />
-                                                    <i className="fa fa-star" />
-                                                    <i className="fa fa-star" />
+                                        <div className="col-md-7">
+                                            <div className="product-content">
+                                                <div className="title">
+                                                    <h2>{product.name}</h2>
                                                 </div>
-                                                <div className="price">
-                                                    <h4>Price:</h4>
-                                                    <p> ${product.price} <span>$149</span></p>
+                                                    <div className="ratting">
+                                                        <i className="fa fa-star" />
+                                                        <i className="fa fa-star" />
+                                                        <i className="fa fa-star" />
+                                                        <i className="fa fa-star" />
+                                                        <i className="fa fa-star" />
+                                                    </div>
+                                                    <div className="price">
+                                                        <h4>Price:</h4>
+                                                        <p> ${product.price} <span>$149</span></p>
+                                                    </div>
+                                                <div className="quantity">
+                                                    <h4>Quantity:</h4>
+                                                    <div className="qty">
+                                                        <button className="btn-minus" onClick={()=> decreaseHandler(props.match.params.id)}><i className="fa fa-minus" /></button>
+                                                        <input type="text" 
+                                                        value={qty} onChange={(e) =>{setQty(e.target.value)}} />
+                                                        <button className="btn-plus" onClick={()=> increaseHandler(props.match.params.id)}><i className="fa fa-plus" /></button>
+                                                    </div>
                                                 </div>
-                                            <div className="quantity">
-                                                <h4>Quantity:</h4>
-                                                <div className="qty">
-                                                    <button className="btn-minus" onClick={()=> decreaseHandler(props.match.params.id)}><i className="fa fa-minus" /></button>
-                                                    <input type="text" 
-                                                    value={qty} onChange={(e) =>{setQty(e.target.value)}} />
-                                                    <button className="btn-plus" onClick={()=> increaseHandler(props.match.params.id)}><i className="fa fa-plus" /></button>
+                                                <div className="p-size">
+                                                    <h4>Size:</h4>
+                                                    <div className="btn-group btn-group-sm">
+                                                        <button type="button" className="btn">S</button>
+                                                        <button type="button" className="btn">M</button>
+                                                        <button type="button" className="btn">L</button>
+                                                        <button type="button" className="btn">XL</button>
+                                                    </div> 
                                                 </div>
-                                            </div>
-                                            <div className="p-size">
-                                                <h4>Size:</h4>
-                                                <div className="btn-group btn-group-sm">
-                                                    <button type="button" className="btn">S</button>
-                                                    <button type="button" className="btn">M</button>
-                                                    <button type="button" className="btn">L</button>
-                                                    <button type="button" className="btn">XL</button>
-                                                </div> 
-                                            </div>
-                                            <div className="p-color">
-                                                <h4>Color:</h4>
-                                                <div className="btn-group btn-group-sm">
-                                                    <button type="button" className="btn">White</button>
-                                                    <button type="button" className="btn">Black</button>
-                                                    <button type="button" className="btn">Blue</button>
-                                                </div> 
-                                            </div>
-                                            <div className="action">
-                                            {
-                                                 product.countInStock>0 && 
-                                                 <a className="btn"  onClick={handleAddToCart} ><i className="fa fa-shopping-cart" />Add to Cart</a>
-                                            }
+                                                <div className="p-color">
+                                                    <h4>Color:</h4>
+                                                    <div className="btn-group btn-group-sm">
+                                                        <button type="button" className="btn">White</button>
+                                                        <button type="button" className="btn">Black</button>
+                                                        <button type="button" className="btn">Blue</button>
+                                                    </div> 
+                                                </div>
+                                                <div className="action">
+                                                {
+                                                    product.countInStock>0 && 
+                                                    <a className="btn"  onClick={handleAddToCart} ><i className="fa fa-shopping-cart" />Add to Cart</a>
+                                                }
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="row product-detail-bottom">
-                                <div className="col-lg-12">
-                                    <ul className="nav nav-pills nav-justified">
-                                    <li className="nav-item">
-                                        <a className="nav-link active" data-toggle="pill" href="#description">Description</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" data-toggle="pill" href="#specification">Specification</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" data-toggle="pill" href="#reviews">Reviews (1)</a>
-                                    </li>
-                                    </ul>
-                                    <div className="tab-content">
-                                    <div id="description" className="container tab-pane active">
-                                        <h4>Product description</h4>
-                                        <p>
-                                            {product.description}   
-                                        </p>
-                                    </div>
-                                    <div id="specification" className="container tab-pane fade">
-                                        <h4>Product specification</h4>
-                                        <ul>
-                                        <li>Lorem ipsum dolor sit amet</li>
-                                        <li>Lorem ipsum dolor sit amet</li>
-                                        <li>Lorem ipsum dolor sit amet</li>
-                                        <li>Lorem ipsum dolor sit amet</li>
-                                        <li>Lorem ipsum dolor sit amet</li>
+                                <div className="row product-detail-bottom">
+                                    <div className="col-lg-12">
+                                        <ul className="nav nav-pills nav-justified">
+                                        <li className="nav-item">
+                                            <a className="nav-link active" data-toggle="pill" href="#description">Description</a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a className="nav-link" data-toggle="pill" href="#specification">Specification</a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a className="nav-link" data-toggle="pill" href="#reviews">Reviews (1)</a>
+                                        </li>
                                         </ul>
-                                    </div>
-                                    <div id="reviews" className="container tab-pane fade">
-                                        <div className="reviews-submitted">
-                                        <div className="reviewer">Phasellus Gravida - <span>01 Jan 2020</span></div>
-                                        <div className="ratting">
-                                            <i className="fa fa-star" />
-                                            <i className="fa fa-star" />
-                                            <i className="fa fa-star" />
-                                            <i className="fa fa-star" />
-                                            <i className="fa fa-star" />
+                                        <div className="tab-content">
+                                        <div id="description" className="container tab-pane active">
+                                            <h4>Product description</h4>
+                                            <p>
+                                                {product.description}   
+                                            </p>
                                         </div>
-                                        <p>
-                                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
-                                        </p>
+                                        <div id="specification" className="container tab-pane fade">
+                                            <h4>Product specification</h4>
+                                            <ul>
+                                            <li>Lorem ipsum dolor sit amet</li>
+                                            <li>Lorem ipsum dolor sit amet</li>
+                                            <li>Lorem ipsum dolor sit amet</li>
+                                            <li>Lorem ipsum dolor sit amet</li>
+                                            <li>Lorem ipsum dolor sit amet</li>
+                                            </ul>
                                         </div>
-                                        <div className="reviews-submit">
-                                        <h4>Give your Review:</h4>
-                                        <div className="ratting">
-                                            <i className="far fa-star" />
-                                            <i className="far fa-star" />
-                                            <i className="far fa-star" />
-                                            <i className="far fa-star" />
-                                            <i className="far fa-star" />
-                                        </div>
-                                        <div className="row form">
-                                            <div className="col-sm-6">
-                                            <input type="text" placeholder="Name" />
+                                        <div id="reviews" className="container tab-pane fade">
+                                            <div className="reviews-submitted">
+                                            <div className="reviewer">Phasellus Gravida - <span>01 Jan 2020</span></div>
+                                            <div className="ratting">
+                                                <i className="fa fa-star" />
+                                                <i className="fa fa-star" />
+                                                <i className="fa fa-star" />
+                                                <i className="fa fa-star" />
+                                                <i className="fa fa-star" />
                                             </div>
-                                            <div className="col-sm-6">
-                                            <input type="email" placeholder="Email" />
+                                            <p>
+                                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
+                                            </p>
                                             </div>
-                                            <div className="col-sm-12">
-                                            <textarea placeholder="Review" defaultValue={""} />
+                                            <div className="reviews-submit">
+                                            <h4>Give your Review:</h4>
+                                            <div className="ratting">
+                                                <i className="far fa-star" />
+                                                <i className="far fa-star" />
+                                                <i className="far fa-star" />
+                                                <i className="far fa-star" />
+                                                <i className="far fa-star" />
                                             </div>
-                                            <div className="col-sm-12">
-                                            <button>Submit</button>
+                                            <div className="row form">
+                                                <div className="col-sm-6">
+                                                <input type="text" placeholder="Name" />
+                                                </div>
+                                                <div className="col-sm-6">
+                                                <input type="email" placeholder="Email" />
+                                                </div>
+                                                <div className="col-sm-12">
+                                                <textarea placeholder="Review" defaultValue={""} />
+                                                </div>
+                                                <div className="col-sm-12">
+                                                <button>Submit</button>
+                                                </div>
+                                            </div>
                                             </div>
                                         </div>
                                         </div>
-                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -287,12 +289,10 @@ function ProductDetailScreen(props){
                                                     </div>
                                                     </div>
                                                     <div className="product-image">
-                                                    <Link to={"/product-detail/"+ product._id}>
                                                         <img src={product.image}alt="Product Image" />
-                                                    </Link>
-                                                    <div className="product-action">
-                                                        <a href="#"><i className="fa fa-cart-plus" /></a>
-                                                    </div>
+                                                        <div className="product-action">
+                                                            <Link to={'/product-detail/' + product._id}><i className="fas fa-eye" /></Link>
+                                                        </div>
                                                     </div>
                                                     <div className="product-price">
                                                     <h3><span>$</span>{product.price}</h3>

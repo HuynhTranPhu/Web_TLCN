@@ -166,12 +166,10 @@ function ProductScreen(props){
                                                 </div>
                                             </div>
                                             <div className="product-image">
-                                                <Link to={'/product-detail/' + product._id}>
-                                                    <img src={product.image} alt="Product Image" />
-                                                </Link>
-                                                <div className="product-action">
-                                                    <Link to="#"><i className="fa fa-cart-plus" /></Link>             
-                                                </div>
+                                                    <img src={product.image} alt="Product" />
+                                                    <div className="product-action">
+                                                        <Link to={'/product-detail/' + product._id}><i className="fas fa-eye" /></Link>             
+                                                    </div>
                                             </div>
                                             <div className="product-price">
                                             <h3><span>$</span>{product.price}</h3>

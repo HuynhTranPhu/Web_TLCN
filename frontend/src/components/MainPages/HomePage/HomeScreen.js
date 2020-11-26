@@ -278,12 +278,11 @@ function HomeScreen(props){
                                             </div>
                                         </div>
                                         <div className="product-image">
-                                            <Link to={'/product-detail/' + product._id}>{
+                                            {
                                                 <img src={product.image} alt="Product Image"/>
                                             }  
-                                            </Link>
                                             <div className="product-action">   
-                                                    <a><i className="fa fa-cart-plus" ></i></a>
+                                                    <Link to={'/product-detail/' + product._id}><i className="fas fa-eye" ></i></Link>
                                             </div>
                                         </div>
                                         <div className="product-price">
@@ -316,7 +315,7 @@ function HomeScreen(props){
                                 <div className="col-lg-12" key={product._id}>
                                     <div className="product-item">
                                         <div className="product-title">
-                                            <Link to={'/product/' + product._id}>{product.name}</Link>
+                                            <Link to={'/product-detail/' + product._id}>{product.name}</Link>
                                             <div className="ratting">
                                                 <i className="fa fa-star"></i>
                                                 <i className="fa fa-star"></i>
@@ -326,12 +325,11 @@ function HomeScreen(props){
                                             </div>
                                         </div>
                                         <div className="product-image">
-                                            <Link to={'/product/' + product._id}>{
+                                            {
                                                 <img src={product.image} alt="Product Image"/>
                                             }  
-                                            </Link>
                                             <div className="product-action">
-                                                  <a><i className="fa fa-cart-plus"  ></i></a>  
+                                                  <Link  to={'/product-detail/' + product._id}><i className="fas fa-eye"  ></i></Link>  
                                             </div>
                                         </div>
                                         <div className="product-price">
