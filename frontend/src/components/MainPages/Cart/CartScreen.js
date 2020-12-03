@@ -114,9 +114,14 @@ function CartScreen(props){
                                         <thead className="thead-dark">
                                             {
                                                  cartItems.length === 0 ?(
-                                                    <MessageBox>
-                                                        Cart Empty. <Link to="/">Go to Shopping</Link>
-                                                    </MessageBox>
+                                                    // <MessageBox>
+                                                    //     Cart Empty. <Link to="/">Go to Shopping</Link>
+                                                    // </MessageBox>
+                                                    <div className="empty-cart">
+                                                        <img className="empty-cart-img" src="/images/emptyCart.png" alt="Product" />
+                                                        <p className="empty-cart-note">Your shopping cart is empty.</p>
+                                                        <Link className="empty-cart-shopping" to="/">Go to Shopping</Link>
+                                                    </div>
                                                 )
                                                 :
                                                 <tr>
@@ -136,7 +141,7 @@ function CartScreen(props){
                                                     <td>
                                                         <div className="img">
                                                             <Link to={"/product/"+item.product}>
-                                                                <img src={item.image} alt="Image" />
+                                                                <img src={item.image} alt="Product" />
                                                                 </Link>
                                                             <p><Link to ={"/product/" +item.product}> {item.name}</Link></p>
                                                         </div>

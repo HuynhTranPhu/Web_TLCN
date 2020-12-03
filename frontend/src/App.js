@@ -3,7 +3,8 @@ import {
   BrowserRouter ,
   Link,
   NavLink,
-  Route
+  Route,
+  Switch
 } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import {logout} from './actions/userAction'
@@ -17,14 +18,16 @@ import {logout} from './actions/userAction'
 
  import RegisterScreen from './components/MainPages/Register/RegisterScreen';
 // import ProductAdminScreen from './components/screens/ProductAdminScreen';
-// import ShippingScreen from './components/screens/ShippingScreen';
-// import PaymentScreen from './components/screens/PaymentScreen';
-// import PlaceOrderScreen from './components/screens/PlaceOrderScreen';
+import ShippingScreen from './components/Shipping/ShippingScreen';
+import PaymentScreen from './components/Payment/PaymentScreen';
+import PlaceOrderScreen from './components/PlaceOrder/PlaceOrderScreen';
 import ProfileScreen from './components/MainPages/ProfileUser/ProfileScreen';
 import ProductScreen from './components/MainPages/Products/ProductScreen';
 import ProductDetailScreen from './components/MainPages/ProductDetails/ProductDetails';
 import ContactScreen from './components/Contact/Contact';
 import FooterPage from './components/Footer/Footer';
+import NotFound from './components/404/404';
+import VerifyRegisterAccount from './components/VerifyRegisterAccount/VerifyRegisterAccount';
 
 
 
@@ -121,10 +124,11 @@ function App() {
                                   {
                                       userInfo?(
                                         <div className="nav-item dropdown">
-                                            <Link to="#" className="nav-link dropdown-toggle" data-toggle="dropdown">{userInfo.name}</Link>
+                                            <Link to="#" className="nav-link dropdown-toggle" data-toggle="dropdown">{userInfo.user.name}</Link>
+    
                                             <div className="dropdown-menu">
                                                 {/* <Link to="/login" className="dropdown-item">Login</Link> */}
-                                                <Link to="/register" className="dropdown-item">Register</Link>
+                                                {/* <Link to="/register" className="dropdown-item">Register</Link> */}
                                                 <Link to="/" className="dropdown-item" onClick={logoutHandler}>Logout</Link>
                                             </div>
                                         </div>
@@ -176,14 +180,22 @@ function App() {
                   </div>
               </div>
               <div className="content-main">
-                <Route path="/" exact={true} component={HomeScreen}></Route> 
-                <Route path="/cart/:id?" component={CartScreen}></Route>
-                <Route path="/login" component={LoginScreen}></Route>
-                <Route path="/register" component={RegisterScreen}></Route>
-                <Route path="/profile" component={ProfileScreen}></Route>
-                <Route path="/product-list" component={ProductScreen}></Route>
-                <Route path="/product-detail/:id" component={ProductDetailScreen}></Route>
-                <Route path="/contact" component={ContactScreen}></Route>
+                  <Switch>
+                     <Route path="/" exact={true} component={HomeScreen}></Route> 
+                     <Route path="/cart/:id?" component={CartScreen}></Route>
+                     <Route path="/login" component={LoginScreen}></Route>
+                     <Route path="/register" component={RegisterScreen}></Route>
+                     <Route path="/profile" component={ProfileScreen}></Route>
+                     <Route path="/product-list" component={ProductScreen}></Route>
+                     <Route path="/product-detail/:id" component={ProductDetailScreen}></Route>
+                     <Route path="/contact" component={ContactScreen}></Route>
+                     <Route path="/confirm-account" component={VerifyRegisterAccount}></Route>
+                     <Route path="/shipping" component={ShippingScreen}></Route>
+                     <Route path="/payment" component={PaymentScreen}></Route>
+                     <Route path="/place-order" component={PlaceOrderScreen}></Route>
+                  </Switch>
+                  <Route path="/k" component={NotFound}></Route>
+                
               </div>
               {/* <!-- Bottom Bar End -->       
               

@@ -1,20 +1,28 @@
-.form-signin{
+.formContain{
 display: flex;
 justify-content: center;
 align-items: center;
-
 }
 .title{
 text-align: center;
 font-weight: 400;
 user-select: none;
 }
+.forgot{
+    text-align: center;
+}
+.sign-up{
+    text-align: center;
+}
+.sign-up .borders{
+    margin-left: 0.2rem;
+    text-decoration: underline;
+}
 .form-container{
 display: flex;
 flex-direction: column;
-width: 25rem;
+width: 24rem;
 padding: 2rem;
-/* border: .1rem #c0c0c0 solid; */
 border-radius: 1rem;
 list-style-type: none;
 box-shadow: .4px 4px 12px rgba(0,0,0,0.2);
@@ -23,14 +31,19 @@ text-shadow: .4px .4px 5px rgba(0,0,0,0.2);
 .form-container li{
 display: flex;
 flex-direction: column;
-margin-bottom: 1rem;
-margin-top: 1rem;
+margin-bottom: .5rem;
+margin-top: .5rem;
 }
 .form-container input{
+background-color: #f3f6ff;
 display: block;
-margin: .8rem 2rem auto;
+margin: .5rem 1rem auto;
 border: none;
 border-bottom: .1rem solid dodgerblue;
 outline: none;
-padding: .6rem .4rem;
+padding: .5rem .4rem;
+}
+.form-container button{
+border-radius: 2rem;
+margin-top: 1rem;
 }

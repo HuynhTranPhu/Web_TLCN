@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector} from 'react-redux'
 import { Link } from 'react-router-dom';
-import CheckoutSteps from '../CheckoutSteps';
+import CheckoutSteps from '../CheckOutStep/CheckoutSteps';
 function PlaceOrderScreen(props){
 
 

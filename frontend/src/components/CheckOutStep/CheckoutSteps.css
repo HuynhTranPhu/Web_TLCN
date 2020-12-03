@@ -11,6 +11,6 @@
     padding-top: 1rem;
   }
   .checkout-steps > div.active{
-    border-top: .3rem#a749ff solid;
-    color:#a749ff;
+    border-top: .3rem #FF6F61 solid;
+    color: #FF6F61;
   }

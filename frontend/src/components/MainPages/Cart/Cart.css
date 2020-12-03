@@ -241,3 +241,13 @@
     color: #ffffff;
     background: #FF6F61;
 }
+.empty-cart .empty-cart-img{
+    width: 190px;
+    height: 190px;
+}
+.empty-cart .empty-cart-note{
+    margin-top: 10px;
+}
+.empty-cart .empty-cart-shopping{
+    background-color: yellow;
+}

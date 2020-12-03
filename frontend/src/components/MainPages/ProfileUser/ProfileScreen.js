@@ -17,6 +17,7 @@ export default function ProfileScreen(){
     const dispatch = useDispatch();
     useEffect(() =>{
         dispatch(detailsUser(userInfo._id));
+       
     },[dispatch, userInfo._id]);
 
     const submitHandler = (e) =>{

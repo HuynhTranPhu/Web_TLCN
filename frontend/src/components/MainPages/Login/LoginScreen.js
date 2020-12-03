@@ -30,41 +30,45 @@ function LoginScreen(props){
         e.preventDefault();
         dispatch(login(email,password));
     }
-    return <div className="form-signin">
-        <form onSubmit={submitHandler}>
-            <ul className="form-container">
-                <li>
-                    <h2 className="title">Welcome</h2>
-                </li>
-                <li>
-                    {loading && <LoadingBox></LoadingBox>}
-                    {error && <MessageBox variant="danger">{error}</MessageBox>}
-                </li>
-                <li>
-                    <label htmlFor="email">Email</label>
-                    <input type="email" name="email" id="email" onChange={(e)=>setEmail(e.target.value)}></input>
+    return <div className="formContain">
+            <form onSubmit={submitHandler}>
+                <ul className="form-container">
+                    <li>
+                        <h2 className="title">Welcome</h2>
+                    </li>
+                    <li>
+                        {loading && <LoadingBox></LoadingBox>}
+                        {error && <MessageBox variant="danger">{error}</MessageBox>}
+                    </li>
+                    <li>
+                        <label htmlFor="email">Email</label>
+                        <input type="email" name="email" id="email" onChange={(e)=>setEmail(e.target.value)}></input>
 
-                </li>
-                <li>
-                    <label htmlFor="password">Password</label>
-                    <input type="password" id="password" name="password" onChange={(e)=> setPassword(e.target.value)}></input>
-                </li>
-                <li>
-                    <button type="submit" className="button primary">
-                            Login 
-                    </button>
-                </li>
-                <li>
-                    New to account
-                </li>
-                <li>
-                    <Link to={redirect === "/" ? "register": "register? redirect=" + redirect} className="button secondary text-center">
-                        Create account
-                    </Link>
-                </li>
-            </ul>
-        </form> 
-    </div>
+                    </li>
+                    <li>
+                        <label htmlFor="password">Password</label>
+                        <input type="password" id="password" name="password" onChange={(e)=> setPassword(e.target.value)}></input>
+                    </li>
+                    <li>
+                        <button type="submit" className="button primary">
+                                Login 
+                        </button>
+                    </li>
+                    <li>
+                       <Link to="" className="forgot">Forgotten password?</Link> 
+                    </li>
+                    <li className="sign-up">
+                        <p>
+                            Don't have an account?
+                            <Link to={redirect === "/" ? "register": "register? redirect=" + redirect} className="borders" >
+                                Sign Up
+                            </Link>
+                        </p>
+                        
+                    </li>
+                </ul>
+             </form> 
+            </div>
     
     
 }

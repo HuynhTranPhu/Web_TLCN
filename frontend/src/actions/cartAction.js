@@ -2,35 +2,17 @@ import axios from 'axios'
 import Cookie from 'js-cookie';
 import {CART_INCREASE, CART_DECREASE, CART_ADD_FAIL, CART_ADD_ITEM, CART_REMOVE_ITEM, CART_SAVE_PAYMENT, CART_SAVE_SHIPPING } from '../constants/cartConstants';
 
-// const addToCart = (productId) => async (dispatch, getState) => {
-//     try{
-//         const {data} = await axios.get("/api/products/" + productId);
-//         dispatch({
-//             type: CART_ADD_ITEM, payload:{
-//             product: data._id,
-//             name: data.name,
-//             image: data.image,
-//             price: data.price,
-//             countInStock : data.countInStock
-//             }
-//         });
-//         const {cart: {cartItems}} = getState();
-//         Cookie.set("cartItems", JSON.stringify(cartItems));
 
-//     } catch(error){
-//         dispatch({type: CART_ADD_FAIL, payload: error.message})
-//     }
-// }
 const addToCart = (productId, qty) => async (dispatch, getState) => {
     try{
-        const {data} = await axios.get("/api/products/" + productId);
+        const {data} = await axios.get("/product/" + productId);
         dispatch({
             type: CART_ADD_ITEM, payload:{
             product: data._id,
             name: data.name,
-            image: data.image,
+            image: data.img,
             price: data.price,
-            countInStock : data.countInStock,
+            countInStock : data.count,
             qty
             }
         });

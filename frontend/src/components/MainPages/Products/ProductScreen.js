@@ -110,12 +110,12 @@ function ProductScreen(props){
                             <div className="col-md-12">
                                 <div className="product-view-top">
                                     <div className="row">
-                                        <div className="col-md-3">
+                                        {/* <div className="col-md-3">
                                             <div className="product-search">
                                                 <input type="email" defaultValue="Search" />
                                                 <button><i className="fa fa-search" /></button>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="col-md-3">
                                             <div className="product-short">
                                                 <div className="dropdown">
@@ -166,7 +166,7 @@ function ProductScreen(props){
                                                 </div>
                                             </div>
                                             <div className="product-image">
-                                                    <img src={product.image} alt="Product" />
+                                                    <img src={product.img} alt="Product" />
                                                     <div className="product-action">
                                                         <Link to={'/product-detail/' + product._id}><i className="fas fa-eye" /></Link>             
                                                     </div>
@@ -174,8 +174,8 @@ function ProductScreen(props){
                                             <div className="product-price">
                                             <h3><span>$</span>{product.price}</h3>
                                             {
-                                                product.countInStock>0 && 
-                                                <a className="btn" onClick={()=>{ props.history.push(`/cart/${product._id}?qty=1`)}}>
+                                                product.count>0 && 
+                                                <a className="btn" onClick={()=>{ props.history.push(`/cart/${product._id}`)}}>
                                                     <i className="fa fa-shopping-cart"></i>Buy Now</a>
                                             }
                                             </div>

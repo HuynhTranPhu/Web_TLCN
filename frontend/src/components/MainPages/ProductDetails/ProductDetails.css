@@ -243,3 +243,10 @@ transition: all .3s;
 color: #ffffff;
 background: #FF6F61;
 }
+.success{
+    color: #20a020;
+}
+.danger{
+    color:#a02020;
+}
+  

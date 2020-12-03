@@ -1,11 +1,19 @@
-import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_DETAILS_FAIL, PRODUCT_SAVE_REQUEST, PRODUCT_SAVE_SUCCESS, PRODUCT_SAVE_FAIL, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_FAIL} from  '../constants/productConstants';
+import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS,
+     PRODUCT_LIST_FAIL, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS,
+      PRODUCT_DETAILS_FAIL, PRODUCT_SAVE_REQUEST, PRODUCT_SAVE_SUCCESS,
+       PRODUCT_SAVE_FAIL, PRODUCT_DELETE_REQUEST,
+        PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_FAIL} from  '../constants/productConstants';
+//import apiUrl from '../components/Config/apiUrl/apiUrl';
 import axios from 'axios'
 
 const listProducts = () => async (dispatch) =>{
     try{
         dispatch({type: PRODUCT_LIST_REQUEST});
-        const {data} =await axios.get("/api/products");
+         //const {data} =await axios.get("/api/products");
+         const {data} = await axios.get('/product');
+        //console.log({data});
         dispatch({type: PRODUCT_LIST_SUCCESS, payload: data});
+        
     }  
     catch(error){
 
@@ -43,7 +51,7 @@ const saveProduct = (product) => async(dispatch, getState) =>{
 const detailsProduct = (productId) => async (dispatch) =>{
     try{
         dispatch({type: PRODUCT_DETAILS_REQUEST, payload: productId});
-        const {data} = await axios.get("/api/products/" + productId);
+        const {data} = await axios.get("/product/" + productId);
         dispatch({type: PRODUCT_DETAILS_SUCCESS, payload:data });
     }
     catch(error){

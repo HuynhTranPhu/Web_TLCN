@@ -7,12 +7,11 @@ import { listProducts } from '../../../actions/productActions';
 import LoadingBox from '../../Config/LoadingBox';
 import MessageBox from '../../Config/MessageBox';
 import Brand from '../../Brand/Brand';
-import { addToCart, decrease, increase } from '../../../actions/cartAction';
 
 
 
 function ProductDetailScreen(props){
-    const [qty, setQty] = useState(1);
+   // const [qty, setQty] = useState(1);
     const productDetails = useSelector(state => state.productDetails);
     const {product, loading, error } = productDetails;
     const productList = useSelector(state => state.productList);
@@ -47,12 +46,7 @@ function ProductDetailScreen(props){
             },
         ]
     };
-    const decreaseHandler = (productId) =>{
-        dispatch(decrease(productId));
-    }
-    const increaseHandler = (productId) =>{
-        dispatch(increase(productId));
-    }
+
     useEffect(() => {
         dispatch(detailsProduct(props.match.params.id));
         dispatch(listProducts());
@@ -61,13 +55,10 @@ function ProductDetailScreen(props){
         };
     }, [])
     const handleAddToCart = () =>{
-        props.history.push("/cart/" +props.match.params.id +"?qty=" + qty)
+        props.history.push("/cart/" +props.match.params.id )
     }
 
     return <div>
-        {/* <div className="back-to-result">
-            <Link to="/"> &#8701; Back to result</Link>
-        </div> */}
         {loading?(
             <LoadingBox></LoadingBox>
         ):
@@ -104,12 +95,12 @@ function ProductDetailScreen(props){
             //                 Price: ${product.price}
             //             </li>
             //             <li>
-            //                 Status:{product.countInStock > 0? 
-            //                 (
-            //                     <span className="success">In Stock</span>
-            //                 ):(
-            //                     <span className="danger">Unavailable</span>
-            //                 )}
+                            // Status:{product.countInStock > 0? 
+                            // (
+                            //     <span className="success">In Stock</span>
+                            // ):(
+                            //     <span className="danger">Unavailable</span>
+                            // )}
             //             </li>
             //             <li>
             //                 Qty:<select value={qty} onChange={(e) =>{setQty(e.target.value)}}>
@@ -140,7 +131,7 @@ function ProductDetailScreen(props){
                                     <div className="row align-items-center">
                                         <div className="col-md-3">
                                             <div className="product-slider-single ">
-                                                <img src={product.image} alt="Product Image" />  
+                                                <img src={product.img} alt="Product" />  
                                             </div>
                                         </div>
                                         <div className="col-md-7">
@@ -148,25 +139,25 @@ function ProductDetailScreen(props){
                                                 <div className="title">
                                                     <h2>{product.name}</h2>
                                                 </div>
-                                                    <div className="ratting">
-                                                        <i className="fa fa-star" />
-                                                        <i className="fa fa-star" />
-                                                        <i className="fa fa-star" />
-                                                        <i className="fa fa-star" />
-                                                        <i className="fa fa-star" />
-                                                    </div>
-                                                    <div className="price">
-                                                        <h4>Price:</h4>
-                                                        <p> ${product.price} <span>$149</span></p>
-                                                    </div>
+                                                <div className="ratting">
+                                                    <i className="fa fa-star" />
+                                                    <i className="fa fa-star" />
+                                                    <i className="fa fa-star" />
+                                                    <i className="fa fa-star" />
+                                                    <i className="fa fa-star" />
+                                                </div>
+                                                <div className="price">
+                                                    <h4>Price:</h4>
+                                                    <p> ${product.price} <span>$149</span></p>
+                                                </div>
                                                 <div className="quantity">
-                                                    <h4>Quantity:</h4>
-                                                    <div className="qty">
-                                                        <button className="btn-minus" onClick={()=> decreaseHandler(props.match.params.id)}><i className="fa fa-minus" /></button>
-                                                        <input type="text" 
-                                                        value={qty} onChange={(e) =>{setQty(e.target.value)}} />
-                                                        <button className="btn-plus" onClick={()=> increaseHandler(props.match.params.id)}><i className="fa fa-plus" /></button>
-                                                    </div>
+                                                    <h4>Status:</h4>       
+                                                    {product.count > 0? 
+                                                    (
+                                                        <span className="success">In Stock</span>
+                                                    ):(
+                                                        <span className="danger">Unavailable</span>
+                                                    )}
                                                 </div>
                                                 <div className="p-size">
                                                     <h4>Size:</h4>
@@ -187,7 +178,7 @@ function ProductDetailScreen(props){
                                                 </div>
                                                 <div className="action">
                                                 {
-                                                    product.countInStock>0 && 
+                                                    product.count>0 && 
                                                     <a className="btn"  onClick={handleAddToCart} ><i className="fa fa-shopping-cart" />Add to Cart</a>
                                                 }
                                                 </div>
@@ -276,7 +267,7 @@ function ProductDetailScreen(props){
                                 <Slider {...settings}>
                                     {
                                         products.map((product)=>
-                                            <div className="col-lg-12">
+                                            <div className="col-lg-12" key={product._id}>
                                                 <div className="product-item">
                                                     <div className="product-title">
                                                     <Link to={"/product-detail/"+ product._id}>{product.name}</Link>
@@ -289,14 +280,14 @@ function ProductDetailScreen(props){
                                                     </div>
                                                     </div>
                                                     <div className="product-image">
-                                                        <img src={product.image}alt="Product Image" />
+                                                        <img src={product.img}alt="Product" />
                                                         <div className="product-action">
                                                             <Link to={'/product-detail/' + product._id}><i className="fas fa-eye" /></Link>
                                                         </div>
                                                     </div>
                                                     <div className="product-price">
                                                     <h3><span>$</span>{product.price}</h3>
-                                                    <a className="btn" onClick={()=>{ props.history.push(`/cart/${product._id}?qty=1`)}} ><i className="fa fa-shopping-cart" />Buy Now</a>
+                                                    <a className="btn" onClick={()=>{ props.history.push(`/cart/${product._id}`)}} ><i className="fa fa-shopping-cart" />Buy Now</a>
                                                     </div>
                                                 </div>
                                             </div>

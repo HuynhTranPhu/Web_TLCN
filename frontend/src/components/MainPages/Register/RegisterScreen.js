@@ -28,9 +28,9 @@ function RegisterScreen(props){
     
     const submitHandler =(e)=>{
         e.preventDefault();
-        dispatch(register(name, email,password));
+        dispatch(register(name, email,password,repassword));
     }
-    return <div className="form-signin">
+    return <div className="formContain">
         <form onSubmit={submitHandler}>
             <ul className="form-container">
                 <li>
@@ -71,11 +71,11 @@ function RegisterScreen(props){
                             Register 
                     </button>
                 </li>
-                <li>
+                {/* <li>
                     <Link to="/login" className="button secondary text-center">
                         Back
                     </Link>
-                </li>
+                </li> */}
                
             </ul>
         </form> 

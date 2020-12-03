@@ -1,7 +1,7 @@
 import React, {  useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { savePayment } from '../../actions/cartAction';
-import CheckoutSteps from '../CheckoutSteps';
+import CheckoutSteps from '../CheckOutStep/CheckoutSteps';
 
 
 
@@ -18,11 +18,11 @@ function PaymentScreen(props){
     const submitHandler =(e)=>{
         e.preventDefault();
         dispatch(savePayment({paymentMethod}));
-        props.history.push('placeorder');
+        props.history.push('place-order');
     }
     return <div>
             <CheckoutSteps step1 step2 step3></CheckoutSteps>
-            <div className="form-signin">
+            <div className="formContain">
                 <form onSubmit={submitHandler}>
                 <ul className="form-container">
                     <li>

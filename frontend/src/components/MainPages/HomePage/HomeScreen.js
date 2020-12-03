@@ -279,7 +279,7 @@ function HomeScreen(props){
                                         </div>
                                         <div className="product-image">
                                             {
-                                                <img src={product.image} alt="Product Image"/>
+                                                <img src={product.img} alt="Product "/>
                                             }  
                                             <div className="product-action">   
                                                     <Link to={'/product-detail/' + product._id}><i className="fas fa-eye" ></i></Link>
@@ -288,8 +288,8 @@ function HomeScreen(props){
                                         <div className="product-price">
                                             <h3><span>$</span>{product.price}</h3>                                          
                                             {
-                                                product.countInStock>0 && 
-                                                <a className="btn" onClick={()=>{ props.history.push(`/cart/${product._id}?qty=1`)}}><i className="fa fa-shopping-cart"></i>Buy Now</a>
+                                                product.count>0 && 
+                                                <a className="btn" onClick={()=>{ props.history.push(`/cart/${product._id}`)}}><i className="fa fa-shopping-cart"></i>Buy Now</a>
                                             }
                                         </div>
                                     </div>
@@ -326,7 +326,7 @@ function HomeScreen(props){
                                         </div>
                                         <div className="product-image">
                                             {
-                                                <img src={product.image} alt="Product Image"/>
+                                                <img src={product.img} alt="Product "/>
                                             }  
                                             <div className="product-action">
                                                   <Link  to={'/product-detail/' + product._id}><i className="fas fa-eye"  ></i></Link>  
@@ -335,8 +335,9 @@ function HomeScreen(props){
                                         <div className="product-price">
                                             <h3><span>$</span>{product.price}</h3>
                                             {
-                                                product.countInStock>0 && 
-                                                <a className="btn" onClick={()=>{ props.history.push(`/cart/${product._id}?qty=1`)}}><i className="fa fa-shopping-cart"></i>Buy Now</a>
+                                                product.count>0 && 
+                                                <a className="btn" onClick={()=>{ props.history.push(`/cart/${product._id}`)}}>
+                                                    <i className="fa fa-shopping-cart"></i>Buy Now</a>
                                             }
                                         </div>
                                     </div>

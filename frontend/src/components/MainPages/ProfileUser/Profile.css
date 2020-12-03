@@ -13,6 +13,14 @@ margin: 1rem;
 .form-profile label {
 margin: 1rem 0;
 }
+.form-profile input {
+    display: block;
+    margin: .8rem 1rem auto;
+    border: none;
+    border-bottom: .1rem solid dodgerblue;
+    outline: none;
+    padding: .6rem .4rem;
+}
 .update-profile{
 margin-bottom: 2rem;
 }
