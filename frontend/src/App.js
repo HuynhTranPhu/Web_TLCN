@@ -125,7 +125,7 @@ function App() {
                                       userInfo?(
                                         <div className="nav-item dropdown">
                                             <Link to="#" className="nav-link dropdown-toggle" data-toggle="dropdown">{userInfo.user.name}</Link>
-    
+                                                
                                             <div className="dropdown-menu">
                                                 {/* <Link to="/login" className="dropdown-item">Login</Link> */}
                                                 {/* <Link to="/register" className="dropdown-item">Register</Link> */}
