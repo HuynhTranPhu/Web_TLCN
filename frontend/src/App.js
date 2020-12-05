@@ -28,6 +28,8 @@ import ContactScreen from './components/Contact/Contact';
 import FooterPage from './components/Footer/Footer';
 import NotFound from './components/404/404';
 import VerifyRegisterAccount from './components/VerifyRegisterAccount/VerifyRegisterAccount';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import UpdatePasswordScreen from './components/MainPages/UpdatePassword/UpdatePassword';
 
 
 
@@ -128,7 +130,7 @@ function App() {
                                                 
                                             <div className="dropdown-menu">
                                                 {/* <Link to="/login" className="dropdown-item">Login</Link> */}
-                                                {/* <Link to="/register" className="dropdown-item">Register</Link> */}
+                                                <Link to="/update-password" className="dropdown-item">ChangePassword</Link>
                                                 <Link to="/" className="dropdown-item" onClick={logoutHandler}>Logout</Link>
                                             </div>
                                         </div>
@@ -185,8 +187,9 @@ function App() {
                      <Route path="/cart/:id?" component={CartScreen}></Route>
                      <Route path="/login" component={LoginScreen}></Route>
                      <Route path="/register" component={RegisterScreen}></Route>
-                     <Route path="/profile" component={ProfileScreen}></Route>
+                     <PrivateRoute path="/profile" component={ProfileScreen}></PrivateRoute>
                      <Route path="/product-list" component={ProductScreen}></Route>
+                     <Route path="/update-password" component={UpdatePasswordScreen}></Route>
                      <Route path="/product-detail/:id" component={ProductDetailScreen}></Route>
                      <Route path="/contact" component={ContactScreen}></Route>
                      <Route path="/confirm-account" component={VerifyRegisterAccount}></Route>

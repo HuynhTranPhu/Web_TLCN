@@ -1,6 +1,10 @@
 import axios from 'axios';
 import Cookie from 'js-cookie';
-import { USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, 
+import {
+    USER_UPDATE_PASSWORD_REQUEST,
+    USER_UPDATE_PASSWORD_SUCCESS,
+    USER_UPDATE_PASSWORD_FAIL,
+    USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, 
     USER_SIGNIN_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, 
     USER_REGISTER_FAIL, USER_SIGNOUT, USER_DETAIL_REQUEST, USER_DETAIL_SUCCESS, USER_DETAIL_FAIL, USER_UPDATE_PROFILE_REQUEST, USER_UPDATE_PROFILE_FAIL, USER_UPDATE_PROFILE_SUCCESS} 
 from  '../constants/userConstant';
@@ -52,16 +56,16 @@ const detailsUser =(userId) => async (dispatch,getState)=>{
         dispatch({type:USER_DETAIL_FAIL, payload: message});
     }
 }
-const updateUserProfile =(email,name,oldpassword, newpassword, id) =>async (dispatch,getState) =>{
-    dispatch ({type:USER_UPDATE_PROFILE_REQUEST, payload:{email,name,oldpassword, newpassword, id}});
+const updateUserProfile =(email,name, id) =>async (dispatch,getState) =>{
+    dispatch ({type:USER_UPDATE_PROFILE_REQUEST, payload:{email,name, id}});
     const {userLogin:{userInfo}} =getState();
     try{
-        const {data} = await axios.put("/user/updateinfor",{email,name,oldpassword, newpassword, id}
+        const {data} = await axios.put("/user/updateinfor",{email,name, id}
         ,{
             headers : {Authorization: `${userInfo.token}`},
         }
         );
-        console.log(data);
+        //console.log(data);
         dispatch({type:USER_UPDATE_PROFILE_SUCCESS, payload:data});
         dispatch({type:USER_SIGNIN_SUCCESS, payload:data})
         Cookie.set('userInfo', JSON.stringify(data));
@@ -74,6 +78,28 @@ const updateUserProfile =(email,name,oldpassword, newpassword, id) =>async (disp
         dispatch({type:USER_UPDATE_PROFILE_FAIL, payload:message})
     }
 }
+const updateUserPassword =(oldpassword, newpassword, id) =>async (dispatch,getState) =>{
+    dispatch ({type:USER_UPDATE_PASSWORD_REQUEST, payload:{oldpassword,newpassword, id}});
+    const {userLogin:{userInfo}} =getState();
+    try{
+        const {data} = await axios.put("/user/updatepassword",{oldpassword,newpassword, id}
+        ,{
+            headers : {Authorization: `${userInfo.token}`},
+        }
+        );
+        //console.log(data);
+        dispatch({type:USER_UPDATE_PASSWORD_SUCCESS, payload:data});
+        //dispatch({type:USER_SIGNIN_SUCCESS, payload:data})
+        //Cookie.set('userInfo', JSON.stringify(data));
+
+    }catch(error){
+        const message=
+        error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+        dispatch({type:USER_UPDATE_PASSWORD_FAIL, payload:message})
+    }
+}
 
 
-export {login, register, logout, detailsUser, updateUserProfile};
+export {login, register, logout, detailsUser, updateUserProfile, updateUserPassword};
