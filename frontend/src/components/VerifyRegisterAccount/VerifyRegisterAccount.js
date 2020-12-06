@@ -6,7 +6,7 @@ const VerifyRegisterAccount = () => (
             <img src="/img/confirm.png" className="img-responsive" alt="" />
 			<h1><b>Congratulations!!!
 			</b> You have verified login successfully</h1>
-			<h2><Link to="/">Bring me back Home</Link></h2>
+			<h2><a href="/">Bring me back Home</a></h2>
 		</div>
 	</div>
 )

@@ -28,7 +28,13 @@ function RegisterScreen(props){
     
     const submitHandler =(e)=>{
         e.preventDefault();
-        dispatch(register(name, email,password,repassword));
+        if(name===""|| email===""||password===""||repassword===""){
+            alert("data are not valid");
+        }
+        else{
+            dispatch(register(name, email,password,repassword));
+        }
+        
     }
     return <div className="formContain">
         <form onSubmit={submitHandler}>

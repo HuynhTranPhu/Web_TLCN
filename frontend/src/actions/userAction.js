@@ -17,10 +17,16 @@ const login = (email,password) => async (dispatch) =>{
         //console.log(data);
         Cookie.set('userInfo', JSON.stringify(data));
     }catch(error){
-        dispatch({type:USER_SIGNIN_FAIL,payload:error.message});
+        const message=
+        error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+        dispatch({type:USER_SIGNIN_FAIL,payload:message});
     }
 }
 const logout = () =>(dispatch) =>{
+    Cookie.remove('userInfo');
+    Cookie.remove('cartItems');
     dispatch({type: USER_SIGNOUT});
 }
 
@@ -32,7 +38,11 @@ const register = (name, email, password, repassword) => async (dispatch) =>{
             dispatch({type:USER_REGISTER_SUCCESS,payload:data});
             Cookie.set('userInfo', JSON.stringify(data));
         }catch(error){
-            dispatch({type:USER_REGISTER_FAIL,payload:error.message});
+            const message=
+            error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message;
+            dispatch({type:USER_REGISTER_FAIL,payload:message});
         }  
 }
 

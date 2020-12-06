@@ -33,7 +33,10 @@ export default function UpdatePasswordScreen(){
     const submitHandler = (e) =>{
         e.preventDefault();
         //dispatch update
-        if(newpassword !== confirmPassword){
+        if(newpassword===""|| confirmPassword===""){
+            alert('newPassword or confirmPassword are not valid');
+        }
+        else if(newpassword !== confirmPassword){
             alert('Password and Confirm Password are not matched');
         }else{
             dispatch(updateUserPassword( oldpassword, newpassword, userInfo.user.id));

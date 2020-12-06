@@ -34,7 +34,12 @@ export default function ProfileScreen(){
     const submitHandler = (e) =>{
         e.preventDefault();
         //dispatch update 
+        if(email==="" || name===""){
+            alert('Email or name are not valid');
+        }else{
             dispatch(updateUserProfile(  email, name, userInfo.user.id));
+        }
+           
     }
     return<div>
         {

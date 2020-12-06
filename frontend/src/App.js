@@ -26,8 +26,8 @@ import ProductScreen from './components/MainPages/Products/ProductScreen';
 import ProductDetailScreen from './components/MainPages/ProductDetails/ProductDetails';
 import ContactScreen from './components/Contact/Contact';
 import FooterPage from './components/Footer/Footer';
-import NotFound from './components/404/404';
-import VerifyRegisterAccount from './components/VerifyRegisterAccount/VerifyRegisterAccount';
+//import NotFound from './components/404/404';
+import VerifyRegisterAccountContainer from './components/MainPages/ConfirmAcount/ConfirmAcount';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import UpdatePasswordScreen from './components/MainPages/UpdatePassword/UpdatePassword';
 
@@ -192,12 +192,12 @@ function App() {
                      <Route path="/update-password" component={UpdatePasswordScreen}></Route>
                      <Route path="/product-detail/:id" component={ProductDetailScreen}></Route>
                      <Route path="/contact" component={ContactScreen}></Route>
-                     <Route path="/confirm-account" component={VerifyRegisterAccount}></Route>
+                     <Route path="/confirm/:token" component={VerifyRegisterAccountContainer}></Route>
                      <Route path="/shipping" component={ShippingScreen}></Route>
                      <Route path="/payment" component={PaymentScreen}></Route>
                      <Route path="/place-order" component={PlaceOrderScreen}></Route>
                   </Switch>
-                  <Route path="/k" component={NotFound}></Route>
+                  {/* <Route path="/k" component={NotFound}></Route> */}
                 
               </div>
               {/* <!-- Bottom Bar End -->       
