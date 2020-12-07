@@ -4,9 +4,27 @@ import {
     USER_UPDATE_PASSWORD_REQUEST,
     USER_UPDATE_PASSWORD_SUCCESS,
     USER_UPDATE_PASSWORD_FAIL,
-    USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, 
-    USER_SIGNIN_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, 
-    USER_REGISTER_FAIL, USER_SIGNOUT, USER_DETAIL_REQUEST, USER_DETAIL_SUCCESS, USER_DETAIL_FAIL, USER_UPDATE_PROFILE_REQUEST, USER_UPDATE_PROFILE_FAIL, USER_UPDATE_PROFILE_SUCCESS} 
+    USER_SIGNIN_REQUEST, 
+    USER_SIGNIN_SUCCESS, 
+    USER_SIGNIN_FAIL, 
+    USER_REGISTER_REQUEST, 
+    USER_REGISTER_SUCCESS, 
+    USER_REGISTER_FAIL, 
+    USER_SIGNOUT, 
+    USER_DETAIL_REQUEST, 
+    USER_DETAIL_SUCCESS, 
+    USER_DETAIL_FAIL, 
+    USER_UPDATE_PROFILE_REQUEST, 
+    USER_UPDATE_PROFILE_FAIL, 
+    USER_UPDATE_PROFILE_SUCCESS,
+    FORGOT_EMAIL_SUCCESS,
+    FORGOT_EMAIL_FAIL,
+    RESET_FORGOT_PASSWORD,
+    SET_EMAIL_FORGOTPASSWORD,
+    VERIFY_OTP_SUCCESS,
+    VERIFY_OTP_FAIL,
+    FORGOT_PASSWORD_SUCCESS,
+    FORGOT_PASSWORD_FAIL} 
 from  '../constants/userConstant';
 
 const login = (email,password) => async (dispatch) =>{
@@ -110,6 +128,77 @@ const updateUserPassword =(oldpassword, newpassword, id) =>async (dispatch,getSt
         dispatch({type:USER_UPDATE_PASSWORD_FAIL, payload:message})
     }
 }
+///*******forgot password************///
+export const forgotEmailSuccess = () => ({
+    type: FORGOT_EMAIL_SUCCESS
+})
+export const forgotEmailFail = () => ({
+    type: FORGOT_EMAIL_FAIL
+})
+export const resetForgotPassword = () => ({
+    type:RESET_FORGOT_PASSWORD
+})
+export const setEmailForgotPassword = (email) => ({
+    type:SET_EMAIL_FORGOTPASSWORD,
+    email
+})
+export const submitForgotPassword = (email) => async (dispatch, getState) => {
+    let res
+    try {
+        res = await axios.get('/user/request/forgotpassword/' +email)
+    }
+    catch (err) {
+        dispatch(forgotEmailFail())
+        return
+    }
+    dispatch(setEmailForgotPassword(res.data.email))    
+    dispatch(forgotEmailSuccess())
+}   
+export const submitOTP = (otp) => async (dispatch, getState) => {
+    let res
+    try {
+        res = await axios.post('/user/verify/forgotpassword', {
+            email: getState().forgotPassword.email,
+            otp: otp,
+        })
+    }
+    catch (err) {
+        dispatch(verifyOTPFAIL())
+        return
+    }
+    dispatch(verifyOTPSuccess(otp))
+
+}
+export const verifyOTPSuccess = (otp) => ({
+    type: VERIFY_OTP_SUCCESS,
+    otp
+})
+export const verifyOTPFAIL = () => ({
+    type:VERIFY_OTP_FAIL
+})
+
+export const submitEnterNewPassword = (newPassword) => async (dispatch, getState) => {
+    let res
+    try {
+        res = await axios.post('/user/forgotpassword', {
+            email: getState().forgotPassword.email,
+            otp: getState().forgotPassword.otp,
+            newPassword: newPassword
+        })
+    }
+    catch (err) {
+        dispatch(forgotPasswordFail())
+        return
+    }
+    dispatch(forgotPasswordSuccess())
+}
+
+export const forgotPasswordSuccess = () => ({
+    type:FORGOT_PASSWORD_SUCCESS
+})
+export const forgotPasswordFail = () => ({
+    type: FORGOT_PASSWORD_FAIL
+})
 
 
 export {login, register, logout, detailsUser, updateUserProfile, updateUserPassword};

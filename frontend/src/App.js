@@ -30,6 +30,7 @@ import FooterPage from './components/Footer/Footer';
 import VerifyRegisterAccountContainer from './components/MainPages/ConfirmAcount/ConfirmAcount';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import UpdatePasswordScreen from './components/MainPages/UpdatePassword/UpdatePassword';
+import ForgotPasswordContainer from './components/MainPages/ForgotPassword/ForgotPasswordContainer';
 
 
 
@@ -193,6 +194,7 @@ function App() {
                      <Route path="/product-detail/:id" component={ProductDetailScreen}></Route>
                      <Route path="/contact" component={ContactScreen}></Route>
                      <Route path="/confirm/:token" component={VerifyRegisterAccountContainer}></Route>
+                     <Route path="/forgotPass/" component={ForgotPasswordContainer}></Route>
                      <Route path="/shipping" component={ShippingScreen}></Route>
                      <Route path="/payment" component={PaymentScreen}></Route>
                      <Route path="/place-order" component={PlaceOrderScreen}></Route>

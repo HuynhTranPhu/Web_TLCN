@@ -16,7 +16,15 @@ import {
     USER_UPDATE_PROFILE_REQUEST,
     USER_UPDATE_PROFILE_SUCCESS,
     USER_UPDATE_PROFILE_FAIL,
-    USER_UPDATE_PROFILE_RESET} from  '../constants/userConstant';
+    USER_UPDATE_PROFILE_RESET,
+    FORGOT_EMAIL_SUCCESS,
+    FORGOT_EMAIL_FAIL,
+    SET_EMAIL_FORGOTPASSWORD,
+    VERIFY_OTP_SUCCESS,
+    VERIFY_OTP_FAIL,
+    FORGOT_PASSWORD_SUCCESS,
+    FORGOT_PASSWORD_FAIL,
+    RESET_FORGOT_PASSWORD} from  '../constants/userConstant';
 function userLoginReducer(state={}, action){
     switch(action.type){
         case USER_SIGNIN_REQUEST:
@@ -83,8 +91,61 @@ function userUpdatePasswordReducer(state ={}, action){
             return state;
     }
 }
+//********Forgot password********////
+function forgotPasswordReducer(state = {}, action){
+    switch(action.type) {
+        case FORGOT_EMAIL_SUCCESS: {
+            return {
+                ...state,
+                isForgot: true
+            }
+        }
+        case FORGOT_EMAIL_FAIL: {
+            return {
+                ...state,
+                isForgot: false
+            }
+        }
+        case SET_EMAIL_FORGOTPASSWORD: {
+            return { 
+                ...state,
+                email: action.email
+            }
+        }
+        case VERIFY_OTP_SUCCESS: {
+            return { 
+                ...state,
+                verify_otp: true,
+                otp: action.otp
+            }
+        }
+        case VERIFY_OTP_FAIL: {
+            return {
+                ...state,
+                verify_otp: false
+            }
+        }
+        case FORGOT_PASSWORD_SUCCESS: {
+            return {
+                ...state,
+                forgotpassword: true
+            }
+        }
+        case FORGOT_PASSWORD_FAIL: {
+            return {
+                ...state,
+                forgotpassword: false
+            }
+        }
+        case RESET_FORGOT_PASSWORD: {
+            return {}
+        }
+        default: return state
+    }
+}
 
 
 export{
-    userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer, userUpdatePasswordReducer
+    userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer, userUpdatePasswordReducer,
+    forgotPasswordReducer
 }

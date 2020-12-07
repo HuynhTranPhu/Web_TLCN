@@ -1322,3 +1322,6 @@ h2 {
 
 /*************404 page*******************/
 @import url("./components/404/404.css");
+
+/****************forgot password***********************/
+@import url("./components/forgot.password/forgot.password.css");

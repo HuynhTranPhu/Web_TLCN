@@ -55,7 +55,7 @@ function LoginScreen(props){
                         </button>
                     </li>
                     <li>
-                       <Link to="" className="forgot">Forgotten password?</Link> 
+                       <Link to="/forgotPass/" className="forgot">Forgotten password?</Link> 
                     </li>
                     <li className="sign-up">
                         <p>
