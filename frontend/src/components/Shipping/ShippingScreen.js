@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { saveShipping } from '../../actions/cartAction';
 import CheckoutSteps from '../CheckOutStep/CheckoutSteps';
 
@@ -8,10 +8,15 @@ import CheckoutSteps from '../CheckOutStep/CheckoutSteps';
 
 
 function ShippingScreen(props){
+    const userLogin = useSelector((state) => state.userLogin);
+    const {userInfo}= userLogin;
+    if(!userInfo){
+        props.history.push('/login');
+    }
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
     const [postalCode, setPostalCode] = useState('');
-    const [country, setCountry] = useState('');
+    const [numberPhone, setNumberPhone] = useState('');
     
     const dispatch = useDispatch();
    
@@ -19,7 +24,7 @@ function ShippingScreen(props){
     
     const submitHandler =(e)=>{
         e.preventDefault();
-        dispatch(saveShipping({address, city, postalCode, country}));
+        dispatch(saveShipping({address, city, postalCode, numberPhone}));
         props.history.push('payment');
     }
     return <div>
@@ -52,10 +57,10 @@ function ShippingScreen(props){
 
                     </li>
                     <li>
-                        <label htmlFor="country">
-                            Country
+                        <label htmlFor="numberPhone">
+                            Number Phone
                         </label>
-                        <input type="text" name="country" id="country" onChange={(e)=>setCountry(e.target.value)}></input>
+                        <input type="text" name="numberPhone" id="numberPhone" onChange={(e)=>setNumberPhone(e.target.value)}></input>
 
                     </li>
                     

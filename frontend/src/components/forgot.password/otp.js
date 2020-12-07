@@ -7,15 +7,15 @@ const OTP = ({ setOTP, submitOTP, notificationOTP }) => (
 			</b></h1>
             <span>{notificationOTP}</span>
             <input
-                type="number"
+                type="text"
                 placeholder="Otp code"
                 onChange={(e) => setOTP(e.target.value)}
             />
+            <span className="otp-notify">Please check your mail to receive your OTP code</span>
             <br />
             <button
                 className="btn btn-default"
-                onClick={() => submitOTP()}
-            >
+                onClick={() => submitOTP()}>
                 submit
 			</button>
             <h2><Link to="/">Bring me back Home</Link></h2>

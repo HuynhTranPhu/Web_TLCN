@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom';
 import { addToCart, removeFromCart, decrease, increase } from '../../../actions/cartAction';
-import MessageBox from '../../Config/MessageBox';
+//import MessageBox from '../../Config/MessageBox';
 function CartScreen(props){
 
 
@@ -113,10 +113,7 @@ function CartScreen(props){
                                     <table className="table table-bordered">
                                         <thead className="thead-dark">
                                             {
-                                                 cartItems.length === 0 ?(
-                                                    // <MessageBox>
-                                                    //     Cart Empty. <Link to="/">Go to Shopping</Link>
-                                                    // </MessageBox>
+                                                 cartItems.length === 0 ?(                                                  
                                                     <div className="empty-cart">
                                                         <img className="empty-cart-img" src="/images/emptyCart.png" alt="Product" />
                                                         <p className="empty-cart-note">Your shopping cart is empty.</p>

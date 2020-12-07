@@ -45,6 +45,7 @@ const login = (email,password) => async (dispatch) =>{
 const logout = () =>(dispatch) =>{
     Cookie.remove('userInfo');
     Cookie.remove('cartItems');
+    Cookie.remove('shipping');
     dispatch({type: USER_SIGNOUT});
 }
 

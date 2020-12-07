@@ -7,17 +7,17 @@ function PlaceOrderScreen(props){
 
     const cart = useSelector(state => state.cart);
 
-    const {cartItems, shipping, payment} = cart;
-    if(!shipping.address){
-        props.history.push("/shipping");
-    }else if(!payment.paymentMethod){
+    const {cartItems, payment} = cart;
+    if(!payment.paymentMethod){
         props.history.push("/payment"); 
     }
 
-
-    const itemsPrice = cartItems.reduce((a,c)=> a + c.price * c.qty,0);
-    const shippingPrice = itemsPrice >100 ? 0 : 10;
-    const taxPrice = (0.15 * itemsPrice) ;
+    const toPrice = (num) => Number(num.toFixed(2));
+    const itemsPrice = toPrice(
+        cartItems.reduce((a,c)=> a + c.price * c.qty,0)
+    ); 
+    const shippingPrice = itemsPrice > 100||itemsPrice===0 ? toPrice(0) : toPrice(10);
+    const taxPrice =toPrice(0.15 * itemsPrice) ;
     const totalPrice = itemsPrice + shippingPrice + taxPrice;
 
     
@@ -34,7 +34,7 @@ function PlaceOrderScreen(props){
                     </h3>
                     <div>
                         {cart.shipping.address},{cart.shipping.city},
-                        {cart.shipping.postalCode},{cart.shipping.country},
+                        {cart.shipping.postalCode},{cart.shipping.numberPhone}
                     </div>
                 </div>
                 <div>
@@ -45,8 +45,8 @@ function PlaceOrderScreen(props){
                         Payment Method: {cart.payment.paymentMethod}
                     </div>
                 </div>
-                <div>
-                    <ul className = "cart-list-container">
+                {/* <div> */}
+                    {/* <ul className = "cart-list-container">
                         <li>
                             <h3>
                                 Shopping Cart
@@ -85,51 +85,113 @@ function PlaceOrderScreen(props){
                                 
                             )   
                         }
-                    </ul>
+                    </ul> */}
+                {/* </div> */}
+                    <div className="cart-page">
+                        <div className="container-fluid">
+                            <div className="row">
+                                <div className="col-lg-12" >
+                                    <div className="cart-page-inner">
+                                        <div className="table-responsive">
+                                            <table className="table table-bordered">
+                                                <thead className="thead-dark"> 
+                                                        <tr>
+                                                            <th>Product</th>
+                                                            <th>Price</th>
+                                                            <th>Quantity</th>
+                                                            <th>Total</th>
+                                                            
+                                                        </tr>    
+                                                </thead>
+                                                <tbody className="align-middle">
+                                                    {
+                                                        cartItems.map(item=>
+                                                        <tr key={item.product}>
+                                                            <td>
+                                                                <div className="img">
+                                                                    <Link to={"/product/"+item.product}>
+                                                                        <img src={item.image} alt="Product" />
+                                                                        </Link>
+                                                                    <p><Link to ={"/product/" +item.product}> {item.name}</Link></p>
+                                                                </div>
+                                                            </td>
+                                                            <td>${item.price}</td>
+                                                            <td>
+                                                                <div className="qty">
+                                                                    
+                                                                    <input type="text"
+                                                                    value={item.qty}  />
+                                                                    
+                                                                </div>
+                                                            </td>
+                                                            <td>${item.price * item.qty}</td>
+                                                           
+                                                        </tr>)
+                                                    }
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </div>
             <div className="placeorder-action">
                 <ul>
                     <li>
-                        <button className="button primary full-width" onClick={placeOrderHandler}>Place Order</button>
+                        <h3><b>Order Summary</b></h3>
                     </li>
                     <li>
-                        <h3>Order Summary</h3>
+                        
+                            <div>
+                                SubTotal
+                            </div>
+                            <div>
+                                ${itemsPrice.toFixed(2)}
+                            </div>
+                        
+                        
                     </li>
                     <li>
-                        <div>
-                            Items
-                        </div>
-                        <div>
-                            ${itemsPrice}
-                        </div>
+                        
+                            <div>
+                                Shipping
+                            </div>
+                            <div>
+                                ${shippingPrice.toFixed(2)}
+                            </div>
+                        
+                        
                     </li>
                     <li>
-                        <div>
-                            Shipping
-                        </div>
-                        <div>
-                            ${shippingPrice}
-                        </div>
+                        
+                            <div>
+                                Tax
+                            </div>
+                            <div>
+                                ${taxPrice.toFixed(2)}
+                            </div>
+                        
+                        
                     </li>
                     <li>
-                        <div>
-                            Tax
-                        </div>
-                        <div>
-                            ${taxPrice}
-                        </div>
-                    </li>
-                    <li>
+                        
                         <div>
                             Order Total
                         </div>
                         <div>
-                            ${totalPrice}
+                            ${totalPrice.toFixed(2)}
                         </div>
+                    </li>
+                    <li>
+                        <button className="checkout-btn" disabled={cartItems.length===0} onClick={placeOrderHandler}>Place Order</button>
                     </li>
                 </ul>   
             </div>
+                
+           
         </div>
         
     </div>
