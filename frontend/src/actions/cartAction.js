@@ -1,19 +1,33 @@
 import axios from 'axios'
 import Cookie from 'js-cookie';
-import {CART_INCREASE, CART_DECREASE, CART_ADD_FAIL, CART_ADD_ITEM, CART_REMOVE_ITEM, CART_SAVE_PAYMENT, CART_SAVE_SHIPPING } from '../constants/cartConstants';
+import {CART_INCREASE, 
+    CART_DECREASE, 
+    CART_ADD_FAIL, 
+    CART_ADD_ITEM, 
+    CART_REMOVE_ITEM, 
+    CART_SAVE_PAYMENT, 
+    CART_SAVE_SHIPPING, 
+    CART_ADD_POST_REQUEST,
+    CART_ADD_POST_SUCCESS,
+    CART_ADD_POST_FAIL,
+    CART_REMOVE_POST_REQUEST,
+    CART_REMOVE_POST_SUCCESS,
+    CART_REMOVE_POST_FAIL} 
+    from '../constants/cartConstants';
 
 
-const addToCart = (productId, qty) => async (dispatch, getState) => {
+const addToCart = (productId, count,total) => async (dispatch, getState) => {
     try{
         const {data} = await axios.get("/product/" + productId);
         dispatch({
             type: CART_ADD_ITEM, payload:{
-            product: data._id,
+            _id: data._id,
             name: data.name,
-            image: data.img,
+            img: data.img,
             price: data.price,
             countInStock : data.count,
-            qty
+            count,
+            total,
             }
         });
         const {cart: {cartItems}} = getState();
@@ -45,5 +59,33 @@ const saveShipping =(data) => (dispatch) =>{
 } 
 const savePayment =(data) => (dispatch) =>{
     dispatch({type:CART_SAVE_PAYMENT, payload:data});
-} 
-export {addToCart, removeFromCart, saveShipping, savePayment, decrease, increase};
+}
+const addCart = (id_user,products, grandTotal) => async (dispatch) =>{
+    dispatch({type: CART_ADD_POST_REQUEST, payload:{id_user, products, grandTotal}});
+    try{
+        const {data} = await axios.post("/cart/addcart", {id_user,products, grandTotal});
+        dispatch({type:CART_ADD_POST_SUCCESS,payload:data});
+        console.log(data);
+    }catch(error){
+        const message=
+        error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+        dispatch({type:CART_ADD_POST_FAIL,payload:message});
+    }
+}
+const removeCart = (id_user,id_product) => async (dispatch) =>{
+    dispatch({type: CART_REMOVE_POST_REQUEST, payload:{id_user, id_product}});
+    try{
+        const {data} = await axios.delete("/cart/remove", {id_user,id_product});
+        dispatch({type:CART_REMOVE_POST_SUCCESS,payload:data});
+        console.log(data);
+    }catch(error){
+        const message=
+        error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+        dispatch({type:CART_REMOVE_POST_FAIL,payload:message});
+    }
+}
+export {addToCart, removeFromCart, saveShipping, savePayment, decrease, increase,addCart, removeCart};

@@ -1,20 +1,24 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom';
-import { addToCart, removeFromCart, decrease, increase } from '../../../actions/cartAction';
+import { addToCart, removeFromCart, decrease, increase, addCart, removeCart } from '../../../actions/cartAction';
 //import MessageBox from '../../Config/MessageBox';
 function CartScreen(props){
 
 
     const cart = useSelector(state => state.cart);
-
     const {cartItems} = cart;
+    const userLogin = useSelector(state => state.userLogin);
+    const { userInfo} = userLogin;
 
     const productId = props.match.params.id;
     const qty = props.location.search ? Number(props.location.search.split("=")[1]):1;
-
+    let total=0 ;
+    let grandTotal=0;
     const dispatch = useDispatch();
     const removeFromCartHandler = (productId) =>{
+        dispatch(removeCart(userInfo.user.id,productId));
+        //console.log(productId);
         dispatch(removeFromCart(productId));
     }
     const decreaseHandler = (productId) =>{
@@ -25,10 +29,12 @@ function CartScreen(props){
     }
     useEffect(() => { 
         if(productId){
-            dispatch(addToCart(productId,qty));
+            dispatch(addToCart(productId,qty,total));
         }
     },[dispatch,productId,qty]);
     const checkoutHandler = () =>{
+        dispatch(addCart(userInfo.user.id,cartItems, grandTotal));
+        //console.log(cartItems,grandTotal);
         props.history.push("/login?redirect=shipping");
     }
 
@@ -134,28 +140,28 @@ function CartScreen(props){
                                         <tbody className="align-middle">
                                             {
                                                 cartItems.map(item=>
-                                                <tr key={item.product}>
+                                                <tr key={item._id}>
                                                     <td>
                                                         <div className="img">
-                                                            <Link to={"/product/"+item.product}>
-                                                                <img src={item.image} alt="Product" />
+                                                            <Link to={"/product/"+item._id}>
+                                                                <img src={item.img} alt="Product" />
                                                                 </Link>
-                                                            <p><Link to ={"/product/" +item.product}> {item.name}</Link></p>
+                                                            <p><Link to ={"/product/" +item._id}> {item.name}</Link></p>
                                                         </div>
                                                     </td>
                                                     <td>${item.price}</td>
                                                     <td>
                                                         <div className="qty">
-                                                            <button className="btn-minus" onClick={()=> decreaseHandler(item.product)}><i className="fa fa-minus" /></button>
+                                                            <button className="btn-minus" onClick={()=> decreaseHandler(item._id)}><i className="fa fa-minus" /></button>
                                                             <input type="text"
-                                                            value={item.qty} onChange={(e)=> 
-                                                            dispatch(addToCart(item.product,Number(e.target.value))) } />
-                                                            <button className="btn-plus" onClick={()=> increaseHandler(item.product)}><i className="fa fa-plus" /></button>
+                                                            value={item.count} onChange={(e)=> 
+                                                            dispatch(addToCart(item._id,Number(e.target.value),item.total)) } />
+                                                            <button className="btn-plus" onClick={()=> increaseHandler(item._id)}><i className="fa fa-plus" /></button>
                                                         </div>
                                                     </td>
-                                                    <td>${item.price * item.qty}</td>
+                                                    <td>${item.total= item.price * item.count}</td>
                                                     <td>
-                                                        <button onClick ={() =>removeFromCartHandler(item.product)}>
+                                                        <button onClick ={() =>removeFromCartHandler(item._id)}>
                                                             <i className="fa fa-trash" />
                                                         </button>
                                                     </td>
@@ -177,11 +183,11 @@ function CartScreen(props){
                                                 <h1>Cart Summary</h1>
                                                 <p>Sub Total
                                                     <span>
-                                                    ${cartItems.reduce((a,c) => a+c.price * c.qty,0)}
+                                                    ${cartItems.reduce((a,c) => a+c.price * c.count,0)}
                                                     </span>
                                                 </p>
                                                 <p>Shipping Cost<span>$0</span></p>
-                                                <h2>Grand Total<span>${cartItems.reduce((a,c) => a+c.price * c.qty,0)}</span></h2>
+                                                <h2>Grand Total<span>${grandTotal= cartItems.reduce((a,c) => a+c.price * c.count,0)}</span></h2>
                                             </div>
                                             <div className="cart-btn">
                                                 <Link to="/product-list"><button>Update Cart</button></Link>
