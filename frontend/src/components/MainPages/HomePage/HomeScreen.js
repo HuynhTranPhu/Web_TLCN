@@ -9,13 +9,31 @@ import MessageBox from '../../Config/MessageBox';
 import Brand from '../../Brand/Brand';
 import Review from '../../Review/Review';
 import HeaderSlider from '../../Header/HeaderSlider/HeaderSlider';
+import {addCart, addToCart } from '../../../actions/cartAction';
 function HomeScreen(props){
     const productList = useSelector(state => state.productList);
     const {products,loading , error} = productList;
+
+    const cart = useSelector(state => state.cart);
+    const {cartItems} = cart;
+    
+    const userLogin = useSelector(state => state.userLogin);
+    const { userInfo} = userLogin;
     const dispatch = useDispatch();
 
+    const addToCartHandler = (productId) =>{
+        dispatch(addToCart(productId,1));
+        console.log(cartItems);
+    }
+    // const addCartPost = () =>{
+    //     dispatch(addCart(userInfo.user.id,cartItems));
+       
+    // }
+    
+   
     useEffect(() => {
         dispatch(listProducts());
+        
         return () => {
         };
     }, [])
@@ -289,7 +307,11 @@ function HomeScreen(props){
                                             <h3><span>$</span>{product.price}</h3>                                          
                                             {
                                                 product.count>0 && 
-                                                <a className="btn" onClick={()=>{ props.history.push(`/cart/${product._id}`)}}><i className="fa fa-shopping-cart"></i>Buy Now</a>
+                                                <a className="btn" 
+                                                // onClick={()=>{ props.history.push(`/cart/${product._id}`)}}
+                                                    onClick={()=>addToCartHandler(product._id)}
+                                                >
+                                                    <i className="fa fa-shopping-cart"></i>Add To Cart</a>
                                             }
                                         </div>
                                     </div>
@@ -337,7 +359,7 @@ function HomeScreen(props){
                                             {
                                                 product.count>0 && 
                                                 <a className="btn" onClick={()=>{ props.history.push(`/cart/${product._id}`)}}>
-                                                    <i className="fa fa-shopping-cart"></i>Buy Now</a>
+                                                    <i className="fa fa-shopping-cart"></i>Add To Cart</a>
                                             }
                                         </div>
                                     </div>

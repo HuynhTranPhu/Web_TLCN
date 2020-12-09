@@ -22,7 +22,7 @@ const reducer = combineReducers({
     userUpdatePassword:userUpdatePasswordReducer,
     forgotPassword:forgotPasswordReducer,
     cartPost:cartPostReducer,
-    removeCartPost:removeCartPostReducer,
+    // removeCartPost:removeCartPostReducer,
 })
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

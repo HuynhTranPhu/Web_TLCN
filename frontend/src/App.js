@@ -26,7 +26,7 @@ import ProductScreen from './components/MainPages/Products/ProductScreen';
 import ProductDetailScreen from './components/MainPages/ProductDetails/ProductDetails';
 import ContactScreen from './components/Contact/Contact';
 import FooterPage from './components/Footer/Footer';
-//import NotFound from './components/404/404';
+import NotFound from './components/404/404';
 import VerifyRegisterAccountContainer from './components/MainPages/ConfirmAcount/ConfirmAcount';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import UpdatePasswordScreen from './components/MainPages/UpdatePassword/UpdatePassword';
@@ -185,22 +185,23 @@ function App() {
               </div>
               <div className="content-main">
                   <Switch>
-                     <Route path="/" exact={true} component={HomeScreen}></Route> 
-                     <Route path="/cart/:id?" component={CartScreen}></Route>
-                     <Route path="/login" component={LoginScreen}></Route>
-                     <Route path="/register" component={RegisterScreen}></Route>
-                     <PrivateRoute path="/profile" component={ProfileScreen}></PrivateRoute>
-                     <Route path="/product-list" component={ProductScreen}></Route>
-                     <Route path="/update-password" component={UpdatePasswordScreen}></Route>
-                     <Route path="/product-detail/:id" component={ProductDetailScreen}></Route>
-                     <Route path="/contact" component={ContactScreen}></Route>
-                     <Route path="/confirm/:token" component={VerifyRegisterAccountContainer}></Route>
-                     <Route path="/forgotPass/" component={ForgotPasswordContainer}></Route>
-                     <Route path="/shipping" component={ShippingScreen}></Route>
-                     <Route path="/payment" component={PaymentScreen}></Route>
-                     <Route path="/place-order" component={PlaceOrderScreen}></Route>
+                     <Route path="/" exact component={HomeScreen}></Route> 
+                     <Route path="/cart/:id?" exact component={CartScreen}></Route>
+                     <Route path="/login" exact component={LoginScreen}></Route>
+                     <Route path="/register" exact component={RegisterScreen}></Route>
+                     <PrivateRoute path="/profile" exact component={ProfileScreen}></PrivateRoute>
+                     <Route path="/product-list" exact component={ProductScreen}></Route>
+                     <Route path="/update-password" exact component={UpdatePasswordScreen}></Route>
+                     <Route path="/product-detail/:id" exact component={ProductDetailScreen}></Route>
+                     <Route path="/contact" exact component={ContactScreen}></Route>
+                     <Route path="/confirm/:token" exact component={VerifyRegisterAccountContainer}></Route>
+                     <Route path="/forgotPass/" exact component={ForgotPasswordContainer}></Route>
+                     <Route path="/shipping" exact component={ShippingScreen}></Route>
+                     <Route path="/payment" exact component={PaymentScreen}></Route>
+                     <Route path="/place-order" exact component={PlaceOrderScreen}></Route>
+                     <Route path="*" exact component={NotFound}></Route>
                   </Switch>
-                  {/* <Route path="/k" component={NotFound}></Route> */}
+                  
                 
               </div>
               {/* <!-- Bottom Bar End -->       

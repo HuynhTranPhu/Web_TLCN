@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom';
-import { addToCart, removeFromCart, decrease, increase, addCart, removeCart } from '../../../actions/cartAction';
+import { addToCart, removeFromCart, decrease, increase
+    // , addCart, removeCart 
+} from '../../../actions/cartAction';
 //import MessageBox from '../../Config/MessageBox';
 function CartScreen(props){
 
@@ -13,11 +15,11 @@ function CartScreen(props){
 
     const productId = props.match.params.id;
     const qty = props.location.search ? Number(props.location.search.split("=")[1]):1;
-    let total=0 ;
+    //let total=0 ;
     let grandTotal=0;
     const dispatch = useDispatch();
     const removeFromCartHandler = (productId) =>{
-        dispatch(removeCart(userInfo.user.id,productId));
+        //dispatch(removeCart(userInfo.user.id,productId));
         //console.log(productId);
         dispatch(removeFromCart(productId));
     }
@@ -29,11 +31,11 @@ function CartScreen(props){
     }
     useEffect(() => { 
         if(productId){
-            dispatch(addToCart(productId,qty,total));
+            dispatch(addToCart(productId,qty));
         }
     },[dispatch,productId,qty]);
     const checkoutHandler = () =>{
-        dispatch(addCart(userInfo.user.id,cartItems, grandTotal));
+        //dispatch(addCart(userInfo.user.id,cartItems, grandTotal));
         //console.log(cartItems,grandTotal);
         props.history.push("/login?redirect=shipping");
     }
@@ -155,11 +157,11 @@ function CartScreen(props){
                                                             <button className="btn-minus" onClick={()=> decreaseHandler(item._id)}><i className="fa fa-minus" /></button>
                                                             <input type="text"
                                                             value={item.count} onChange={(e)=> 
-                                                            dispatch(addToCart(item._id,Number(e.target.value),item.total)) } />
+                                                            dispatch(addToCart(item._id,Number(e.target.value))) } />
                                                             <button className="btn-plus" onClick={()=> increaseHandler(item._id)}><i className="fa fa-plus" /></button>
                                                         </div>
                                                     </td>
-                                                    <td>${item.total= item.price * item.count}</td>
+                                                    <td>${item.price * item.count}</td>
                                                     <td>
                                                         <button onClick ={() =>removeFromCartHandler(item._id)}>
                                                             <i className="fa fa-trash" />
