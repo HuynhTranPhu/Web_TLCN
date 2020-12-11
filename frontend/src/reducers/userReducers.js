@@ -1,3 +1,4 @@
+import { CART_ADD_POST_FAIL, CART_ADD_POST_REQUEST, CART_ADD_POST_SUCCESS } from '../constants/cartConstants';
 import {
     USER_UPDATE_PASSWORD_REQUEST, 
     USER_UPDATE_PASSWORD_SUCCESS, 
@@ -91,6 +92,30 @@ function userUpdatePasswordReducer(state ={}, action){
             return state;
     }
 }
+////////Add to cart user/////////////
+function addCartReducer(state={cart:[]}, action){
+    switch(action.type){
+        case CART_ADD_POST_SUCCESS:
+            const product = action.payload.product;
+            const check = state.cart.every(item =>{
+                return item._id !== product._id
+            })
+    
+            if(check){
+                return{ cart:  ([...state.cart, {...product, quantity: 1}]) }
+               
+
+            }else{
+                alert("This product has been added to cart.")
+            }
+            return ;
+        case CART_ADD_POST_FAIL:
+            return {loading : false, error : action.payload};
+        default : return state;
+    }
+}
+
+
 //********Forgot password********////
 function forgotPasswordReducer(state = {}, action){
     switch(action.type) {
@@ -147,5 +172,6 @@ function forgotPasswordReducer(state = {}, action){
 
 export{
     userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer, userUpdatePasswordReducer,
-    forgotPasswordReducer
+    forgotPasswordReducer,
+    addCartReducer
 }

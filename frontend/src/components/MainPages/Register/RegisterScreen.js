@@ -77,11 +77,11 @@ function RegisterScreen(props){
                             Register 
                     </button>
                 </li>
-                {/* <li>
-                    <Link to="/login" className="button secondary text-center">
+                <li>
+                    <Link to="/login" className=" button primary text-center back">
                         Back
                     </Link>
-                </li> */}
+                </li>
                
             </ul>
         </form> 

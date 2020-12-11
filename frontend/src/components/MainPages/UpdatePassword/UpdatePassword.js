@@ -5,8 +5,13 @@ import { Link } from 'react-router-dom';
 //import { Redirect } from 'react-router-dom';
 import { updateUserPassword } from '../../../actions/userAction';
 import { USER_UPDATE_PASSWORD_RESET } from '../../../constants/userConstant';
+import TopBar from '../../Common/TopBar/TopBar';
+import NavBar from '../../Common/NavBar/index';
+import BottomBar from '../../Common/BottomBar/index';
 import LoadingBox from '../../Config/LoadingBox';
 import MessageBox from '../../Config/MessageBox';
+import FooterPage from '../../Common/Footer/Footer';
+import ScrollToTopBtn from '../../Common/ScrollToTop/ScrollToTop';
 //import {logout} from '../../../actions/userAction'
 
 export default function UpdatePasswordScreen(){
@@ -44,6 +49,9 @@ export default function UpdatePasswordScreen(){
        // Redirect("/logout/");
     }
     return<div>
+        <TopBar/>
+        <NavBar/>
+        <BottomBar  ></BottomBar>
         <form className="form-profile" onSubmit={submitHandler}>
             <div>
                 <h1 className="title">
@@ -91,5 +99,7 @@ export default function UpdatePasswordScreen(){
                     </>
             }
         </form>
+        <FooterPage/>
+       <ScrollToTopBtn />
     </div>;  
 }

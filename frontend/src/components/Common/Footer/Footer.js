@@ -60,15 +60,15 @@ function FooterPage(){
                     <div className="col-md-6">
                         <div className="payment-method">
                             <h2>We Accept:</h2>
-                            <img src="img/payment-method.png" alt="Payment Method" />
+                            <img src="/img/payment-method.png" alt="Payment Method" />
                         </div>
                     </div>
                     <div className="col-md-6">
                         <div className="payment-security">
                             <h2>Secured By:</h2>
-                            <img src="img/godaddy.svg" alt="Payment Security" />
-                            <img src="img/norton.svg" alt="Payment Security" />
-                            <img src="img/ssl.svg" alt="Payment Security" />
+                            <img src="/img/godaddy.svg" alt="Payment Security" />
+                            <img src="/img/norton.svg" alt="Payment Security" />
+                            <img src="/img/ssl.svg" alt="Payment Security" />
                         </div>
                     </div>
                 </div>

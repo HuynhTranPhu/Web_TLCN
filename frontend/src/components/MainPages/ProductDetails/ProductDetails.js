@@ -7,6 +7,11 @@ import { listProducts } from '../../../actions/productActions';
 import LoadingBox from '../../Config/LoadingBox';
 import MessageBox from '../../Config/MessageBox';
 import Brand from '../../Brand/Brand';
+import TopBar from '../../Common/TopBar/TopBar';
+import NavBar from '../../Common/NavBar/index';
+import BottomBar from '../../Common/BottomBar/index';
+import FooterPage from '../../Common/Footer/Footer';
+import ScrollToTopBtn from '../../Common/ScrollToTop/ScrollToTop';
 
 
 
@@ -59,6 +64,9 @@ function ProductDetailScreen(props){
     }
 
     return <div>
+        <TopBar/>
+        <NavBar/>
+        <BottomBar  ></BottomBar>
         {loading?(
             <LoadingBox></LoadingBox>
         ):
@@ -304,6 +312,8 @@ function ProductDetailScreen(props){
         )
     }
     <Brand/>
+    <FooterPage/>
+    <ScrollToTopBtn />
     </div>
 }
 export default ProductDetailScreen;

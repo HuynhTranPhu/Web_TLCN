@@ -1,4 +1,8 @@
 .formContain{
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%,-50%);
 display: flex;
 justify-content: center;
 align-items: center;
@@ -46,4 +50,7 @@ padding: .5rem .4rem;
 .form-container button{
 border-radius: 2rem;
 margin-top: 1rem;
+}
+.form-container .back{
+border-radius: 2rem;
 }

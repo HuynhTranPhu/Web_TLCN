@@ -12,7 +12,10 @@ import {CART_INCREASE,
     CART_ADD_POST_FAIL,
     CART_REMOVE_POST_REQUEST,
     CART_REMOVE_POST_SUCCESS,
-    CART_REMOVE_POST_FAIL} 
+    CART_REMOVE_POST_FAIL,
+    CART_LIST_REQUEST,
+    CART_LIST_SUCCESS,
+    CART_LIST_FAIL} 
     from '../constants/cartConstants';
 
 
@@ -85,7 +88,8 @@ const addCart = (id_user,products) => async (dispatch) =>{
     try{
         const {data} = await axios.post("/cart/addcart", {id_user,products});
         dispatch({type:CART_ADD_POST_SUCCESS,payload:data});
-        console.log(data);
+        //console.log(cartItems);
+        
     }catch(error){
         const message=
         error.response && error.response.data.message
@@ -93,6 +97,23 @@ const addCart = (id_user,products) => async (dispatch) =>{
         : error.message;
         dispatch({type:CART_ADD_POST_FAIL,payload:message});
     }
+}
+const getCart = (id_user) => async (dispatch) =>{
+    dispatch({type: CART_LIST_REQUEST,payload: id_user});
+    try{
+         const {data} = await axios.get('/cart/'+id_user);
+         console.log(data);
+        dispatch({type: CART_LIST_SUCCESS, payload: data});
+        
+    }  
+    catch(error){
+        const message=
+        error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+        dispatch({type: CART_LIST_FAIL, payload: message});
+    }
+
 }
 // const removeCart = (id_user,id_product) => async (dispatch) =>{
 //     dispatch({type: CART_REMOVE_POST_REQUEST, payload:{id_user, id_product}});
@@ -110,5 +131,6 @@ const addCart = (id_user,products) => async (dispatch) =>{
 // }
 export {addToCart, removeFromCart, saveShipping, savePayment, decrease, increase
      ,addCart
+     ,getCart
      //, removeCart
 };

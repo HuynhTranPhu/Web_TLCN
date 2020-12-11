@@ -26,6 +26,9 @@ import {
     FORGOT_PASSWORD_SUCCESS,
     FORGOT_PASSWORD_FAIL} 
 from  '../constants/userConstant';
+import {CART_ADD_POST_REQUEST,
+        CART_ADD_POST_SUCCESS,
+        CART_ADD_POST_FAIL} from '../constants/cartConstants';
 
 const login = (email,password) => async (dispatch) =>{
     dispatch({type: USER_SIGNIN_REQUEST, payload:{email, password}});
@@ -129,6 +132,31 @@ const updateUserPassword =(oldpassword, newpassword, id) =>async (dispatch,getSt
         dispatch({type:USER_UPDATE_PASSWORD_FAIL, payload:message})
     }
 }
+///////////////User add to cart/////////////////////////////
+const addCart =(product,cart) => async (dispatch,getState)=>{
+    const { userLogin :{userInfo}}= getState();
+    if(!userInfo) return alert("Please login to continue buying");
+    try{    
+        const {data} = await axios.post("/user/addcart", {product, cart}
+        ,{
+            headers: {Authorization:`${userInfo.token}`},
+        }
+        );
+        dispatch({type: CART_ADD_POST_SUCCESS, payload:data});
+        console.log(data);
+
+    }catch(error){
+        const message=
+        error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+        dispatch({type:CART_ADD_POST_FAIL, payload: message});
+    }
+}
+
+
+
+
 ///*******forgot password************///
 export const forgotEmailSuccess = () => ({
     type: FORGOT_EMAIL_SUCCESS
@@ -202,4 +230,4 @@ export const forgotPasswordFail = () => ({
 })
 
 
-export {login, register, logout, detailsUser, updateUserProfile, updateUserPassword};
+export {login, register, logout, detailsUser, updateUserProfile, updateUserPassword, addCart};

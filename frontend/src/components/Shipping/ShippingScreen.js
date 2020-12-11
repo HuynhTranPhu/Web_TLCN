@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveShipping } from '../../actions/cartAction';
 import CheckoutSteps from '../CheckOutStep/CheckoutSteps';
+import TopBar from '../Common/TopBar/TopBar';
+import NavBar from '../Common/NavBar/index';
+import BottomBar from '../Common/BottomBar/index';
+import FooterPage from '../Common/Footer/Footer';
+import ScrollToTopBtn from '../Common/ScrollToTop/ScrollToTop';
 
 
 
@@ -28,6 +33,9 @@ function ShippingScreen(props){
         props.history.push('payment');
     }
     return <div>
+            <TopBar/>
+            <NavBar/>
+            <BottomBar  ></BottomBar>
             <CheckoutSteps step1 step2></CheckoutSteps>
             <div className="formContain">
                 <form onSubmit={submitHandler}>
@@ -73,6 +81,8 @@ function ShippingScreen(props){
                 </ul>
             </form> 
         </div>
+        <FooterPage/>
+        <ScrollToTopBtn />
     </div> 
    
 }

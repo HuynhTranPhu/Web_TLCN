@@ -2,6 +2,11 @@ import React from 'react';
 import { useSelector} from 'react-redux'
 import { Link } from 'react-router-dom';
 import CheckoutSteps from '../CheckOutStep/CheckoutSteps';
+import TopBar from '../Common/TopBar/TopBar';
+import NavBar from '../Common/NavBar/index';
+import BottomBar from '../Common/BottomBar/index';
+import FooterPage from '../Common/Footer/Footer';
+import ScrollToTopBtn from '../Common/ScrollToTop/ScrollToTop';
 function PlaceOrderScreen(props){
 
 
@@ -25,6 +30,9 @@ function PlaceOrderScreen(props){
         ///create order
     }
     return<div>
+        <TopBar/>
+        <NavBar/>
+        <BottomBar  ></BottomBar>
         <CheckoutSteps step1 step2 step3 step4 ></CheckoutSteps>
         <div className="placeorder">
             <div className="placeorder-info">
@@ -193,6 +201,8 @@ function PlaceOrderScreen(props){
                 
            
         </div>
+        <FooterPage/>
+        <ScrollToTopBtn />
         
     </div>
     

@@ -2,6 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { detailsUser, updateUserProfile } from '../../../actions/userAction';
 import { USER_UPDATE_PROFILE_RESET } from '../../../constants/userConstant';
+import FooterPage from '../../Common/Footer/Footer';
+import ScrollToTopBtn from '../../Common/ScrollToTop/ScrollToTop';
+import TopBar from '../../Common/TopBar/TopBar';
+import NavBar from '../../Common/NavBar/index';
+import BottomBar from '../../Common/BottomBar/index';
 import LoadingBox from '../../Config/LoadingBox';
 import MessageBox from '../../Config/MessageBox';
 
@@ -42,6 +47,9 @@ export default function ProfileScreen(){
            
     }
     return<div>
+        <TopBar/>
+        <NavBar/>
+        <BottomBar  ></BottomBar>
         {
              loading ? (
                 <LoadingBox></LoadingBox>)
@@ -87,6 +95,7 @@ export default function ProfileScreen(){
                     </form>
                 )
         }
-       
+       <FooterPage/>
+       <ScrollToTopBtn />
     </div>;  
 }

@@ -1,9 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import TopBar from '../Common/TopBar/TopBar';
+import NavBar from '../Common/NavBar/index';
+import BottomBar from '../Common/BottomBar/index';
+import FooterPage from '../Common/Footer/Footer';
+import ScrollToTopBtn from '../Common/ScrollToTop/ScrollToTop';
 
 
 export default function ContactScreen(){
-    return <div className="contact">
+    return <div>
+        <TopBar/>
+        <NavBar/>
+        <BottomBar  ></BottomBar>
+        <div className="contact">
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-lg-4">
@@ -67,5 +76,9 @@ export default function ContactScreen(){
                 </div>
             </div>
         </div>
+        <FooterPage/>
+        <ScrollToTopBtn />
+    </div> 
+    
   
 }

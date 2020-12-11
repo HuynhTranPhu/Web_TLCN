@@ -6,6 +6,11 @@ import { listProducts } from '../../../actions/productActions';
 import LoadingBox from '../../Config/LoadingBox';
 import MessageBox from '../../Config/MessageBox';
 import Brand from '../../Brand/Brand';
+import TopBar from '../../Common/TopBar/TopBar';
+import NavBar from '../../Common/NavBar/index';
+import BottomBar from '../../Common/BottomBar/index';
+import FooterPage from '../../Common/Footer/Footer';
+import ScrollToTopBtn from '../../Common/ScrollToTop/ScrollToTop';
 
 
 
@@ -35,9 +40,9 @@ function ProductScreen(props){
     // }
 
     return <div>
-        {/* <div className="back-to-result">
-            <Link to="/"> &#8701; Back to result</Link>
-        </div> */}
+         <TopBar/>
+        <NavBar/>
+        <BottomBar  ></BottomBar>
         {loading?(
             <LoadingBox></LoadingBox>
         ):
@@ -45,62 +50,6 @@ function ProductScreen(props){
             <MessageBox variant="danger">{error}</MessageBox>
         ):
         (
-            // <div className="details">
-            //     <div className="details-image">
-            //         <img src={product.image} alt="product"></img>
-            //     </div>
-            //     <div className="details-info">
-            //         <ul>
-            //             <li>
-            //                 <h4>{product.name}</h4>
-            //             </li>
-            //             <li>
-            //                 {product.rating} Stars ({product.numReviews} Reviews)
-            //             </li>
-            //             <li>
-            //                 Price: <b> ${product.price}</b>
-            //             </li>
-            //             <li>
-            //                 Description:
-            //                 <div>               
-            //                     {product.description}   
-            //                 </div>
-            //             </li>
-            //         </ul>
-            //     </div>
-            //     <div className="details-action">
-            //         <ul>
-            //             <li>
-            //                 Price: ${product.price}
-            //             </li>
-            //             <li>
-            //                 Status:{product.countInStock > 0? 
-            //                 (
-            //                     <span className="success">In Stock</span>
-            //                 ):(
-            //                     <span className="danger">Unavailable</span>
-            //                 )}
-            //             </li>
-            //             <li>
-            //                 Qty:<select value={qty} onChange={(e) =>{setQty(e.target.value)}}>
-            //                     {[...Array(product.countInStock).keys()].map(x =>
-            //                         <option key={x+1} value={x+1}>{x+1}</option>
-            //                     )}
-            //                 </select>
-            //             </li>
-            //             <li>
-            //                 {
-            //                     product.countInStock>0 && 
-            //                     <button onClick={handleAddToCart} className="button">
-            //                         Add to Cart
-            //                     </button>
-            //                 }
-                            
-            //             </li>
-            //         </ul>
-
-            //     </div>
-            // </div>
             
         <div className="product-view">
             <div className="container-fluid">
@@ -235,6 +184,8 @@ function ProductScreen(props){
         </div>)
     }
     <Brand/>
+    <FooterPage/>
+    <ScrollToTopBtn />
     </div>
 }
 export default ProductScreen;

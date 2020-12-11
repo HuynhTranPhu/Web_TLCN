@@ -1,16 +1,24 @@
-import React, {useEffect } from 'react';
+import React, {useEffect, useState } from 'react';
 import Slider from "react-slick";
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { listProducts } from '../../../actions/productActions';
 import LoadingBox from '../../Config/LoadingBox';
 import MessageBox from '../../Config/MessageBox';
+import TopBar from '../../Common/TopBar/TopBar';
+import NavBar from '../../Common/NavBar/index';
 
 import Brand from '../../Brand/Brand';
 import Review from '../../Review/Review';
 import HeaderSlider from '../../Header/HeaderSlider/HeaderSlider';
 import {addCart, addToCart } from '../../../actions/cartAction';
+import  BottomBar from '../../Common/BottomBar/index'
+import Feature from '../../Common/Feature/index'
+import FooterPage from '../../Common/Footer/Footer';
+import ScrollToTopBtn from '../../Common/ScrollToTop/ScrollToTop';
+
 function HomeScreen(props){
+    
     const productList = useSelector(state => state.productList);
     const {products,loading , error} = productList;
 
@@ -21,9 +29,38 @@ function HomeScreen(props){
     const { userInfo} = userLogin;
     const dispatch = useDispatch();
 
-    const addToCartHandler = (productId) =>{
-        dispatch(addToCart(productId,1));
-        console.log(cartItems);
+ 
+    const [cartIte,setcart] =useState(0);
+  
+    const addtocartcount= ()=>{
+     
+       
+  
+  const cartupdate =cartIte+1;
+        setcart(cartupdate)
+       
+    }
+ 
+
+    const feature = [ {title:'Secure Payment',content:'Lorem ipsum dolor sit amet consectetur elit', icon:'fab fa-cc-mastercard'},
+                    {title:'Worldwide Delivery',content:'Lorem ipsum dolor sit amet consectetur elit',icon:'fa fa-truck'},
+                    {title:'90 Days Return',content:'Lorem ipsum dolor sit amet consectetur elit', icon:'fas fa-sync'},
+                    {title:'24/7 Support',content:'Lorem ipsum dolor sit amet consectetur elit', icon:'fa fa-comments'}
+                    ]
+
+    const addToCartHandler = (id,name,price,image) =>{
+
+        let a = {_id: id,
+            name: name,
+            price: price,
+            img: image,
+            count: 1};
+        let carts =[a];
+        //dispatch(addToCart(productId,1));
+        //console.log(cartItems);
+        dispatch(addCart(userInfo.user.id,carts));
+       // console.log(carts);
+        
     }
     // const addCartPost = () =>{
     //     dispatch(addCart(userInfo.user.id,cartItems));
@@ -81,26 +118,10 @@ function HomeScreen(props){
         ):error? (
             <MessageBox variant="danger">{error}</MessageBox>
         ):
-        // <ul className="products">
-        // {
-        //     products.map(product =>
-        //     <li key={product._id}>
-        //         <div className="product">
-        //             <Link to={'/product/' + product._id}>{
-        //                 <img className="product-image" src={product.image} alt="product"/>
-        //             }</Link>
-                    
-        //             <div className="product-name">
-        //                 <Link to={'/product/' + product._id}>{product.name}</Link>
-        //             </div>
-        //             <div className="product-brand">{product.brand}</div>
-        //             <div className="product-price">${product.price}</div>
-        //             <div className="product-rating">{product.rating} Stars ({product.numReviews} Reviews)</div>
-        //         </div>
-        //     </li>)
-        // }       
-        // </ul>
         <div>
+            <TopBar/>
+            <NavBar/>
+            <BottomBar cartItems={cartIte} ></BottomBar>
              <div className="header">
                   <div className="container-fluid">
                       <div className="row">
@@ -164,42 +185,8 @@ function HomeScreen(props){
               <div className="feature">
                   <div className="container-fluid">
                       <div className="row align-items-center">
-                          <div className="col-lg-3 col-md-6 feature-col">
-                              <div className="feature-content">
-                                  <i className="fab fa-cc-mastercard"></i>
-                                  <h2>Secure Payment</h2>
-                                  <p>
-                                      Lorem ipsum dolor sit amet consectetur elit
-                                  </p>
-                              </div>
-                          </div>
-                          <div className="col-lg-3 col-md-6 feature-col">
-                              <div className="feature-content">
-                                  <i className="fa fa-truck"></i>
-                                  <h2>Worldwide Delivery</h2>
-                                  <p>
-                                      Lorem ipsum dolor sit amet consectetur elit
-                                  </p>
-                              </div>
-                          </div>
-                          <div className="col-lg-3 col-md-6 feature-col">
-                              <div className="feature-content">
-                                  <i className="fas fa-sync"></i>
-                                  <h2>90 Days Return</h2>
-                                  <p>
-                                      Lorem ipsum dolor sit amet consectetur elit
-                                  </p>
-                              </div>
-                          </div>
-                          <div className="col-lg-3 col-md-6 feature-col">
-                              <div className="feature-content">
-                                  <i className="fa fa-comments"></i>
-                                  <h2>24/7 Support</h2>
-                                  <p>
-                                      Lorem ipsum dolor sit amet consectetur elit
-                                  </p>
-                              </div>
-                          </div>
+                          {feature.map(item=><Feature title={item.title}content={item.content} icon={item.icon}></Feature>)}
+                      
                       </div>
                   </div>
               </div>
@@ -309,7 +296,8 @@ function HomeScreen(props){
                                                 product.count>0 && 
                                                 <a className="btn" 
                                                 // onClick={()=>{ props.history.push(`/cart/${product._id}`)}}
-                                                    onClick={()=>addToCartHandler(product._id)}
+                                                //    onClick={()=>addToCartHandler( product._id,product.name,product.price,product.img)}
+                                                onClick={addtocartcount}
                                                 >
                                                     <i className="fa fa-shopping-cart"></i>Add To Cart</a>
                                             }
@@ -370,6 +358,9 @@ function HomeScreen(props){
                   </div>
               </div>
               <Review/>
+              <FooterPage/>
+              
+              <ScrollToTopBtn />
         </div>
     )
 }

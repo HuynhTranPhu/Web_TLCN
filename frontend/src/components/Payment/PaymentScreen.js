@@ -2,6 +2,11 @@ import React, {  useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { savePayment } from '../../actions/cartAction';
 import CheckoutSteps from '../CheckOutStep/CheckoutSteps';
+import TopBar from '../Common/TopBar/TopBar';
+import NavBar from '../Common/NavBar/index';
+import BottomBar from '../Common/BottomBar/index';
+import FooterPage from '../Common/Footer/Footer';
+import ScrollToTopBtn from '../Common/ScrollToTop/ScrollToTop';
 
 
 
@@ -22,6 +27,9 @@ function PaymentScreen(props){
         props.history.push('place-order');
     }
     return <div>
+            <TopBar/>
+            <NavBar/>
+            <BottomBar  ></BottomBar>
             <CheckoutSteps step1 step2 step3></CheckoutSteps>
             <div className="formContain">
                 <form onSubmit={submitHandler}>
@@ -53,6 +61,8 @@ function PaymentScreen(props){
                 </ul>
             </form> 
         </div>
+        <FooterPage/>
+        <ScrollToTopBtn />
     </div> 
    
 }
