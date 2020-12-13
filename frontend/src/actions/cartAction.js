@@ -102,7 +102,7 @@ const getCart = (id_user) => async (dispatch) =>{
     dispatch({type: CART_LIST_REQUEST,payload: id_user});
     try{
          const {data} = await axios.get('/cart/'+id_user);
-         console.log(data);
+         //console.log(data);
         dispatch({type: CART_LIST_SUCCESS, payload: data});
         
     }  

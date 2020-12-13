@@ -981,6 +981,8 @@ h2 {
 /******** Footer Bottom CSS *******/
 /**********************************/
 @import url("./components/Common/Footer/Footer.css");
+/***Shipping**/
+@import url("./components/Shipping/Shipping.css");
 
 /*************404 page*******************/
 @import url("./components/404/404.css");

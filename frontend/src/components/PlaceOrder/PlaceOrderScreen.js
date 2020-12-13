@@ -10,9 +10,13 @@ import ScrollToTopBtn from '../Common/ScrollToTop/ScrollToTop';
 function PlaceOrderScreen(props){
 
 
-    const cart = useSelector(state => state.cart);
+    // const cart = useSelector(state => state.cart);
+
+    // const {cartItems, payment} = cart;
+    const cart = useSelector(state => state.cartGet);
 
     const {cartItems, payment} = cart;
+    console.log(cartItems);
     if(!payment.paymentMethod){
         props.history.push("/payment"); 
     }

@@ -12,9 +12,11 @@ import ScrollToTopBtn from '../../Common/ScrollToTop/ScrollToTop';
 //import MessageBox from '../../Config/MessageBox';
 function CartScreen(props){
 
-    const cartGet = useSelector(state => state.cartGet);
-    //console.log(cartGet);
-    const {cart, loading, error } = cartGet;
+    //const cartGet = useSelector(state => state.cartGet);
+    const cart = useSelector(state => state.cartGet);
+    //console.log(cart);
+    const {cartItems, loading, error } = cart;
+    console.log(cartItems);
     // const cart = useSelector(state => state.cart);
     // const {cartItems} = cart;
     const userLogin = useSelector(state => state.userLogin);
@@ -139,7 +141,7 @@ function CartScreen(props){
                                     <table className="table table-bordered">
                                         <thead className="thead-dark">
                                             {
-                                                 cart.length === 0 ?(                                                  
+                                                 cartItems.length === 0 ?(                                                  
                                                     <div className="empty-cart">
                                                         <img className="empty-cart-img" src="/images/emptyCart.png" alt="Product" />
                                                         <p className="empty-cart-note">Your shopping cart is empty.</p>
@@ -159,7 +161,7 @@ function CartScreen(props){
                                         </thead>
                                         <tbody className="align-middle">
                                             {
-                                                cart.map(item=>
+                                                cartItems.map(item=>
                                                 <tr key={item._id}>
                                                     <td>
                                                         <div className="img">
@@ -203,15 +205,15 @@ function CartScreen(props){
                                                 <h1>Cart Summary</h1>
                                                 <p>Sub Total
                                                     <span>
-                                                    ${cart.reduce((a,c) => a+c.price * c.count,0)}
+                                                    ${cartItems.reduce((a,c) => a+c.price * c.count,0)}
                                                     </span>
                                                 </p>
                                                 <p>Shipping Cost<span>$0</span></p>
-                                                <h2>Grand Total<span>${ cart.reduce((a,c) => a+c.price * c.count,0)}</span></h2>
+                                                <h2>Grand Total<span>${ cartItems.reduce((a,c) => a+c.price * c.count,0)}</span></h2>
                                             </div>
                                             <div className="cart-btn">
                                                 <Link to="/product-list"><button>Update Cart</button></Link>
-                                                <button onClick={checkoutHandler} disabled={cart.length ===0}>Proceed to Checkout</button>
+                                                <button onClick={checkoutHandler} disabled={cartItems.length ===0}>Proceed to Checkout</button>
                                             </div>
                                         </div>
                                     </div>

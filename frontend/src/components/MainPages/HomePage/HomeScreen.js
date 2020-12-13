@@ -33,12 +33,8 @@ function HomeScreen(props){
     const [cartIte,setcart] =useState(0);
   
     const addtocartcount= ()=>{
-     
-       
-  
-  const cartupdate =cartIte+1;
-        setcart(cartupdate)
-       
+        const cartupdate = cartIte+1;
+        setcart(cartupdate)   
     }
  
 

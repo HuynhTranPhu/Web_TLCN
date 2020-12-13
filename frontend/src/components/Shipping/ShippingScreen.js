@@ -35,11 +35,11 @@ function ShippingScreen(props){
     return <div>
             <TopBar/>
             <NavBar/>
-            <BottomBar  ></BottomBar>
+            <BottomBar></BottomBar>
             <CheckoutSteps step1 step2></CheckoutSteps>
-            <div className="formContain">
+            <div className="formShipping">
                 <form onSubmit={submitHandler}>
-                <ul className="form-container">
+                <ul className="form-container-shipping">
                     <li>
                         <h2>Shipping</h2>
                     </li>
