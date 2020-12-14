@@ -13,6 +13,9 @@ import ScrollToTopBtn from '../Common/ScrollToTop/ScrollToTop';
 
 
 function ShippingScreen(props){
+    const cart = useSelector(state => state.cart);
+
+    const {cartItems, payment} = cart;
     const userLogin = useSelector((state) => state.userLogin);
     const {userInfo}= userLogin;
     if(!userInfo){
@@ -29,8 +32,13 @@ function ShippingScreen(props){
     
     const submitHandler =(e)=>{
         e.preventDefault();
-        dispatch(saveShipping({address, city, postalCode, numberPhone}));
-        props.history.push('payment');
+        if(cartItems.length>0){
+            dispatch(saveShipping({address, city, postalCode, numberPhone}));
+            props.history.push('payment');
+        }else{
+            alert("Haven't product in your cart");
+        }
+
     }
     return <div>
             <TopBar/>

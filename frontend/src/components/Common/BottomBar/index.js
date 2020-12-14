@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import {
     BrowserRouter ,
@@ -17,7 +18,8 @@ function Index(props) {
 
 
    
-
+    const cart = useSelector(state => state.cart);
+    const {cartItems} = cart;
 return (
         
  <div className="bottom-bar">
@@ -41,8 +43,8 @@ return (
                     <Link to="/cart" className="btn cart">
 
                         <i className="fa fa-shopping-cart"></i>
-                        {props.cartItems> 0 ? (
-                        <span className="badge">({props.cartItems})</span>
+                        {cartItems.length> 0 ? (
+                        <span className="badge">({cartItems.length})</span>
                         ):(<span className="badge">(0)</span>)}
                     </Link>
                 </div>

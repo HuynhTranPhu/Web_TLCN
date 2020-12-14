@@ -10,20 +10,22 @@ import ScrollToTopBtn from '../Common/ScrollToTop/ScrollToTop';
 function PlaceOrderScreen(props){
 
 
-    // const cart = useSelector(state => state.cart);
-
-    // const {cartItems, payment} = cart;
-    const cart = useSelector(state => state.cartGet);
+    const cart = useSelector(state => state.cart);
 
     const {cartItems, payment} = cart;
-    console.log(cartItems);
+    // const cart = useSelector(state => state.cartGet);
+
+    // const {cartItems, payment} = cart;
+    // console.log(cartItems);
     if(!payment.paymentMethod){
+        
         props.history.push("/payment"); 
     }
+    
 
     const toPrice = (num) => Number(num.toFixed(2));
     const itemsPrice = toPrice(
-        cartItems.reduce((a,c)=> a + c.price * c.qty,0)
+        cartItems.reduce((a,c)=> a + c.price * c.count,0)
     ); 
     const shippingPrice = itemsPrice > 100||itemsPrice===0 ? toPrice(0) : toPrice(10);
     const taxPrice =toPrice(0.15 * itemsPrice) ;
@@ -118,11 +120,11 @@ function PlaceOrderScreen(props){
                                                 <tbody className="align-middle">
                                                     {
                                                         cartItems.map(item=>
-                                                        <tr key={item.product}>
+                                                        <tr key={item._id}>
                                                             <td>
                                                                 <div className="img">
                                                                     <Link to={"/product/"+item.product}>
-                                                                        <img src={item.image} alt="Product" />
+                                                                        <img src={item.img} alt="Product" />
                                                                         </Link>
                                                                     <p><Link to ={"/product/" +item.product}> {item.name}</Link></p>
                                                                 </div>
@@ -132,11 +134,11 @@ function PlaceOrderScreen(props){
                                                                 <div className="qty">
                                                                     
                                                                     <input type="text"
-                                                                    value={item.qty}  />
+                                                                    value={item.count}  />
                                                                     
                                                                 </div>
                                                             </td>
-                                                            <td>${item.price * item.qty}</td>
+                                                            <td>${item.price * item.count}</td>
                                                            
                                                         </tr>)
                                                     }

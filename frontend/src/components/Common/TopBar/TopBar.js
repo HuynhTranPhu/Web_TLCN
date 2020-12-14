@@ -8,7 +8,7 @@ const TopBar = () => {
         <div className="top-bar">
                   <div className="container-fluid">
                       <div className="row">
-                      {topBar.map(item=><TopBarC content={item.content} icon={item.icon}></TopBarC>)}
+                      {topBar.map(item=><TopBarC   content={item.content} icon={item.icon}></TopBarC>)}
                       </div>
                         
                   </div>

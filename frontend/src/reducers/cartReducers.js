@@ -124,20 +124,20 @@ function cartGetReducer (state = { cartItems: []}, action){
     }
 }
 
-// function removeCartPostReducer(state={}, action){
-//     switch(action.type){
-//         case CART_REMOVE_POST_REQUEST:
-//             return {loading : true};
-//         case CART_REMOVE_POST_SUCCESS:
-//             return {loading : false, success : true};
-//         case CART_REMOVE_POST_FAIL:
-//             return {loading : false, error : action.payload};
-//         default : return state;
-//     }
-// }
+function removeCartPostReducer(state={}, action){
+    switch(action.type){
+        case CART_REMOVE_POST_REQUEST:
+            return {loading : true};
+        case CART_REMOVE_POST_SUCCESS:
+            return {loading : false, success : true};
+        case CART_REMOVE_POST_FAIL:
+            return {loading : false, error : action.payload};
+        default : return state;
+    }
+}
 
 export {cartReducer
      ,cartPostReducer
      ,cartGetReducer
-    //, removeCartPostReducer
+    , removeCartPostReducer
 }

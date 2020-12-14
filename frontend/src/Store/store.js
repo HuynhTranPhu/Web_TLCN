@@ -25,7 +25,7 @@ const reducer = combineReducers({
 
     cartPost:cartPostReducer,
     cartGet:cartGetReducer,
-    // removeCartPost:removeCartPostReducer,
+    removeCartPost:removeCartPostReducer,
 })
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

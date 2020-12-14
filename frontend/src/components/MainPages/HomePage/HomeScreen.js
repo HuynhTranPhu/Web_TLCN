@@ -22,8 +22,8 @@ function HomeScreen(props){
     const productList = useSelector(state => state.productList);
     const {products,loading , error} = productList;
 
-    const cart = useSelector(state => state.cart);
-    const {cartItems} = cart;
+    // const cart = useSelector(state => state.cart);
+    // const {cartItems} = cart;
     
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo} = userLogin;
@@ -43,6 +43,19 @@ function HomeScreen(props){
                     {title:'90 Days Return',content:'Lorem ipsum dolor sit amet consectetur elit', icon:'fas fa-sync'},
                     {title:'24/7 Support',content:'Lorem ipsum dolor sit amet consectetur elit', icon:'fa fa-comments'}
                     ]
+    //let d=0;
+    // const addToCartHandler = (productId) =>{
+    //     dispatch(addToCart(productId,1));
+    //     d=d+1;
+    //     if(d>=2){
+    //         alert("This product has been added to cart");
+    //     }
+    //     //console.log(d);
+    //     //console.log(cartItems);
+    //     //dispatch(addCart(userInfo.user.id,carts));
+    //    // console.log(carts);
+        
+    // }
 
     const addToCartHandler = (id,name,price,image) =>{
 
@@ -52,9 +65,13 @@ function HomeScreen(props){
             img: image,
             count: 1};
         let carts =[a];
-        //dispatch(addToCart(productId,1));
+        dispatch(addToCart(id,1));
         //console.log(cartItems);
         dispatch(addCart(userInfo.user.id,carts));
+        // d=id;
+        // if(d===id){
+        //     alert("This product has been added to cart");
+        // }
        // console.log(carts);
         
     }
@@ -117,7 +134,8 @@ function HomeScreen(props){
         <div>
             <TopBar/>
             <NavBar/>
-            <BottomBar cartItems={cartIte} ></BottomBar>
+            {/* <BottomBar cartItems={cartIte} ></BottomBar> */}
+            <BottomBar  ></BottomBar>
              <div className="header">
                   <div className="container-fluid">
                       <div className="row">
@@ -292,8 +310,8 @@ function HomeScreen(props){
                                                 product.count>0 && 
                                                 <a className="btn" 
                                                 // onClick={()=>{ props.history.push(`/cart/${product._id}`)}}
-                                                //    onClick={()=>addToCartHandler( product._id,product.name,product.price,product.img)}
-                                                onClick={addtocartcount}
+                                                    onClick={()=>addToCartHandler( product._id,product.name,product.price ,product.img)}
+                                                //onClick={addtocartcount}
                                                 >
                                                     <i className="fa fa-shopping-cart"></i>Add To Cart</a>
                                             }

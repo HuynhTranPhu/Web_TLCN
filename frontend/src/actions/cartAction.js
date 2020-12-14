@@ -115,22 +115,22 @@ const getCart = (id_user) => async (dispatch) =>{
     }
 
 }
-// const removeCart = (id_user,id_product) => async (dispatch) =>{
-//     dispatch({type: CART_REMOVE_POST_REQUEST, payload:{id_user, id_product}});
-//     try{
-//         const {data} = await axios.delete("/cart/remove", {id_user,id_product});
-//         dispatch({type:CART_REMOVE_POST_SUCCESS,payload:data});
-//         console.log(data);
-//     }catch(error){
-//         const message=
-//         error.response && error.response.data.message
-//         ? error.response.data.message
-//         : error.message;
-//         dispatch({type:CART_REMOVE_POST_FAIL,payload:message});
-//     }
-// }
+const removeCart = (id_user,id_product) => async (dispatch) =>{
+    dispatch({type: CART_REMOVE_POST_REQUEST, payload:{id_user, id_product}});
+    try{
+        const {data} = await axios.delete("/cart/remove", {id_user,id_product});
+        dispatch({type:CART_REMOVE_POST_SUCCESS,payload:data, success:true});
+        //console.log(data);
+    }catch(error){
+        const message=
+        error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+        dispatch({type:CART_REMOVE_POST_FAIL,payload:message});
+    }
+}
 export {addToCart, removeFromCart, saveShipping, savePayment, decrease, increase
      ,addCart
      ,getCart
-     //, removeCart
+     , removeCart
 };

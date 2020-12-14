@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom';
-import { addToCart, removeFromCart, decrease, increase, getCart
+import { addToCart, removeFromCart, decrease, increase, getCart, removeCart
     // , addCart, removeCart 
 } from '../../../actions/cartAction';
 import TopBar from '../../Common/TopBar/TopBar';
@@ -13,12 +13,12 @@ import ScrollToTopBtn from '../../Common/ScrollToTop/ScrollToTop';
 function CartScreen(props){
 
     //const cartGet = useSelector(state => state.cartGet);
-    const cart = useSelector(state => state.cartGet);
+    //const cart = useSelector(state => state.cartGet);
     //console.log(cart);
-    const {cartItems, loading, error } = cart;
-    console.log(cartItems);
-    // const cart = useSelector(state => state.cart);
-    // const {cartItems} = cart;
+    //const {cartItems, loading, error } = cart;
+   // console.log(cartItems);
+    const cart = useSelector(state => state.cart);
+    const {cartItems} = cart;
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo} = userLogin;
 
@@ -28,9 +28,11 @@ function CartScreen(props){
     //let grandTotal=0;
     const dispatch = useDispatch();
     const removeFromCartHandler = (productId) =>{
-        //dispatch(removeCart(userInfo.user.id,productId));
-        //console.log(productId);
+        
+        
         dispatch(removeFromCart(productId));
+        dispatch(removeCart(userInfo.user.id,productId));
+        console.log(userInfo.user.id,productId);
     }
     const decreaseHandler = (productId) =>{
         dispatch(decrease(productId));
@@ -39,15 +41,16 @@ function CartScreen(props){
         dispatch(increase(productId));
     }
     useEffect(() => { 
-        dispatch(getCart(userInfo.user.id));
-        return () => {
-            //
-        };
-        // if(productId){
-        //     dispatch(addToCart(productId,qty));
-        // }
-    },[]
-    // [dispatch,productId,qty]
+        // dispatch(getCart(userInfo.user.id));
+        // return () => {
+        //     //
+        // };
+        if(productId){
+            dispatch(addToCart(productId,qty));
+        }
+    },
+    //[]
+     [dispatch,productId,qty]
     );
     const checkoutHandler = () =>{
         //dispatch(addCart(userInfo.user.id,cartItems, grandTotal));
