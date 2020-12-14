@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom';
-import { addToCart, removeFromCart, decrease, increase, getCart, removeCart
+import { addToCart, removeFromCart, decrease, increase, getCart, removeCart, increaseCart, decreaseCart
     // , addCart, removeCart 
 } from '../../../actions/cartAction';
 import TopBar from '../../Common/TopBar/TopBar';
@@ -27,18 +27,19 @@ function CartScreen(props){
     //let total=0 ;
     //let grandTotal=0;
     const dispatch = useDispatch();
-    const removeFromCartHandler = (productId) =>{
-        
-        
-        dispatch(removeFromCart(productId));
-        dispatch(removeCart(userInfo.user.id,productId));
-        console.log(userInfo.user.id,productId);
+    const removeFromCartHandler = (id) =>{
+        dispatch(removeFromCart(id));
+        dispatch(removeCart(userInfo.user.id,id));
+       // console.log(userInfo.user.id,productId);
     }
     const decreaseHandler = (productId) =>{
         dispatch(decrease(productId));
+        dispatch(decreaseCart(userInfo.user.id,productId));
     }
     const increaseHandler = (productId) =>{
         dispatch(increase(productId));
+        console.log(productId)
+        dispatch(increaseCart(userInfo.user.id,productId));
     }
     useEffect(() => { 
         // dispatch(getCart(userInfo.user.id));

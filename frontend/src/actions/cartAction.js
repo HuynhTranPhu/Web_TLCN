@@ -15,7 +15,13 @@ import {CART_INCREASE,
     CART_REMOVE_POST_FAIL,
     CART_LIST_REQUEST,
     CART_LIST_SUCCESS,
-    CART_LIST_FAIL} 
+    CART_LIST_FAIL,
+    CART_INCREASE_REQUEST,
+    CART_INCREASE_SUCCESS,
+    CART_INCREASE_FAIL,
+    CART_DECREASE_REQUEST,
+    CART_DECREASE_FAIL,
+    CART_DECREASE_SUCCESS} 
     from '../constants/cartConstants';
 
 
@@ -116,11 +122,13 @@ const getCart = (id_user) => async (dispatch) =>{
 
 }
 const removeCart = (id_user,id_product) => async (dispatch) =>{
-    dispatch({type: CART_REMOVE_POST_REQUEST, payload:{id_user, id_product}});
+    dispatch({type: CART_REMOVE_POST_REQUEST, payload:{id_user,id_product}});
+    //console.log(id_user,id_product);
     try{
-        const {data} = await axios.delete("/cart/remove", {id_user,id_product});
+        //console.log({id_product,id_user});
+        const {data} = await axios.post("/cart/remove", {id_user,id_product});
         dispatch({type:CART_REMOVE_POST_SUCCESS,payload:data, success:true});
-        //console.log(data);
+        
     }catch(error){
         const message=
         error.response && error.response.data.message
@@ -129,8 +137,42 @@ const removeCart = (id_user,id_product) => async (dispatch) =>{
         dispatch({type:CART_REMOVE_POST_FAIL,payload:message});
     }
 }
+const increaseCart = (id_user,id_product) => async (dispatch) =>{
+    dispatch({type: CART_INCREASE_REQUEST, payload:{id_user,id_product}});
+    //console.log(id_user,id_product);
+    try{
+        //console.log({id_product,id_user});
+        const {data} = await axios.put("/cart/updatetang", {id_user,id_product});
+        dispatch({type:CART_INCREASE_SUCCESS,payload:data, success:true});
+        
+    }catch(error){
+        const message=
+        error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+        dispatch({type:CART_INCREASE_FAIL,payload:message});
+    }
+}
+const decreaseCart = (id_user,id_product) => async (dispatch) =>{
+    dispatch({type: CART_DECREASE_REQUEST, payload:{id_user,id_product}});
+    //console.log(id_user,id_product);
+    try{
+        //console.log({id_product,id_user});
+        const {data} = await axios.put("/cart/updategiam", {id_user,id_product});
+        dispatch({type:CART_DECREASE_SUCCESS,payload:data, success:true});
+        
+    }catch(error){
+        const message=
+        error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+        dispatch({type:CART_DECREASE_FAIL,payload:message});
+    }
+}
 export {addToCart, removeFromCart, saveShipping, savePayment, decrease, increase
      ,addCart
      ,getCart
      , removeCart
+     ,increaseCart
+     ,decreaseCart
 };

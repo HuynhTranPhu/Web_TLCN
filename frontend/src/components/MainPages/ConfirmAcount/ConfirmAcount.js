@@ -18,10 +18,12 @@ class VerifyRegisterAccountContainer extends Component {
             this.setState({isconfirm: false})
         }
     }
-    render() {
+    render() 
+    {
+        const content="You have verified login successfully";
         if(this.state.isconfirm) {
             return(
-                <VerifyRegisterAccount/>
+                <VerifyRegisterAccount content={content}/>
             )
         } else {
             return (

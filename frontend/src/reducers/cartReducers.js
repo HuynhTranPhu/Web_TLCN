@@ -1,4 +1,5 @@
-import {CART_INCREASE, CART_DECREASE, CART_ADD_FAIL,CART_ADD_ITEM, CART_REMOVE_ITEM, CART_SAVE_PAYMENT, CART_SAVE_SHIPPING, CART_ADD_POST_FAIL, CART_ADD_POST_SUCCESS, CART_ADD_POST_REQUEST, CART_REMOVE_POST_REQUEST, CART_REMOVE_POST_SUCCESS, CART_REMOVE_POST_FAIL, CART_LIST_REQUEST, CART_LIST_SUCCESS, CART_LIST_FAIL } from "../constants/cartConstants";
+import {CART_INCREASE, CART_DECREASE, CART_ADD_FAIL,CART_ADD_ITEM, CART_REMOVE_ITEM, CART_SAVE_PAYMENT, CART_SAVE_SHIPPING, CART_ADD_POST_FAIL, CART_ADD_POST_SUCCESS, CART_ADD_POST_REQUEST, CART_REMOVE_POST_REQUEST, CART_REMOVE_POST_SUCCESS, CART_REMOVE_POST_FAIL, CART_LIST_REQUEST, CART_LIST_SUCCESS, CART_LIST_FAIL, CART_INCREASE_REQUEST, CART_INCREASE_SUCCESS, CART_INCREASE_FAIL, CART_DECREASE_REQUEST, CART_DECREASE_SUCCESS, CART_DECREASE_FAIL } from "../constants/cartConstants";
+import { CART_EMPTY } from "../constants/orderContants";
 
 function cartReducer(state ={cartItems:[], shipping: {}, payment: {}}, action){
 
@@ -44,6 +45,8 @@ function cartReducer(state ={cartItems:[], shipping: {}, payment: {}}, action){
             return {...state, shipping:action.payload}
         case CART_SAVE_PAYMENT:
             return {...state, payment:action.payload}
+        case CART_EMPTY:
+            return {...state, cartItems:[]};
         case CART_ADD_FAIL:
             return { loading : false, error: action.payload}
         default:
@@ -135,9 +138,33 @@ function removeCartPostReducer(state={}, action){
         default : return state;
     }
 }
+function increaseCartReducer(state={}, action){
+    switch(action.type){
+        case CART_INCREASE_REQUEST:
+            return {loading : true};
+        case CART_INCREASE_SUCCESS:
+            return {loading : false, success : true};
+        case CART_INCREASE_FAIL:
+            return {loading : false, error : action.payload};
+        default : return state;
+    }
+}
+function decreaseCartReducer(state={}, action){
+    switch(action.type){
+        case CART_DECREASE_REQUEST:
+            return {loading : true};
+        case CART_DECREASE_SUCCESS:
+            return {loading : false, success : true};
+        case CART_DECREASE_FAIL:
+            return {loading : false, error : action.payload};
+        default : return state;
+    }
+}
 
 export {cartReducer
      ,cartPostReducer
      ,cartGetReducer
     , removeCartPostReducer
+    ,increaseCartReducer
+    ,decreaseCartReducer
 }

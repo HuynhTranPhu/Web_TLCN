@@ -33,6 +33,7 @@ import ForgotPasswordContainer from './components/MainPages/ForgotPassword/Forgo
 
 import TopBar from './components/Common/TopBar/TopBar';
 import NavBar from './components/Common/NavBar/index';
+import orderSuccess from './components/MainPages/OrderSuccess/OrderSuccess';
 
 function App() {
    
@@ -65,6 +66,7 @@ function App() {
                      <Route path="/shipping" exact component={ShippingScreen}></Route>
                      <Route path="/payment" exact component={PaymentScreen}></Route>
                      <Route path="/place-order" exact component={PlaceOrderScreen}></Route>
+                     <Route path="/order-success" exact component={orderSuccess}></Route>
                      <Route path="*" exact component={NotFound}></Route>
                   </Switch>   
             

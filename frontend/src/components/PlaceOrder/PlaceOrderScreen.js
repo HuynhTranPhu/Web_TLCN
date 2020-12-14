@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSelector} from 'react-redux'
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom';
 import CheckoutSteps from '../CheckOutStep/CheckoutSteps';
 import TopBar from '../Common/TopBar/TopBar';
@@ -7,16 +7,20 @@ import NavBar from '../Common/NavBar/index';
 import BottomBar from '../Common/BottomBar/index';
 import FooterPage from '../Common/Footer/Footer';
 import ScrollToTopBtn from '../Common/ScrollToTop/ScrollToTop';
+import { addOrder } from '../../actions/orderActions';
 function PlaceOrderScreen(props){
 
 
     const cart = useSelector(state => state.cart);
-
     const {cartItems, payment} = cart;
+    const addOrderPost = useSelector(state => state.orderPost);
+    const {loading, success,error} = addOrderPost;
     // const cart = useSelector(state => state.cartGet);
 
     // const {cartItems, payment} = cart;
     // console.log(cartItems);
+    const userLogin = useSelector(state => state.userLogin);
+    const { userInfo} = userLogin;
     if(!payment.paymentMethod){
         
         props.history.push("/payment"); 
@@ -31,10 +35,16 @@ function PlaceOrderScreen(props){
     const taxPrice =toPrice(0.15 * itemsPrice) ;
     const totalPrice = itemsPrice + shippingPrice + taxPrice;
 
-    
+    const dispatch = useDispatch();
     const placeOrderHandler = () =>{
         ///create order
+        dispatch(addOrder(userInfo.user.id,cart.shipping.city,cart.shipping.postalCode,cart.shipping.address,cart.shipping.numberPhone));
     }
+    useEffect(()=>{
+        if(success){
+            props.history.push("/order-success");
+        }
+    },[props.history,success]);
     return<div>
         <TopBar/>
         <NavBar/>
@@ -59,48 +69,6 @@ function PlaceOrderScreen(props){
                         Payment Method: {cart.payment.paymentMethod}
                     </div>
                 </div>
-                {/* <div> */}
-                    {/* <ul className = "cart-list-container">
-                        <li>
-                            <h3>
-                                Shopping Cart
-                            </h3>
-                            <div>
-                                Price
-                            </div>
-                        </li>
-                        {
-                            cartItems.length === 0 ?
-                            <div>
-                                Cart Empty
-                            </div>
-                            :
-                            cartItems.map(item =>
-                                <li key={item._id}>
-                                    <div className="cart-image">
-                                        <img src ={item.image} alt ="product"/>
-                                    </div>
-                                    
-                                    <div className="cart-name">
-                                        <div>
-                                            <Link to ={"/product/" +item.product}>
-                                            {item.name}
-                                            </Link>
-                                        
-                                        </div>
-                                        <div>
-                                            Qty:{item.qty}                                  
-                                        </div>
-                                    </div>
-                                    <div className="cart-price">
-                                        ${item.price}
-                                    </div>
-                                </li>
-                                
-                            )   
-                        }
-                    </ul> */}
-                {/* </div> */}
                     <div className="cart-page">
                         <div className="container-fluid">
                             <div className="row">
