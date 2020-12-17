@@ -989,3 +989,6 @@ h2 {
 
 /****************forgot password***********************/
 @import url("./components/forgot.password/forgot.password.css");
+
+/*Order css*/
+@import url("./components/MainPages/History/index.css");

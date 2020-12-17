@@ -58,7 +58,6 @@ function HomeScreen(props){
     // }
 
     const addToCartHandler = (id,name,price,image) =>{
-
         let a = {_id: id,
             name: name,
             price: price,
@@ -66,8 +65,12 @@ function HomeScreen(props){
             count: 1};
         let carts =[a];
         dispatch(addToCart(id,1));
-        //console.log(cartItems);
-        dispatch(addCart(userInfo.user.id,carts));
+        if(!userInfo){
+            props.history.push("/login");
+        }else{
+            dispatch(addCart(userInfo.user.id,carts));
+        }
+       
         // d=id;
         // if(d===id){
         //     alert("This product has been added to cart");

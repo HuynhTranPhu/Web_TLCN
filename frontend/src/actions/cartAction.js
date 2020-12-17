@@ -126,7 +126,7 @@ const removeCart = (id_user,id_product) => async (dispatch) =>{
     //console.log(id_user,id_product);
     try{
         //console.log({id_product,id_user});
-        const {data} = await axios.post("/cart/remove", {id_user,id_product});
+        const {data} = await axios.put("/cart/remove", {id_user,id_product});
         dispatch({type:CART_REMOVE_POST_SUCCESS,payload:data, success:true});
         
     }catch(error){

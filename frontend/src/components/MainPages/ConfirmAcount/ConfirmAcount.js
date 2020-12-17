@@ -20,10 +20,10 @@ class VerifyRegisterAccountContainer extends Component {
     }
     render() 
     {
-        const content="You have verified login successfully";
+       
         if(this.state.isconfirm) {
             return(
-                <VerifyRegisterAccount content={content}/>
+                <VerifyRegisterAccount/>
             )
         } else {
             return (

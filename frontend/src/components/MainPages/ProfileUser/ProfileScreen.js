@@ -95,7 +95,7 @@ export default function ProfileScreen(){
                     </form>
                 )
         }
-       <FooterPage/>
+       {/* <FooterPage/> */}
        <ScrollToTopBtn />
     </div>;  
 }

@@ -34,6 +34,8 @@ import ForgotPasswordContainer from './components/MainPages/ForgotPassword/Forgo
 import TopBar from './components/Common/TopBar/TopBar';
 import NavBar from './components/Common/NavBar/index';
 import orderSuccess from './components/MainPages/OrderSuccess/OrderSuccess';
+import History from './components/MainPages/History/index';
+import ViewHistory from './components/MainPages/ViewHistory';
 
 function App() {
    
@@ -67,6 +69,8 @@ function App() {
                      <Route path="/payment" exact component={PaymentScreen}></Route>
                      <Route path="/place-order" exact component={PlaceOrderScreen}></Route>
                      <Route path="/order-success" exact component={orderSuccess}></Route>
+                     <PrivateRoute path="/history" exact component={History}></PrivateRoute>
+                     <PrivateRoute path="/view-history" exact component={ViewHistory}></PrivateRoute>
                      <Route path="*" exact component={NotFound}></Route>
                   </Switch>   
             
