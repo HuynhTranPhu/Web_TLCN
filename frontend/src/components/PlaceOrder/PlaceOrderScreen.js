@@ -15,10 +15,7 @@ function PlaceOrderScreen(props){
     const {cartItems, payment} = cart;
     const addOrderPost = useSelector(state => state.orderPost);
     const {loading, success,error} = addOrderPost;
-    // const cart = useSelector(state => state.cartGet);
-
-    // const {cartItems, payment} = cart;
-    // console.log(cartItems);
+    
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo} = userLogin;
     if(!payment.paymentMethod){
@@ -37,7 +34,9 @@ function PlaceOrderScreen(props){
     const dispatch = useDispatch();
     const placeOrderHandler = () =>{
         ///create order
-        dispatch(addOrder(userInfo.user.id,cart.shipping.city,cart.shipping.postalCode,cart.shipping.address,cart.shipping.numberPhone));
+        dispatch(addOrder(userInfo.user.id,cart.shipping.city,
+            cart.shipping.postalCode,cart.shipping.address,
+            cart.shipping.numberPhone));
     }
     useEffect(()=>{
         if(success){
@@ -108,8 +107,7 @@ function PlaceOrderScreen(props){
                                                             <td>${item.price * item.count}</td>
                                                            
                                                         </tr>)
-                                                    }
-                                                    
+                                                    }    
                                                 </tbody>
                                             </table>
                                         </div>

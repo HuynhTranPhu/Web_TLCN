@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom';
-import { historyGet } from '../../../actions/orderActions';
 import TopBar from '../../Common/TopBar/TopBar';
 import NavBar from '../../Common/NavBar/index';
 import BottomBar from '../../Common/BottomBar/index';
@@ -11,19 +10,17 @@ import MessageBox from '../../Config/MessageBox';
 function ViewHistory(props){
 
 
-    const historyOrder = useSelector(state => state.historyOrder);
-    const {history, loading, error } = historyOrder;
-    const userLogin = useSelector(state => state.userLogin);
-    const { userInfo} = userLogin;
+    const viewHistoryOrder = useSelector(state => state.viewHistoryOrder);
+    const {viewHistory, loading, error } = viewHistoryOrder;
+
+   
     const dispatch = useDispatch();
     //const cartItems=[];
     useEffect(() => {
-        dispatch(historyGet(userInfo.user.id));
         return () => {
             //
         };
     }, [])
-    console.log(history);
     return<div>
         <TopBar/>
         <NavBar/>
@@ -41,10 +38,10 @@ function ViewHistory(props){
                             Shipping
                         </h3>
                         <div>
-                            {history.map(item=>item.address )},
-                            {history.map(item=>item.city)},
-                            {history.map(item=> item.posteCode )},
-                            {history.map(item=>item.phone)}
+                            {viewHistory.map(item=>item.address )},
+                            {viewHistory.map(item=>item.city)},
+                            {viewHistory.map(item=> item.posteCode )},
+                            {viewHistory.map(item=>item.phone)}
                         </div>
                     </div>
                     <div>
@@ -52,7 +49,7 @@ function ViewHistory(props){
                             Payment
                         </h3>
                         <div>
-                            Payment Method: {history.paymentMethod}
+                            Payment Method: {viewHistory.paymentMethod}
                         </div>
                     </div>
                         <div className="cart-page">
@@ -73,8 +70,9 @@ function ViewHistory(props){
                                                     </thead>
                                                     <tbody className="align-middle">
                                                         {
-                                                            history.map(item=>
+                                                            viewHistory.map(item=>
                                                                 <>
+                                                                    
                                                                      {item.cart.map(i=>  
                                                                         <tr key={i._id}>
 
@@ -123,7 +121,7 @@ function ViewHistory(props){
                                     SubTotal
                                 </div>
                                 <div>
-                                    ${history.map(item=>item.order_subtotal.toFixed(2) )}
+                                    ${viewHistory.map(item=>item.order_subtotal.toFixed(2) )}
                                 </div>
                             
                             
@@ -134,7 +132,7 @@ function ViewHistory(props){
                                     Shipping
                                 </div>
                                 <div>
-                                    ${history.map(item=>item.order_subtotal.toFixed(2) )}
+                                    ${viewHistory.map(item=>item.order_subtotal.toFixed(2) )}
                                 </div>
                             
                             
@@ -145,7 +143,7 @@ function ViewHistory(props){
                                 Order Total
                             </div>
                             <div>
-                                ${history.map(item=>item.order_subtotal.toFixed(2) )}
+                                ${viewHistory.map(item=>item.order_subtotal.toFixed(2) )}
                             </div>
                         </li>
                     </ul>   

@@ -28,9 +28,11 @@ function CartScreen(props){
     //let grandTotal=0;
     const dispatch = useDispatch();
     const removeFromCartHandler = (id) =>{
-        dispatch(removeFromCart(id));
-        dispatch(removeCart(userInfo.user.id,id));
-       // console.log(userInfo.user.id,productId);
+        if(window.confirm('Do you want to delete this item?')){
+            dispatch(removeFromCart(id));
+            dispatch(removeCart(userInfo.user.id,id));
+        }
+        
     }
     const decreaseHandler = (productId) =>{
         dispatch(decrease(productId));
@@ -58,79 +60,6 @@ function CartScreen(props){
         //console.log(cartItems,grandTotal);
         props.history.push("/login?redirect=shipping");
     }
-
-    // return <div className="cart1">
-    //         <div className="cart1-list">
-    //             <ul className = "cart1-list-container">
-    //                 <li>
-    //                     <h3>
-    //                         Shopping Cart
-    //                     </h3>
-    //                     <div>
-    //                         Price
-    //                     </div>
-    //                 </li>
-    //                 {
-    //                     cartItems.length === 0 ?(
-    //                         <MessageBox>
-    //                             Cart Empty. <Link to="/">Go to Shopping</Link>
-    //                         </MessageBox>
-    //                     )
-    //                     :
-    //                     cartItems.map(item =>
-    //                         <li key={item.product}>
-    //                             <div className="cart1-image">
-    //                                 <img src ={item.image} alt ="product"/>
-    //                             </div>
-                                
-    //                             <div className="cart1-name">
-    //                                 <div>
-    //                                     <Link to ={"/product/" +item.product}>
-    //                                     {item.name}
-    //                                     </Link>
-                                    
-    //                                 </div>
-    //                                 <div>
-    //                                     Qty
-    //                                     <select value={item.qty}onChange={(e)=> dispatch(addToCart(item.product,Number(e.target.value))) }>           
-    //                                         {[...Array(item.countInStock).keys()].map(x =>
-    //                                             <option key={x+1} value={x+1}>{x+1}</option>
-    //                                         )}
-    //                                     </select>
-                                        
-    //                                     <button type = "button" className="btnDelete" onClick ={() =>removeFromCartHandler(item.product)}>
-    //                                         Delete
-    //                                     </button>
-    //                                 </div>
-    //                             </div>
-    //                             <div className="cart1-price">
-    //                                 ${item.price}
-    //                             </div>
-    //                         </li> 
-    //                     )     
-    //                 }
-    //                 {
-    //                     cartItems.length > 0 &&(
-    //                         <MessageBox>
-    //                            <Link to="/">Continue to Shopping</Link>
-    //                         </MessageBox>
-    //                     )
-    //                 }         
-    //             </ul>
-
-    //         </div>
-    //         <div className="cart1-action">
-    //                 <h3>
-    //                     Subtotal ({cartItems.reduce((a,c) => a + c.qty,0)} items):$ 
-    //                      {cartItems.reduce((a,c) => a+c.price * c.qty,0)}
-    //                 </h3>
-    //                 <button onClick={checkoutHandler} className="button primary full-width" disabled={cartItems.length ===0}>
-    //                     Proceed to Checkout
-
-    //                 </button>
-                    
-    //         </div>
-    // </div>
     return  (
         <div>
             <TopBar/>

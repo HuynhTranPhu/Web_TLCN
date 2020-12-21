@@ -64,12 +64,14 @@ function HomeScreen(props){
             img: image,
             count: 1};
         let carts =[a];
-        dispatch(addToCart(id,1));
+        
         if(!userInfo){
             props.history.push("/login");
         }else{
+            dispatch(addToCart(id,1));
             dispatch(addCart(userInfo.user.id,carts));
         }
+            
        
         // d=id;
         // if(d===id){
