@@ -24,6 +24,9 @@ import {
     VERIFY_OTP_SUCCESS,
     VERIFY_OTP_FAIL,
     FORGOT_PASSWORD_SUCCESS,
+    USER_SIGNIN_FB_REQUEST,
+    USER_SIGNIN_FB_SUCCESS,
+    USER_SIGNIN_FB_FAIL,
     FORGOT_PASSWORD_FAIL} 
 from  '../constants/userConstant';
 import {CART_ADD_POST_REQUEST,
@@ -43,6 +46,20 @@ const login = (email,password) => async (dispatch) =>{
         ? error.response.data.message
         : error.message;
         dispatch({type:USER_SIGNIN_FAIL,payload:message});
+    }
+}
+const loginFaceBook = () => async (dispatch) =>{
+    dispatch({type: USER_SIGNIN_FB_REQUEST});
+    try{
+        const {data} = await axios.get("/auth/facebook");
+        dispatch({type:USER_SIGNIN_FB_SUCCESS,payload:data});
+        Cookie.set('userInfo', JSON.stringify(data));
+    }catch(error){
+        const message=
+        error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+        dispatch({type:USER_SIGNIN_FB_FAIL,payload:message});
     }
 }
 const logout = () =>(dispatch) =>{
@@ -133,26 +150,26 @@ const updateUserPassword =(oldpassword, newpassword, id) =>async (dispatch,getSt
     }
 }
 ///////////////User add to cart/////////////////////////////
-const addCart =(product,cart) => async (dispatch,getState)=>{
-    const { userLogin :{userInfo}}= getState();
-    if(!userInfo) return alert("Please login to continue buying");
-    try{    
-        const {data} = await axios.post("/user/addcart", {product, cart}
-        ,{
-            headers: {Authorization:`${userInfo.token}`},
-        }
-        );
-        dispatch({type: CART_ADD_POST_SUCCESS, payload:data});
-        console.log(data);
+// const addCart =(product,cart) => async (dispatch,getState)=>{
+//     const { userLogin :{userInfo}}= getState();
+//     if(!userInfo) return alert("Please login to continue buying");
+//     try{    
+//         const {data} = await axios.post("/user/addcart", {product, cart}
+//         ,{
+//             headers: {Authorization:`${userInfo.token}`},
+//         }
+//         );
+//         dispatch({type: CART_ADD_POST_SUCCESS, payload:data});
+//         console.log(data);
 
-    }catch(error){
-        const message=
-        error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-        dispatch({type:CART_ADD_POST_FAIL, payload: message});
-    }
-}
+//     }catch(error){
+//         const message=
+//         error.response && error.response.data.message
+//         ? error.response.data.message
+//         : error.message;
+//         dispatch({type:CART_ADD_POST_FAIL, payload: message});
+//     }
+// }
 
 
 
@@ -230,4 +247,6 @@ export const forgotPasswordFail = () => ({
 })
 
 
-export {login, register, logout, detailsUser, updateUserProfile, updateUserPassword, addCart};
+export {login, register, logout, detailsUser, updateUserProfile, updateUserPassword, 
+    loginFaceBook
+};

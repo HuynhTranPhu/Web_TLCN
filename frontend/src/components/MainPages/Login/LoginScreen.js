@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../../actions/userAction';
+import { login, loginFaceBook } from '../../../actions/userAction';
 import LoadingBox from '../../Config/LoadingBox';
 import MessageBox from '../../Config/MessageBox';
 
@@ -29,6 +29,9 @@ function LoginScreen(props){
     const submitHandler =(e)=>{
         e.preventDefault();
         dispatch(login(email,password));
+    }
+    const loginFaceBookHandel =()=>{
+        dispatch(loginFaceBook());
     }
     return <div className="formContain">
             <form onSubmit={submitHandler}>
@@ -63,6 +66,14 @@ function LoginScreen(props){
                             <Link to={redirect === "/" ? "register": "register? redirect=" + redirect} className="borders" >
                                 Sign Up
                             </Link>
+                        </p>
+                        
+                    </li>
+                    <li className="facebook">
+                        <p>
+                            Login with 
+                           <Link > <img className="img-fa" src="/images/fb.png" onClick={()=>loginFaceBookHandel()} alt=""/></Link> 
+                            <Link ><img className="img-gg" src="/images/google.jpg" alt=""/></Link>
                         </p>
                         
                     </li>
