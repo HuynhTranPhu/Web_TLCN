@@ -992,3 +992,6 @@ h2 {
 
 /*Order css*/
 @import url("./components/MainPages/History/index.css");
+
+/***Order Status*****/
+@import url("./components//OrderStatus/index.css");

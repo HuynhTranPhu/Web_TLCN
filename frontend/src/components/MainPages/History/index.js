@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { historyGet,removeOrder,viewHistoryGet } from '../../../actions/orderActions';
 import LoadingBox from '../../Config/LoadingBox';
 import MessageBox from '../../Config/MessageBox';
+import FooterPage from '../../Common/Footer/Footer';
+import ScrollToTopBtn from '../../Common/ScrollToTop/ScrollToTop';
 
 const History = () => {
     const historyOrder = useSelector(state => state.historyOrder);
@@ -17,13 +19,9 @@ const History = () => {
     //const cartItems=[];
     const HandelViewDetails = (id_order)=>{
         dispatch(viewHistoryGet(id_order));
+
     }
-    const removeOrderHandler = (id_order)=>{
-        if(window.confirm('Do you want to delete this item?')){
-            dispatch(removeOrder(id_order));
-        }
-       
-    }
+    
     useEffect(() => {
         dispatch(historyGet(userInfo.user.id));
         return () => {
@@ -65,8 +63,8 @@ const History = () => {
                                                         <th>Date</th>
                                                         <th>Details</th>
                                                         <th>Total</th>
-                                                        <th>Status</th>
-                                                        <th>Remove</th>
+                                                        <th>Payment Status</th>
+                                                        {/* <th>Remove</th> */}
                                                     
                                                     </tr>   
                                                 }
@@ -97,12 +95,12 @@ const History = () => {
                                                     </td> */}
                                                     <td><Link to="/view-history" onClick={()=>HandelViewDetails(item._id)}>View Details</Link></td>
                                                     <td>${item.order_subtotal}</td>
-                                                    <td>{item.order_status.toString()}</td>
-                                                    <td>
-                                                        <button disabled={item.order_status.toString() ==="delivering"} onClick ={() =>removeOrderHandler(item._id)}>
+                                                    <td>{item.paymentStatus}</td>
+                                                    {/* <td>
+                                                        <button  onClick ={() =>removeOrderHandler(item._id)}>
                                                                 <i className="fa fa-trash" />
                                                         </button>
-                                                    </td>
+                                                    </td> */}
                                                     
                                                 
                                                 </tr>)
@@ -115,11 +113,13 @@ const History = () => {
                         </div>
                     </div>
                 </div>
+                <FooterPage/>
+                <ScrollToTopBtn />
             </div>
 
             )
             }
-           
+            
         </div>
        
     );

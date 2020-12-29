@@ -1,4 +1,4 @@
-import { ADD_ORDER_FAIL, ADD_ORDER_REQUEST, ADD_ORDER_SUCCESS, HISTORY_FAIL, HISTORY_REQUEST, HISTORY_SUCCESS, REMOVE_ORDER_FAIL, REMOVE_ORDER_REQUEST, REMOVE_ORDER_SUCCESS, VIEW_HISTORY_FAIL, VIEW_HISTORY_REQUEST, VIEW_HISTORY_SUCCESS } from "../constants/orderContants";
+import {ORDER_RESET, ADD_ORDER_FAIL, ADD_ORDER_REQUEST, ADD_ORDER_SUCCESS, HISTORY_FAIL, HISTORY_REQUEST, HISTORY_SUCCESS, REMOVE_ORDER_FAIL, REMOVE_ORDER_REQUEST, REMOVE_ORDER_SUCCESS, VIEW_HISTORY_FAIL, VIEW_HISTORY_REQUEST, VIEW_HISTORY_SUCCESS } from "../constants/orderContants";
 
 function orderPostReducer(state={}, action){
     switch(action.type){
@@ -8,6 +8,8 @@ function orderPostReducer(state={}, action){
             return {loading : false, success:true};
         case ADD_ORDER_FAIL:
             return {loading : false, error : action.payload};
+        case ORDER_RESET:
+            return{};
         default : return state;
     }
 }

@@ -8,6 +8,7 @@ import BottomBar from '../Common/BottomBar/index';
 import FooterPage from '../Common/Footer/Footer';
 import ScrollToTopBtn from '../Common/ScrollToTop/ScrollToTop';
 import { addOrder } from '../../actions/orderActions';
+import { ORDER_RESET } from '../../constants/orderContants';
 function PlaceOrderScreen(props){
 
 
@@ -20,7 +21,7 @@ function PlaceOrderScreen(props){
     const { userInfo} = userLogin;
     if(!payment.paymentMethod){
         
-        props.history.push("/payment"); 
+        props.history.push('/payment'); 
     }
     
 
@@ -30,19 +31,23 @@ function PlaceOrderScreen(props){
     ); 
     const shippingPrice = itemsPrice > 100||itemsPrice===0 ? toPrice(0) : toPrice(10);
     const totalPrice = itemsPrice + shippingPrice ;
-
+    const paymentStatus= "pending";
     const dispatch = useDispatch();
     const placeOrderHandler = () =>{
         ///create order
         dispatch(addOrder(userInfo.user.id,cart.shipping.city,
             cart.shipping.postalCode,cart.shipping.address,
-            cart.shipping.numberPhone));
+            cart.shipping.numberPhone,cart.payment.paymentMethod, shippingPrice.toFixed(2)));
     }
+    // console.log(userInfo.user.id,cart.shipping.city,
+    //     cart.shipping.postalCode,cart.shipping.address,
+    //     cart.shipping.numberPhone,cart.payment.paymentMethod, shippingPrice.toFixed(2));
     useEffect(()=>{
         if(success){
-            props.history.push("/order-success");
+            props.history.push('/order-success');
+            dispatch({type:ORDER_RESET});
         }
-    },[props.history,success]);
+    },[dispatch,props.history,success]);
     return<div>
         <TopBar/>
         <NavBar/>
@@ -158,9 +163,10 @@ function PlaceOrderScreen(props){
                     </li>
                 </ul>   
             </div>
-                
-           
+   
         </div>
+
+        
         <FooterPage/>
         <ScrollToTopBtn />
         

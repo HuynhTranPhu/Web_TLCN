@@ -13,13 +13,14 @@ import {REMOVE_ORDER_REQUEST,
           VIEW_HISTORY_SUCCESS, 
           VIEW_HISTORY_REQUEST } from "../constants/orderContants";
 
-const addOrder = (id_user,city,posteCode,address,phone) => async (dispatch) =>{
-    dispatch({type: ADD_ORDER_REQUEST, payload:{id_user,city,posteCode,address,phone}});
+const addOrder = (id_user,city,posteCode,address,phone,payment,shiping) => async (dispatch) =>{
+    console.log({id_user,city,posteCode,address,phone,payment,shiping});
+    dispatch({type: ADD_ORDER_REQUEST, payload:{id_user,city,posteCode,address,phone,payment,shiping}});
     try{
-        const {data} = await Axios.post("/order/addorder", {id_user,city,posteCode,address,phone});
+        const {data} = await Axios.post("/order/addorder", {id_user,city,posteCode,address,phone,payment,shiping});
         dispatch({type:ADD_ORDER_SUCCESS,payload:data});
         dispatch({type: CART_EMPTY});
-        //console.log(cartItems);
+         
         
     }catch(error){
         const message=

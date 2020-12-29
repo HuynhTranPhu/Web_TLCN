@@ -5,7 +5,7 @@ const orderSuccess = () => (
 		<div className="content-404">
             <img src="/img/confirm.png" className="img-responsive" alt="" />
 			<h1><b>Congratulations!!!
-			</b> Your order had been place order, Please Check mail to verify order</h1>
+			</b> Your order had been place order, this your order will delivering soon!!!</h1>
 			<h2><Link to="/">Bring me back Home</Link></h2>
 		</div>
 	</div>

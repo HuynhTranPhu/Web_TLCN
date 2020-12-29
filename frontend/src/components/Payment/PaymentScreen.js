@@ -24,7 +24,7 @@ function PaymentScreen(props){
     const submitHandler =(e)=>{
         e.preventDefault();
         dispatch(savePayment({paymentMethod}));
-        props.history.push('place-order');
+        props.history.push('/place-order');
     }
     return <div>
             <TopBar/>

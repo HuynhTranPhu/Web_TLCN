@@ -1,20 +1,30 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector} from 'react-redux'
+import {  useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom';
 import TopBar from '../../Common/TopBar/TopBar';
 import NavBar from '../../Common/NavBar/index';
 import BottomBar from '../../Common/BottomBar/index';
 import LoadingBox from '../../Config/LoadingBox';
 import MessageBox from '../../Config/MessageBox';
+import { removeOrder } from '../../../actions/orderActions';
+import FooterPage from '../../Common/Footer/Footer';
+import ScrollToTopBtn from '../../Common/ScrollToTop/ScrollToTop';
+import OrderStatus from '../../OrderStatus/index';
 
 function ViewHistory(props){
 
 
     const viewHistoryOrder = useSelector(state => state.viewHistoryOrder);
     const {viewHistory, loading, error } = viewHistoryOrder;
-
-   
     const dispatch = useDispatch();
+    const removeOrderHandler = (id_order)=>{
+        if(window.confirm('Do you want to delete this item?')){
+            dispatch(removeOrder(id_order));
+            //props.history.push('/history');
+        }
+       
+    }
+    //const dispatch = useDispatch();
     //const cartItems=[];
     useEffect(() => {
         return () => {
@@ -31,6 +41,9 @@ function ViewHistory(props){
             error? (
                 <MessageBox variant="danger">{error}</MessageBox>
             ):(
+               
+                <div>
+                 <OrderStatus/>
                 <div className="placeorder">
                 <div className="placeorder-info">
                     <div>
@@ -49,7 +62,8 @@ function ViewHistory(props){
                             Payment
                         </h3>
                         <div>
-                            Payment Method: {viewHistory.paymentMethod}
+                            Payment Method: {viewHistory.map(item=>item.payment)},
+                            Payment Status: {viewHistory.map(item=>item.paymentStatus)}
                         </div>
                     </div>
                         <div className="cart-page">
@@ -132,7 +146,7 @@ function ViewHistory(props){
                                     Shipping
                                 </div>
                                 <div>
-                                    ${viewHistory.map(item=>item.order_subtotal.toFixed(2) )}
+                                    ${viewHistory.map(item=>item.shiping.toFixed(2) )}
                                 </div>
                             
                             
@@ -146,16 +160,23 @@ function ViewHistory(props){
                                 ${viewHistory.map(item=>item.order_subtotal.toFixed(2) )}
                             </div>
                         </li>
-                    </ul>   
-                </div>
+                        <li>
+                            <button className="checkout-btn"  onClick ={() =>removeOrderHandler(viewHistory.map(item=>item._id ))}>Delete orders</button>
+                        </li>
+                    </ul>
                     
+                </div>
+                </div>
                
+                <FooterPage/>
+                <ScrollToTopBtn /> 
+                
             </div>
+            
             )
         }
+                
        
-        {/* <FooterPage/>
-        <ScrollToTopBtn /> */}
         
     </div>
     
