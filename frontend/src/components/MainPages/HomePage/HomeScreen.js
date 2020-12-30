@@ -314,10 +314,7 @@ function HomeScreen(props){
                                             {
                                                 product.count>0 && 
                                                 <a className="btn" 
-                                                // onClick={()=>{ props.history.push(`/cart/${product._id}`)}}
-                                                    onClick={()=>addToCartHandler( product._id,product.name,product.price ,product.img)}
-                                                //onClick={addtocartcount}
-                                                >
+                                                    onClick={()=>addToCartHandler( product._id,product.name,product.price ,product.img)} >
                                                     <i className="fa fa-shopping-cart"></i>Add To Cart</a>
                                             }
                                         </div>

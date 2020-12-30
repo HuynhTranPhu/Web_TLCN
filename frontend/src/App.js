@@ -24,15 +24,15 @@ import ProfileScreen from './components/MainPages/ProfileUser/ProfileScreen';
 import ProductScreen from './components/MainPages/Products/ProductScreen';
 import ProductDetailScreen from './components/MainPages/ProductDetails/ProductDetails';
 import ContactScreen from './components/Contact/Contact';
-import FooterPage from './components/Common/Footer/Footer';
-import NotFound from './components/404/404';
+// import FooterPage from './components/Common/Footer/Footer';
+// import NotFound from './components/404/404';
 import VerifyRegisterAccountContainer from './components/MainPages/ConfirmAcount/ConfirmAcount';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import UpdatePasswordScreen from './components/MainPages/UpdatePassword/UpdatePassword';
 import ForgotPasswordContainer from './components/MainPages/ForgotPassword/ForgotPasswordContainer';
 
-import TopBar from './components/Common/TopBar/TopBar';
-import NavBar from './components/Common/NavBar/index';
+// import TopBar from './components/Common/TopBar/TopBar';
+// import NavBar from './components/Common/NavBar/index';
 import orderSuccess from './components/MainPages/OrderSuccess/OrderSuccess';
 import History from './components/MainPages/History/index';
 import ViewHistory from './components/MainPages/ViewHistory';
@@ -71,7 +71,7 @@ function App() {
                      <Route path="/order-success" exact component={orderSuccess}></Route>
                      <PrivateRoute path="/history" exact component={History}></PrivateRoute>
                      <PrivateRoute path="/view-history" exact component={ViewHistory}></PrivateRoute>
-                     <Route path="*" exact component={NotFound}></Route>
+                     {/* <Route path="*" exact component={NotFound}></Route> */}
                   </Switch>   
             
               

@@ -11,12 +11,16 @@ import NavBar from '../../Common/NavBar/index';
 import BottomBar from '../../Common/BottomBar/index';
 import FooterPage from '../../Common/Footer/Footer';
 import ScrollToTopBtn from '../../Common/ScrollToTop/ScrollToTop';
+import { addCart } from '../../../actions/cartAction';
 
 
 
 function ProductScreen(props){
     const productList = useSelector(state => state.productList);
     const {products,loading , error} = productList;
+
+    const userLogin = useSelector(state => state.userLogin);
+    const { userInfo} = userLogin;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -35,9 +39,23 @@ function ProductScreen(props){
     //         //
     //     };
     // }, [])
-    // const handleAddToCart = () =>{
-    //     props.history.push("/cart/" +props.match.params.id +"?qty=" + qty)
-    // }
+    const handleAddToCart = (id,name,price, image) =>{
+        let a = {_id: id,
+            name: name,
+            price: price,
+            img: image,
+            count: 1};
+        let carts =[a];
+        
+        if(!userInfo){
+            props.history.push("/login");
+        }else{
+            props.history.push(`/cart/${id}`);
+            dispatch(addCart(userInfo.user.id,carts));
+            
+        }
+       
+    }
 
     return <div>
          <TopBar/>
@@ -124,7 +142,7 @@ function ProductScreen(props){
                                             <h3><span>$</span>{product.price}</h3>
                                             {
                                                 product.count>0 && 
-                                                <a className="btn" onClick={()=>{ props.history.push(`/cart/${product._id}`)}}>
+                                                <a className="btn" onClick={()=>handleAddToCart(product._id,product.name,product.price,product.img)}>
                                                     <i className="fa fa-shopping-cart"></i>Buy Now</a>
                                             }
                                             </div>

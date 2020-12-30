@@ -27,7 +27,9 @@ import {
     USER_SIGNIN_FB_REQUEST,
     USER_SIGNIN_FB_SUCCESS,
     USER_SIGNIN_FB_FAIL,
-    FORGOT_PASSWORD_FAIL} 
+    FORGOT_PASSWORD_FAIL,
+    USER_SIGNIN_GG_SUCCESS,
+    USER_SIGNIN_GG_FAIL} 
 from  '../constants/userConstant';
 import {CART_ADD_POST_REQUEST,
         CART_ADD_POST_SUCCESS,
@@ -53,6 +55,7 @@ const loginFaceBook = () => async (dispatch) =>{
     try{
         const {data} = await axios.get("/auth/facebook");
         dispatch({type:USER_SIGNIN_FB_SUCCESS,payload:data});
+        console.log(data);
         Cookie.set('userInfo', JSON.stringify(data));
     }catch(error){
         const message=
@@ -60,6 +63,19 @@ const loginFaceBook = () => async (dispatch) =>{
         ? error.response.data.message
         : error.message;
         dispatch({type:USER_SIGNIN_FB_FAIL,payload:message});
+    }
+}
+const loginGoogle = () => async (dispatch) =>{
+    try{
+        const {data} = await axios.get("/auth/google");
+        dispatch({type:USER_SIGNIN_GG_SUCCESS,payload:data});
+        Cookie.set('userInfo', JSON.stringify(data));
+    }catch(error){
+        const message=
+        error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+        dispatch({type:USER_SIGNIN_GG_FAIL,payload:message});
     }
 }
 const logout = () =>(dispatch) =>{
@@ -248,5 +264,6 @@ export const forgotPasswordFail = () => ({
 
 
 export {login, register, logout, detailsUser, updateUserProfile, updateUserPassword, 
-    loginFaceBook
+    loginFaceBook,
+    loginGoogle
 };

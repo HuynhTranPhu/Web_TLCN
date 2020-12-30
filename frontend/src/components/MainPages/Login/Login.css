@@ -27,7 +27,7 @@ user-select: none;
     align-items: center;
 }
 .facebook .img-fa{
-    margin-left: .5rem;
+    /* margin-left: .5rem; */
     width: 1.9rem;
     height: 1.9rem;
     
