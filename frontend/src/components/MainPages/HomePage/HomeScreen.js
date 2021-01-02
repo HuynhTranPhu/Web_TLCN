@@ -69,7 +69,7 @@ function HomeScreen(props){
             props.history.push("/login");
         }else{
             dispatch(addToCart(id,1));
-            dispatch(addCart(userInfo.user.id,carts));
+            dispatch(addCart(userInfo.newUser.id,carts));
         }
             
        

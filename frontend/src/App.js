@@ -1,14 +1,12 @@
 import React from 'react';
 import {
   BrowserRouter ,
-  Link,
-  NavLink,
   Route,
   Switch
 } from "react-router-dom";
 
 
- import ScrollToTopBtn from "./components/Common/ScrollToTop/ScrollToTop";
+ //import ScrollToTopBtn from "./components/Common/ScrollToTop/ScrollToTop";
 // import Navbar from "./components/Navbar";
  import HomeScreen from './components/MainPages/HomePage/HomeScreen';
 // import ProductScreen from './components/screens/ProductScreen';
@@ -25,7 +23,7 @@ import ProductScreen from './components/MainPages/Products/ProductScreen';
 import ProductDetailScreen from './components/MainPages/ProductDetails/ProductDetails';
 import ContactScreen from './components/Contact/Contact';
 // import FooterPage from './components/Common/Footer/Footer';
-// import NotFound from './components/404/404';
+ import NotFound from './components/404/404';
 import VerifyRegisterAccountContainer from './components/MainPages/ConfirmAcount/ConfirmAcount';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import UpdatePasswordScreen from './components/MainPages/UpdatePassword/UpdatePassword';
@@ -71,7 +69,7 @@ function App() {
                      <Route path="/order-success" exact component={orderSuccess}></Route>
                      <PrivateRoute path="/history" exact component={History}></PrivateRoute>
                      <PrivateRoute path="/view-history" exact component={ViewHistory}></PrivateRoute>
-                     {/* <Route path="*" exact component={NotFound}></Route> */}
+                     <Route path="*" exact component={NotFound}></Route>
                   </Switch>   
             
               

@@ -30,18 +30,18 @@ function CartScreen(props){
     const removeFromCartHandler = (id) =>{
         if(window.confirm('Do you want to delete this item?')){
             dispatch(removeFromCart(id));
-            dispatch(removeCart(userInfo.user.id,id));
+            dispatch(removeCart(userInfo.newUser.id,id));
         }
         
     }
     const decreaseHandler = (productId) =>{
         dispatch(decrease(productId));
-        dispatch(decreaseCart(userInfo.user.id,productId));
+        dispatch(decreaseCart(userInfo.newUser.id,productId));
     }
     const increaseHandler = (productId) =>{
         dispatch(increase(productId));
         console.log(productId)
-        dispatch(increaseCart(userInfo.user.id,productId));
+        dispatch(increaseCart(userInfo.newUser.id,productId));
     }
     useEffect(() => { 
         // dispatch(getCart(userInfo.user.id));

@@ -4,7 +4,9 @@ PRODUCT_LIST_SUCCESS,
 PRODUCT_LIST_FAIL, 
 PRODUCT_DETAILS_REQUEST, 
 PRODUCT_DETAILS_SUCCESS,
-PRODUCT_DETAILS_FAIL, 
+PRODUCT_DETAILS_FAIL,
+FILTER_PRODUCTS_BY_SIZE,
+ORDER_PRODUCTS_BY_PRICE, 
 } 
 from  '../constants/productConstants';
 //import apiUrl from '../components/Config/apiUrl/apiUrl';
@@ -26,29 +28,6 @@ const listProducts = () => async (dispatch) =>{
 
 }
 
-// const saveProduct = (product) => async(dispatch, getState) =>{
-//     try{
-//         dispatch({type:PRODUCT_SAVE_REQUEST, payload:product});
-//         const {userSignin :{userInfo}} = getState();
-//         if(!product._id){
-//             const {data} = await axios.post('/api/products', product,
-//             {headers:{
-//                 'Authorization': 'Phu ' + userInfo.token
-//             }});
-//             dispatch({type:PRODUCT_SAVE_SUCCESS, payload: data})
-//         }else{
-//             const {data} = await axios.put('/api/products/' +product._id, product,
-//             {headers:{
-//                 'Authorization': 'Phu ' + userInfo.token
-//             }});
-//             dispatch({type:PRODUCT_SAVE_SUCCESS, payload: data})
-//         }
-       
-        
-//     }catch(error){
-//         dispatch({ type: PRODUCT_SAVE_FAIL, payload: error.message});
-//     }
-// }
 
 
 
@@ -62,19 +41,47 @@ const detailsProduct = (productId) => async (dispatch) =>{
         dispatch({type: PRODUCT_DETAILS_FAIL, payload: error.message})
     }
 }
-// const deleteProduct = (productId) => async (dispatch, getState) =>{
-//     try{
-//         dispatch({type: PRODUCT_DELETE_REQUEST, payload: productId});
-//         const {userSignin :{userInfo}} = getState();
-//         const {data} = await axios.delete("/api/products/" + productId,{
-//             headers:{
-//                 Authorization: 'Phu' + userInfo.token
-//             }
-//         });
-//         dispatch({type: PRODUCT_DELETE_SUCCESS, payload:data, success:true });
-//     }
-//     catch(error){
-//         dispatch({type: PRODUCT_DELETE_FAIL, payload: error.message})
-//     }
+// const filterProducts  = (products,category) =>  (dispatch) =>{
+    
+//         dispatch({
+//             type: FILTER_PRODUCTS_BY_SIZE, 
+//             payload: {
+//                 category: category,
+//                 products:
+//                 category === ""
+//                     ? products
+//                     : products.filter(
+//                         (x) => x.category.indexOf(category.toUpperCase()) >= 0
+//                       )
+//               }
+//         });   
 // }
-export {listProducts, detailsProduct};
+const sortProducts = (items, sort) => (dispatch) => {
+    const products = items.slice();
+    if (sort !== "") {
+      products.sort((a, b) =>
+        sort === "lowestprice"
+          ? a.price > b.price
+            ? 1
+            : -1
+          : a.price < b.price
+          ? 1
+          : -1
+      );
+    } else {
+      products.sort((a, b) => (a.id > b.id ? 1 : -1));
+    }
+    dispatch({
+      type: ORDER_PRODUCTS_BY_PRICE,
+      payload: {
+        sort: sort,
+        items: products,
+      },
+    });
+  };
+
+
+export {listProducts, detailsProduct,
+    //filterProducts,
+    sortProducts
+};

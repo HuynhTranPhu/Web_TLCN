@@ -29,7 +29,8 @@ import {
     USER_SIGNIN_FB_FAIL,
     FORGOT_PASSWORD_FAIL,
     USER_SIGNIN_GG_SUCCESS,
-    USER_SIGNIN_GG_FAIL} 
+    USER_SIGNIN_GG_FAIL,
+    USER_SIGNIN_GG_REQUEST} 
 from  '../constants/userConstant';
 import {CART_ADD_POST_REQUEST,
         CART_ADD_POST_SUCCESS,
@@ -50,13 +51,20 @@ const login = (email,password) => async (dispatch) =>{
         dispatch({type:USER_SIGNIN_FAIL,payload:message});
     }
 }
-const loginFaceBook = () => async (dispatch) =>{
+const loginFaceBook = (userID, accessToken) =>(dispatch) =>{
     dispatch({type: USER_SIGNIN_FB_REQUEST});
     try{
-        const {data} = await axios.get("/auth/facebook");
-        dispatch({type:USER_SIGNIN_FB_SUCCESS,payload:data});
-        console.log(data);
-        Cookie.set('userInfo', JSON.stringify(data));
+        axios.post("/facebooklogin",{
+            userID,
+            accessToken
+          })
+          .then(res => {
+            console.log(res.data);
+            dispatch({type:USER_SIGNIN_FB_SUCCESS,payload:res.data});
+            Cookie.set('userInfo', JSON.stringify(res.data));
+           //informParent();
+          })
+       
     }catch(error){
         const message=
         error.response && error.response.data.message
@@ -65,11 +73,18 @@ const loginFaceBook = () => async (dispatch) =>{
         dispatch({type:USER_SIGNIN_FB_FAIL,payload:message});
     }
 }
-const loginGoogle = () => async (dispatch) =>{
+const loginGoogle = (tokenId) => async (dispatch) =>{
+    dispatch({type: USER_SIGNIN_GG_REQUEST});
     try{
-        const {data} = await axios.get("/auth/google");
-        dispatch({type:USER_SIGNIN_GG_SUCCESS,payload:data});
-        Cookie.set('userInfo', JSON.stringify(data));
+        axios.post("/googlelogin", {
+          idToken: tokenId
+        })
+        .then(res => {
+          console.log(res.data);
+          //informParent();
+          dispatch({type:USER_SIGNIN_GG_SUCCESS,payload:res.data});
+          Cookie.set('userInfo', JSON.stringify(res.data));
+        })
     }catch(error){
         const message=
         error.response && error.response.data.message

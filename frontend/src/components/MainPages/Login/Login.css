@@ -24,15 +24,20 @@ user-select: none;
 }
 
 .facebook{
+   
     align-items: center;
+    display: flex;
+    flex-direction: row;
 }
 .facebook .img-fa{
-    /* margin-left: .5rem; */
+    cursor: pointer;
+    margin-left: .5rem;
     width: 1.9rem;
     height: 1.9rem;
     
 }
 .facebook .img-gg{
+    cursor: pointer;
     width: 3rem;
     height: 3rem;
 

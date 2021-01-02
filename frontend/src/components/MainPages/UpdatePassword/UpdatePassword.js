@@ -44,7 +44,7 @@ export default function UpdatePasswordScreen(){
         else if(newpassword !== confirmPassword){
             alert('Password and Confirm Password are not matched');
         }else{
-            dispatch(updateUserPassword( oldpassword, newpassword, userInfo.user.id));
+            dispatch(updateUserPassword( oldpassword, newpassword, userInfo.newUser.id));
         }
        // Redirect("/logout/");
     }

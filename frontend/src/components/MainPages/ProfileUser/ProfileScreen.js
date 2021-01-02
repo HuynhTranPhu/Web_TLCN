@@ -10,14 +10,16 @@ import BottomBar from '../../Common/BottomBar/index';
 import LoadingBox from '../../Config/LoadingBox';
 import MessageBox from '../../Config/MessageBox';
 
-export default function ProfileScreen(){
+export default function ProfileScreen(props){
     const [name,setName] = useState('');
     const [email,setEmail] = useState('');
 
     const userLogin = useSelector((state) => state.userLogin);
     const {userInfo} = userLogin;
+    console.log(userInfo);
     const userDetails = useSelector((state) => state.userDetails);
     const {loading, error, user} = userDetails;
+    console.log(user);
     const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
     const {success:successUpdate , 
         error: errorUpdate, 
@@ -25,16 +27,19 @@ export default function ProfileScreen(){
     const dispatch = useDispatch();
    
     useEffect(() =>{
+        // if(error){
+        //     props.history.push('/login');
+        // }
         if(!user){
             dispatch({type:USER_UPDATE_PROFILE_RESET});
-            dispatch(detailsUser(userInfo.user.id));     
+            dispatch(detailsUser(userInfo.newUser.id));     
         }else{
             setName(user.user.name);
             setEmail(user.user.email);
         }
         
        
-    },[dispatch, userInfo.user.id, user]);
+    },[dispatch, userInfo.newUser.id, user]);
 
     const submitHandler = (e) =>{
         e.preventDefault();
@@ -42,7 +47,7 @@ export default function ProfileScreen(){
         if(email==="" || name===""){
             alert('Email or name are not valid');
         }else{
-            dispatch(updateUserProfile(  email, name, userInfo.user.id));
+            dispatch(updateUserProfile(  email, name, userInfo.newUser.id));
         }
            
     }

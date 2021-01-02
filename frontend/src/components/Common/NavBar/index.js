@@ -37,7 +37,7 @@ const Index = () => {
                                   {
                                       userInfo?(
                                         <div className="nav-item dropdown">
-                                            <Link to="#" className="nav-link dropdown-toggle" data-toggle="dropdown">{userInfo.user.name}</Link>
+                                            <Link to="#" className="nav-link dropdown-toggle" data-toggle="dropdown">{userInfo.newUser.name}</Link>
                                                 
                                             <div className="dropdown-menu">
                                                 {/* <Link to="/login" className="dropdown-item">Login</Link> */}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { listProducts } from '../../../actions/productActions';
+import { filterProducts, listProducts, sortProducts } from '../../../actions/productActions';
 // import { detailsProduct } from '../../../actions/productActions';
 import LoadingBox from '../../Config/LoadingBox';
 import MessageBox from '../../Config/MessageBox';
@@ -17,7 +17,7 @@ import { addCart } from '../../../actions/cartAction';
 
 function ProductScreen(props){
     const productList = useSelector(state => state.productList);
-    const {products,loading , error} = productList;
+    const {products,filteredProducts,category,sort,loading , error} = productList;
 
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo} = userLogin;
@@ -28,6 +28,7 @@ function ProductScreen(props){
         return () => {
         };
     }, [])
+    console.log(filteredProducts)
     // const [qty, setQty] = useState(1);
     // const productDetails = useSelector(state => state.productDetails);
     // const {product, loading, error } = productDetails;
@@ -51,7 +52,7 @@ function ProductScreen(props){
             props.history.push("/login");
         }else{
             props.history.push(`/cart/${id}`);
-            dispatch(addCart(userInfo.user.id,carts));
+            dispatch(addCart(userInfo.newUser.id,carts));
             
         }
        
@@ -78,13 +79,10 @@ function ProductScreen(props){
                                 <div className="product-view-top">
                                     <div className="row">
                                         {/* <div className="col-md-3">
-                                            <div className="product-search">
-                                                <input type="email" defaultValue="Search" />
-                                                <button><i className="fa fa-search" /></button>
-                                            </div>
+                                            {`${filteredProducts.length} products found.`}
                                         </div> */}
                                         <div className="col-md-3">
-                                            <div className="product-short">
+                                            {/* <div className="product-short">
                                                 <div className="dropdown">
                                                     <div className="dropdown-toggle" data-toggle="dropdown">Product short by</div>
                                                     <div className="dropdown-menu dropdown-menu-right">
@@ -92,11 +90,29 @@ function ProductScreen(props){
                                                         <Link to="#" className="dropdown-item">Popular</Link>
                                                         <Link to="#" className="dropdown-item">Most sale</Link>
                                                     </div>
+
                                                 </div>
-                                            </div>
+                                            </div> */}
+                                            <label>
+                                                {" "}
+                                                Filter Size
+                                                <select
+                                                className="form-control"
+                                                value={category}
+                                                onChange={(e) => {
+                                                    // dispatch(filterProducts(
+                                                    //     products,
+                                                    //     e.target.value
+                                                    //     )) 
+                                                }}
+                                                >
+                                                <option value="">T-Shirt</option>
+                                                <option value="x">Jacket</option>
+                                                </select>
+                                            </label>
                                         </div>
                                         <div className="col-md-3">
-                                            <div className="product-price-range">
+                                            {/* <div className="product-price-range">
                                                 <div className="dropdown">
                                                 <div className="dropdown-toggle" data-toggle="dropdown">Product price range</div>
                                                     <div className="dropdown-menu dropdown-menu-right">
@@ -112,7 +128,24 @@ function ProductScreen(props){
                                                         <Link to="#" className="dropdown-item">$451 to $500</Link>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> */}
+                                            <label>
+                                                Order by
+                                                <select
+                                                className="form-control"
+                                                value={sort}
+                                                onChange={(e) => {
+                                                   dispatch( sortProducts(
+                                                    filteredProducts,
+                                                    e.target.value
+                                                    ));
+                                                }}
+                                                >
+                                                <option value="">Select</option>
+                                                <option value="lowestprice">Lowest to highest</option>
+                                                <option value="highestprice">Highest to lowest</option>
+                                                </select>
+                                            </label>
                                         </div>
                                     </div>
                                 </div>

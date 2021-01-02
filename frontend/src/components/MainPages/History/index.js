@@ -23,7 +23,7 @@ const History = () => {
     }
     
     useEffect(() => {
-        dispatch(historyGet(userInfo.user.id));
+        dispatch(historyGet(userInfo.newUser.id));
         return () => {
             //
         };
