@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Slider from "react-slick";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { detailsProduct } from '../../../actions/productActions';
 import { listProducts } from '../../../actions/productActions';
@@ -17,10 +17,13 @@ import ScrollToTopBtn from '../../Common/ScrollToTop/ScrollToTop';
 
 function ProductDetailScreen(props){
    // const [qty, setQty] = useState(1);
+    //const params = useParams()
     const productDetails = useSelector(state => state.productDetails);
     const {product, loading, error } = productDetails;
     const productList = useSelector(state => state.productList);
     const {products} = productList;
+    //const [detailProduct, setDetailProduct] = useState([])
+    console.log(products);
     const dispatch = useDispatch();
 
 
@@ -55,6 +58,7 @@ function ProductDetailScreen(props){
     useEffect(() => {
         dispatch(detailsProduct(props.match.params.id));
         dispatch(listProducts());
+        
         return () => {
             //
         };
@@ -74,62 +78,6 @@ function ProductDetailScreen(props){
             <MessageBox variant="danger">{error}</MessageBox>
         ):
         (
-            // <div className="details">
-            //     <div className="details-image">
-            //         <img src={product.image} alt="product"></img>
-            //     </div>
-            //     <div className="details-info">
-            //         <ul>
-            //             <li>
-            //                 <h4>{product.name}</h4>
-            //             </li>
-            //             <li>
-            //                 {product.rating} Stars ({product.numReviews} Reviews)
-            //             </li>
-            //             <li>
-            //                 Price: <b> ${product.price}</b>
-            //             </li>
-            //             <li>
-            //                 Description:
-            //                 <div>               
-            //                     {product.description}   
-            //                 </div>
-            //             </li>
-            //         </ul>
-            //     </div>
-            //     <div className="details-action">
-            //         <ul>
-            //             <li>
-            //                 Price: ${product.price}
-            //             </li>
-            //             <li>
-                            // Status:{product.countInStock > 0? 
-                            // (
-                            //     <span className="success">In Stock</span>
-                            // ):(
-                            //     <span className="danger">Unavailable</span>
-                            // )}
-            //             </li>
-            //             <li>
-            //                 Qty:<select value={qty} onChange={(e) =>{setQty(e.target.value)}}>
-            //                     {[...Array(product.countInStock).keys()].map(x =>
-            //                         <option key={x+1} value={x+1}>{x+1}</option>
-            //                     )}
-            //                 </select>
-            //             </li>
-            //             <li>
-            //                 {
-            //                     product.countInStock>0 && 
-            //                     <button onClick={handleAddToCart} className="button">
-            //                         Add to Cart
-            //                     </button>
-            //                 }
-                            
-            //             </li>
-            //         </ul>
-
-            //     </div>
-            // </div>
             <div className="product-detail">
                 <div className="container-fluid">
                     <div className="row">
@@ -167,7 +115,7 @@ function ProductDetailScreen(props){
                                                         <span className="danger">Unavailable</span>
                                                     )}
                                                 </div>
-                                                <div className="p-size">
+                                                {/* <div className="p-size">
                                                     <h4>Size:</h4>
                                                     <div className="btn-group btn-group-sm">
                                                         <button type="button" className="btn">S</button>
@@ -183,7 +131,7 @@ function ProductDetailScreen(props){
                                                         <button type="button" className="btn">Black</button>
                                                         <button type="button" className="btn">Blue</button>
                                                     </div> 
-                                                </div>
+                                                </div> */}
                                                 <div className="action">
                                                 {
                                                     product.count>0 && 
@@ -274,11 +222,13 @@ function ProductDetailScreen(props){
                                 <div className="align-items-center">
                                 <Slider {...settings}>
                                     {
-                                        products.map((product)=>
-                                            <div className="col-lg-12" key={product._id}>
+                                        products.map((pr)=>{
+                                            return  pr.id_category === product.id_category
+                                            ?
+                                                <div className="col-lg-12" key={pr._id}>
                                                 <div className="product-item">
                                                     <div className="product-title">
-                                                    <Link to={"/product-detail/"+ product._id}>{product.name}</Link>
+                                                    <Link to={"/product-detail/"+ pr._id}>{pr.name}</Link>
                                                     <div className="ratting">
                                                         <i className="fa fa-star" />
                                                         <i className="fa fa-star" />
@@ -288,18 +238,19 @@ function ProductDetailScreen(props){
                                                     </div>
                                                     </div>
                                                     <div className="product-image">
-                                                        <img src={product.img}alt="Product" />
+                                                        <img src={pr.img}alt="Product" />
                                                         <div className="product-action">
-                                                            <Link to={'/product-detail/' + product._id}><i className="fas fa-eye" /></Link>
+                                                            <Link to={'/product-detail/' + pr._id}><i className="fas fa-eye" /></Link>
                                                         </div>
                                                     </div>
                                                     <div className="product-price">
-                                                    <h3><span>$</span>{product.price}</h3>
-                                                    <a className="btn" onClick={()=>{ props.history.push(`/cart/${product._id}`)}} ><i className="fa fa-shopping-cart" />Buy Now</a>
+                                                    <h3><span>$</span>{pr.price}</h3>
+                                                    <a className="btn" onClick={()=>{ props.history.push(`/cart/${pr._id}`)}} ><i className="fa fa-shopping-cart" />Buy Now</a>
                                                     </div>
                                                 </div>
                                             </div>
-                                        )
+                                            :null
+                                        } )
                                     }
                                     
                                 </Slider>

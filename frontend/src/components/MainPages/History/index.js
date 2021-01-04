@@ -9,6 +9,7 @@ import LoadingBox from '../../Config/LoadingBox';
 import MessageBox from '../../Config/MessageBox';
 import FooterPage from '../../Common/Footer/Footer';
 import ScrollToTopBtn from '../../Common/ScrollToTop/ScrollToTop';
+import { logout } from '../../../actions/userAction';
 
 const History = () => {
     const historyOrder = useSelector(state => state.historyOrder);
@@ -23,7 +24,14 @@ const History = () => {
     }
     
     useEffect(() => {
-        dispatch(historyGet(userInfo.newUser.id));
+
+        if(error){
+            dispatch(logout());
+        }
+        else{
+            dispatch(historyGet(userInfo.newUser.id));
+        }
+        
         return () => {
             //
         };

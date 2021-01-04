@@ -1,16 +1,16 @@
-import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_DETAILS_FAIL, PRODUCT_SAVE_REQUEST, PRODUCT_SAVE_SUCCESS, PRODUCT_SAVE_FAIL, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_FAIL, FILTER_PRODUCTS_BY_SIZE, ORDER_PRODUCTS_BY_PRICE } from "../constants/productConstants";
+import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_DETAILS_FAIL, PRODUCT_SAVE_REQUEST, PRODUCT_SAVE_SUCCESS, PRODUCT_SAVE_FAIL, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_FAIL, ORDER_PRODUCTS_BY_PRICE, CATEGORY_LIST_REQUEST, CATEGORY_LIST_SUCCESS, CATEGORY_LIST_FAIL, FILTER_PRODUCTS_BY_CATEGORY } from "../constants/productConstants";
 
-function productListReducer (state = { products: [],filteredItems: [], category: "",sort: ""}, action){
+function productListReducer (state = { products: [],filteredItems: [], cate: "",sort: ""}, action){
     switch(action.type){
         case PRODUCT_LIST_REQUEST:
             return {loading: true, products:[]};
         case  PRODUCT_LIST_SUCCESS:
             return { loading : false , products: action.payload, filteredItems:action.payload};
-        case FILTER_PRODUCTS_BY_SIZE:
+        case FILTER_PRODUCTS_BY_CATEGORY:
             return {
-                  //...state,
-                  filteredItems: action.payload.products,
-                  category: action.payload.category,
+                  ...state,
+                  filteredItems: action.payload.items,
+                  cate: action.payload.category,
                 };
         case ORDER_PRODUCTS_BY_PRICE:
             return {
@@ -19,6 +19,19 @@ function productListReducer (state = { products: [],filteredItems: [], category:
                     sort: action.payload.sort,
                 };
         case PRODUCT_LIST_FAIL:
+            return { loading : false, error: action.payload}
+        default:
+            return state;
+    }
+}
+function categoryListReducer(state={category:[]},action){
+    switch(action.type){
+        case CATEGORY_LIST_REQUEST:
+            return {loading: true, category:[]};
+        case  CATEGORY_LIST_SUCCESS:
+            return { loading : false , category: action.payload.data};
+    
+        case CATEGORY_LIST_FAIL:
             return { loading : false, error: action.payload}
         default:
             return state;
@@ -61,4 +74,4 @@ function productSaveReducer (state = { product: {}}, action){
     }
 }
 
-export {productListReducer, productDetailsReducer, productSaveReducer, productDeleteReducer}
+export {productListReducer, productDetailsReducer, productSaveReducer, productDeleteReducer,categoryListReducer}

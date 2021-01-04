@@ -126,7 +126,7 @@ const detailsUser =(userId) => async (dispatch,getState)=>{
         }
         );
         dispatch({type: USER_DETAIL_SUCCESS, payload:data});
-        //console.log(data);
+        console.log(data);
 
     }catch(error){
         const message=

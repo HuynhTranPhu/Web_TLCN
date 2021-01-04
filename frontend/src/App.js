@@ -36,6 +36,7 @@ import History from './components/MainPages/History/index';
 import ViewHistory from './components/MainPages/ViewHistory';
 
 function App() {
+  
    
   return (
     <BrowserRouter>

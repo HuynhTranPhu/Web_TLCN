@@ -5,8 +5,11 @@ PRODUCT_LIST_FAIL,
 PRODUCT_DETAILS_REQUEST, 
 PRODUCT_DETAILS_SUCCESS,
 PRODUCT_DETAILS_FAIL,
-FILTER_PRODUCTS_BY_SIZE,
-ORDER_PRODUCTS_BY_PRICE, 
+FILTER_PRODUCTS_BY_CATEGORY,
+ORDER_PRODUCTS_BY_PRICE,
+CATEGORY_LIST_REQUEST,
+CATEGORY_LIST_SUCCESS,
+CATEGORY_LIST_FAIL, 
 } 
 from  '../constants/productConstants';
 //import apiUrl from '../components/Config/apiUrl/apiUrl';
@@ -27,6 +30,21 @@ const listProducts = () => async (dispatch) =>{
     }
 
 }
+const listCategory = () => async (dispatch) =>{
+    try{
+        dispatch({type: CATEGORY_LIST_REQUEST});
+         //const {data} =await axios.get("/api/products");
+         const {data} = await axios.get('/category');
+        //console.log({data});
+        dispatch({type: CATEGORY_LIST_SUCCESS, payload: data});
+        
+    }  
+    catch(error){
+
+        dispatch({type: CATEGORY_LIST_FAIL, payload: error.message});
+    }
+
+}
 
 
 
@@ -41,21 +59,25 @@ const detailsProduct = (productId) => async (dispatch) =>{
         dispatch({type: PRODUCT_DETAILS_FAIL, payload: error.message})
     }
 }
-// const filterProducts  = (products,category) =>  (dispatch) =>{
+const filterProducts  = (products,category) =>  (dispatch) =>{
     
-//         dispatch({
-//             type: FILTER_PRODUCTS_BY_SIZE, 
-//             payload: {
-//                 category: category,
-//                 products:
-//                 category === ""
-//                     ? products
-//                     : products.filter(
-//                         (x) => x.category.indexOf(category.toUpperCase()) >= 0
-//                       )
-//               }
-//         });   
-// }
+        dispatch({
+            type: FILTER_PRODUCTS_BY_CATEGORY, 
+            payload: {
+                category: category,
+                items:
+                category === ""
+                    ? products
+                    : products.filter(
+                        (x) => x.id_category===category
+                      )
+                      
+              }
+             
+        }); 
+        //console.log(category)
+        
+}
 const sortProducts = (items, sort) => (dispatch) => {
     const products = items.slice();
     if (sort !== "") {
@@ -82,6 +104,7 @@ const sortProducts = (items, sort) => (dispatch) => {
 
 
 export {listProducts, detailsProduct,
-    //filterProducts,
-    sortProducts
+    filterProducts,
+    sortProducts,
+    listCategory
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterProducts, listProducts, sortProducts } from '../../../actions/productActions';
+import { filterProducts, listCategory, listProducts, sortProducts } from '../../../actions/productActions';
 // import { detailsProduct } from '../../../actions/productActions';
 import LoadingBox from '../../Config/LoadingBox';
 import MessageBox from '../../Config/MessageBox';
@@ -17,18 +17,22 @@ import { addCart } from '../../../actions/cartAction';
 
 function ProductScreen(props){
     const productList = useSelector(state => state.productList);
-    const {products,filteredProducts,category,sort,loading , error} = productList;
+    const {products,filteredItems,cate,sort,loading , error} = productList;
 
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo} = userLogin;
+
+    const categories = useSelector(state => state.categoryList);
+    const {category} = categories;
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(listProducts());
+        dispatch(listCategory());
         return () => {
         };
     }, [])
-    console.log(filteredProducts)
+    console.log(cate)
     // const [qty, setQty] = useState(1);
     // const productDetails = useSelector(state => state.productDetails);
     // const {product, loading, error } = productDetails;
@@ -78,9 +82,9 @@ function ProductScreen(props){
                             <div className="col-md-12">
                                 <div className="product-view-top">
                                     <div className="row">
-                                        {/* <div className="col-md-3">
-                                            {`${filteredProducts.length} products found.`}
-                                        </div> */}
+                                        <div className="col-md-3">
+                                            {`${filteredItems.length} products found.`}
+                                        </div>
                                         <div className="col-md-3">
                                             {/* <div className="product-short">
                                                 <div className="dropdown">
@@ -95,19 +99,26 @@ function ProductScreen(props){
                                             </div> */}
                                             <label>
                                                 {" "}
-                                                Filter Size
+                                                Filter
                                                 <select
-                                                className="form-control"
-                                                value={category}
-                                                onChange={(e) => {
-                                                    // dispatch(filterProducts(
-                                                    //     products,
-                                                    //     e.target.value
-                                                    //     )) 
-                                                }}
-                                                >
-                                                <option value="">T-Shirt</option>
-                                                <option value="x">Jacket</option>
+                                                    //name="category"
+                                                    className="form-control"
+                                                    value={cate}
+                                                    onChange={(e) => {
+                                                        dispatch(filterProducts(
+                                                            products,
+                                                            e.target.value
+                                                            )) 
+                                                    }}
+                                                    >
+                                                    <option value="">All Products</option>
+                                                    {
+                                                        category.map(category => (
+                                                            <option value={category._id} key={category._id}>
+                                                                {category.name}
+                                                            </option>
+                                                        ))
+                                                    }
                                                 </select>
                                             </label>
                                         </div>
@@ -130,13 +141,13 @@ function ProductScreen(props){
                                                 </div>
                                             </div> */}
                                             <label>
-                                                Order by
+                                                Sort by
                                                 <select
                                                 className="form-control"
                                                 value={sort}
                                                 onChange={(e) => {
                                                    dispatch( sortProducts(
-                                                    filteredProducts,
+                                                    filteredItems,
                                                     e.target.value
                                                     ));
                                                 }}
@@ -151,7 +162,7 @@ function ProductScreen(props){
                                 </div>
                             </div>
                             {
-                                products.map((product) =>
+                                filteredItems.map((product) =>
 
                                     <div className="col-md-3" key={product._id}>
                                         <div className="product-item">

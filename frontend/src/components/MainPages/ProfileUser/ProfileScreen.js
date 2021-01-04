@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { detailsUser, updateUserProfile } from '../../../actions/userAction';
 import { USER_UPDATE_PROFILE_RESET } from '../../../constants/userConstant';
-import FooterPage from '../../Common/Footer/Footer';
+//import FooterPage from '../../Common/Footer/Footer';
 import ScrollToTopBtn from '../../Common/ScrollToTop/ScrollToTop';
 import TopBar from '../../Common/TopBar/TopBar';
 import NavBar from '../../Common/NavBar/index';
@@ -16,7 +16,7 @@ export default function ProfileScreen(props){
 
     const userLogin = useSelector((state) => state.userLogin);
     const {userInfo} = userLogin;
-    console.log(userInfo);
+    //console.log(userInfo);
     const userDetails = useSelector((state) => state.userDetails);
     const {loading, error, user} = userDetails;
     console.log(user);
@@ -27,19 +27,19 @@ export default function ProfileScreen(props){
     const dispatch = useDispatch();
    
     useEffect(() =>{
-        // if(error){
+        // if(error==="Time out, Please login again"){
         //     props.history.push('/login');
         // }
         if(!user){
             dispatch({type:USER_UPDATE_PROFILE_RESET});
-            dispatch(detailsUser(userInfo.newUser.id));     
+            dispatch(detailsUser(userInfo.newUser._id));     
         }else{
             setName(user.user.name);
             setEmail(user.user.email);
         }
         
        
-    },[dispatch, userInfo.newUser.id, user]);
+    },[dispatch, userInfo.newUser._id, user]);
 
     const submitHandler = (e) =>{
         e.preventDefault();
@@ -47,7 +47,7 @@ export default function ProfileScreen(props){
         if(email==="" || name===""){
             alert('Email or name are not valid');
         }else{
-            dispatch(updateUserProfile(  email, name, userInfo.newUser.id));
+            dispatch(updateUserProfile(  email, name, userInfo.newUser._id));
         }
            
     }
