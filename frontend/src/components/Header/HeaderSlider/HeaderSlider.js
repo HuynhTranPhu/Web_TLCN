@@ -1,4 +1,5 @@
 import React,{ Component }  from "react";
+import { Link } from "react-router-dom";
 import Slider from "react-slick";
 
 
@@ -19,7 +20,7 @@ export default class HeaderSlider extends Component {
                         <img src="img/slider-1.jpg" alt="Slider" />
                         <div className="header-slider-caption">
                             <p>SPRING OFFER 2021 COLLECTION</p>
-                            <a className="btn" href=""><i className="fa fa-shopping-cart"></i>Shop Now</a>
+                            <Link className="btn" to="/product-list"><i className="fa fa-shopping-cart"></i>Shop Now</Link>
                         </div>
                     </div>
                     <div className="header-slider-item">

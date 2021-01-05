@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Slider from "react-slick";
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { detailsProduct } from '../../../actions/productActions';
 import { listProducts } from '../../../actions/productActions';
@@ -12,6 +12,7 @@ import NavBar from '../../Common/NavBar/index';
 import BottomBar from '../../Common/BottomBar/index';
 import FooterPage from '../../Common/Footer/Footer';
 import ScrollToTopBtn from '../../Common/ScrollToTop/ScrollToTop';
+import { addCart } from '../../../actions/cartAction';
 
 
 
@@ -23,7 +24,12 @@ function ProductDetailScreen(props){
     const productList = useSelector(state => state.productList);
     const {products} = productList;
     //const [detailProduct, setDetailProduct] = useState([])
-    console.log(products);
+    //console.log(products);
+    const userLogin = useSelector(state => state.userLogin);
+    const { userInfo} = userLogin;
+
+    const addCartPost = useSelector(state => state.cartPost);
+    const {success} = addCartPost;
     const dispatch = useDispatch();
 
 
@@ -63,8 +69,25 @@ function ProductDetailScreen(props){
             //
         };
     }, [])
-    const handleAddToCart = () =>{
-        props.history.push("/cart/" +props.match.params.id )
+    const handleAddToCart = (id,name,price, image) =>{
+        let a = {_id: id,
+            name: name,
+            price: price,
+            img: image,
+            count: 1};
+        let carts =[a];
+        
+        if(!userInfo){
+            props.history.push("/login");
+        }else{
+            dispatch(addCart(userInfo.newUser._id,carts));
+            if(success){
+                props.history.push(`/cart/${id}`); 
+            }else{
+                alert('Something is wrong');
+            }
+        }
+       
     }
 
     return <div>
@@ -135,7 +158,7 @@ function ProductDetailScreen(props){
                                                 <div className="action">
                                                 {
                                                     product.count>0 && 
-                                                    <a className="btn"  onClick={handleAddToCart} ><i className="fa fa-shopping-cart" />Add to Cart</a>
+                                                    <a className="btn"  onClick={()=>handleAddToCart(product._id,product.name,product.price,product.img)} ><i className="fa fa-shopping-cart" />Add to Cart</a>
                                                 }
                                                 </div>
                                             </div>
@@ -245,7 +268,7 @@ function ProductDetailScreen(props){
                                                     </div>
                                                     <div className="product-price">
                                                     <h3><span>$</span>{pr.price}</h3>
-                                                    <a className="btn" onClick={()=>{ props.history.push(`/cart/${pr._id}`)}} ><i className="fa fa-shopping-cart" />Buy Now</a>
+                                                    <a className="btn" onClick={()=>handleAddToCart(pr._id,pr.name,pr.price,pr.img)} ><i className="fa fa-shopping-cart" />Buy Now</a>
                                                     </div>
                                                 </div>
                                             </div>

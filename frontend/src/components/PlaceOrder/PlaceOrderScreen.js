@@ -35,7 +35,7 @@ function PlaceOrderScreen(props){
     const dispatch = useDispatch();
     const placeOrderHandler = () =>{
         ///create order
-        dispatch(addOrder(userInfo.newUser.id,cart.shipping.city,
+        dispatch(addOrder(userInfo.newUser._id,cart.shipping.city,
             cart.shipping.postalCode,cart.shipping.address,
             cart.shipping.numberPhone,cart.payment.paymentMethod, shippingPrice.toFixed(2)));
     }

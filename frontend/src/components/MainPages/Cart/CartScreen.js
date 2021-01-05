@@ -22,6 +22,14 @@ function CartScreen(props){
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo} = userLogin;
 
+    const cartDecrease = useSelector(state => state.decreaseCart);
+    const  successDecrease = cartDecrease.success;
+    console.log(successDecrease);
+    const cartIncrease = useSelector(state => state.increaseCart);
+    const  successIncrease = cartIncrease.success;
+    const cartRemove = useSelector(state => state.removeCartPost);
+    const  successRemove = cartRemove.success;
+
     const productId = props.match.params.id;
     const qty = props.location.search ? Number(props.location.search.split("=")[1]):1;
     //let total=0 ;
@@ -29,19 +37,24 @@ function CartScreen(props){
     const dispatch = useDispatch();
     const removeFromCartHandler = (id) =>{
         if(window.confirm('Do you want to delete this item?')){
-            dispatch(removeFromCart(id));
-            dispatch(removeCart(userInfo.newUser.id,id));
+            dispatch(removeCart(userInfo.newUser._id,id));
+           // if(successRemove){
+                dispatch(removeFromCart(id));
+            //}
         }
         
     }
     const decreaseHandler = (productId) =>{
-        dispatch(decrease(productId));
-        dispatch(decreaseCart(userInfo.newUser.id,productId));
+        dispatch(decreaseCart(userInfo.newUser._id,productId));
+        //if(successDecrease){
+            dispatch(decrease(productId));
+        //}
     }
     const increaseHandler = (productId) =>{
-        dispatch(increase(productId));
-        console.log(productId)
-        dispatch(increaseCart(userInfo.newUser.id,productId));
+        dispatch(increaseCart(userInfo.newUser._id,productId));
+        //if(successIncrease){
+            dispatch(increase(productId));
+        //}
     }
     useEffect(() => { 
         // dispatch(getCart(userInfo.user.id));
@@ -52,7 +65,7 @@ function CartScreen(props){
             dispatch(addToCart(productId,qty));
         }
     },
-    //[]
+   // []
      [dispatch,productId,qty]
     );
     const checkoutHandler = () =>{
@@ -109,8 +122,10 @@ function CartScreen(props){
                                                         <div className="qty">
                                                             <button className="btn-minus" onClick={()=> decreaseHandler(item._id)}><i className="fa fa-minus" /></button>
                                                             <input type="text"
-                                                            value={item.count} onChange={(e)=> 
-                                                            dispatch(addToCart(item._id,Number(e.target.value))) } />
+                                                            value={item.count} 
+                                                            //onChange={(e)=> 
+                                                            // dispatch(addToCart(item._id,Number(e.target.value))) } 
+                                                            />
                                                             <button className="btn-plus" onClick={()=> increaseHandler(item._id)}><i className="fa fa-plus" /></button>
                                                         </div>
                                                     </td>

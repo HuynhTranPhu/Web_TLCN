@@ -1,6 +1,6 @@
-import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_DETAILS_FAIL, PRODUCT_SAVE_REQUEST, PRODUCT_SAVE_SUCCESS, PRODUCT_SAVE_FAIL, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_FAIL, ORDER_PRODUCTS_BY_PRICE, CATEGORY_LIST_REQUEST, CATEGORY_LIST_SUCCESS, CATEGORY_LIST_FAIL, FILTER_PRODUCTS_BY_CATEGORY } from "../constants/productConstants";
+import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_DETAILS_FAIL, PRODUCT_SAVE_REQUEST, PRODUCT_SAVE_SUCCESS, PRODUCT_SAVE_FAIL, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_FAIL, ORDER_PRODUCTS_BY_PRICE, CATEGORY_LIST_REQUEST, CATEGORY_LIST_SUCCESS, CATEGORY_LIST_FAIL, FILTER_PRODUCTS_BY_CATEGORY, SEARCH_FILTER_PRODUCTS } from "../constants/productConstants";
 
-function productListReducer (state = { products: [],filteredItems: [], cate: "",sort: ""}, action){
+function productListReducer (state = { products: [],filteredItems: [], cate: "",sort: "",search:""}, action){
     switch(action.type){
         case PRODUCT_LIST_REQUEST:
             return {loading: true, products:[]};
@@ -17,6 +17,12 @@ function productListReducer (state = { products: [],filteredItems: [], cate: "",
                     ...state,
                     filteredItems: action.payload.items,
                     sort: action.payload.sort,
+                };
+        case SEARCH_FILTER_PRODUCTS:
+            return {
+                    ...state,
+                    filteredItems: action.payload.items,
+                    search: action.payload.search,
                 };
         case PRODUCT_LIST_FAIL:
             return { loading : false, error: action.payload}

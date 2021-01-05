@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterProducts, listCategory, listProducts, sortProducts } from '../../../actions/productActions';
+import { filterProducts, listCategory, listProducts, searchFilterProducts, sortProducts } from '../../../actions/productActions';
 // import { detailsProduct } from '../../../actions/productActions';
 import LoadingBox from '../../Config/LoadingBox';
 import MessageBox from '../../Config/MessageBox';
@@ -17,13 +17,17 @@ import { addCart } from '../../../actions/cartAction';
 
 function ProductScreen(props){
     const productList = useSelector(state => state.productList);
-    const {products,filteredItems,cate,sort,loading , error} = productList;
+    const {products,filteredItems,cate,sort,search,loading , error} = productList;
 
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo} = userLogin;
 
     const categories = useSelector(state => state.categoryList);
     const {category} = categories;
+
+    const addCartPost = useSelector(state => state.cartPost);
+    const {success} = addCartPost;
+   
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -55,13 +59,17 @@ function ProductScreen(props){
         if(!userInfo){
             props.history.push("/login");
         }else{
-            props.history.push(`/cart/${id}`);
-            dispatch(addCart(userInfo.newUser.id,carts));
             
+            dispatch(addCart(userInfo.newUser._id,carts));
+            if(success){
+                props.history.push(`/cart/${id}`); 
+            }else{
+                alert('Something is wrong');
+            }
         }
        
     }
-
+    
     return <div>
          <TopBar/>
         <NavBar/>
@@ -83,80 +91,70 @@ function ProductScreen(props){
                                 <div className="product-view-top">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            {`${filteredItems.length} products found.`}
+                                            {`${filteredItems.length} products found`}
                                         </div>
                                         <div className="col-md-3">
-                                            {/* <div className="product-short">
-                                                <div className="dropdown">
-                                                    <div className="dropdown-toggle" data-toggle="dropdown">Product short by</div>
-                                                    <div className="dropdown-menu dropdown-menu-right">
-                                                        <Link to="#" className="dropdown-item">Newest</Link>
-                                                        <Link to="#" className="dropdown-item">Popular</Link>
-                                                        <Link to="#" className="dropdown-item">Most sale</Link>
-                                                    </div>
-
-                                                </div>
-                                            </div> */}
-                                            <label>
-                                                {" "}
-                                                Filter
-                                                <select
-                                                    //name="category"
-                                                    className="form-control"
-                                                    value={cate}
-                                                    onChange={(e) => {
-                                                        dispatch(filterProducts(
-                                                            products,
-                                                            e.target.value
-                                                            )) 
-                                                    }}
-                                                    >
-                                                    <option value="">All Products</option>
-                                                    {
-                                                        category.map(category => (
-                                                            <option value={category._id} key={category._id}>
-                                                                {category.name}
-                                                            </option>
-                                                        ))
+                                            <div className="product-search">
+                                                    <input type="text" placeholder="Search"
+                                                    value={search}
+                                                    onChange={e=>
+                                                       {
+                                                           dispatch(searchFilterProducts(
+                                                               products,
+                                                               e.target.value
+                                                           ))
+                                                       }
                                                     }
-                                                </select>
-                                            </label>
+                                                    />
+                                                    <button><i class="fa fa-search"></i></button>    
+                                            </div>
                                         </div>
                                         <div className="col-md-3">
-                                            {/* <div className="product-price-range">
-                                                <div className="dropdown">
-                                                <div className="dropdown-toggle" data-toggle="dropdown">Product price range</div>
-                                                    <div className="dropdown-menu dropdown-menu-right">
-                                                        <Link to="#" className="dropdown-item">$0 to $50</Link>
-                                                        <Link to="#" className="dropdown-item">$51 to $100</Link>
-                                                        <Link to="#" className="dropdown-item">$101 to $150</Link>
-                                                        <Link to="#" className="dropdown-item">$151 to $200</Link>
-                                                        <Link to="#" className="dropdown-item">$201 to $250</Link>
-                                                        <Link to="#" className="dropdown-item">$251 to $300</Link>
-                                                        <Link to="#" className="dropdown-item">$301 to $350</Link>
-                                                        <Link to="#" className="dropdown-item">$351 to $400</Link>
-                                                        <Link to="#"className="dropdown-item">$401 to $450</Link>
-                                                        <Link to="#" className="dropdown-item">$451 to $500</Link>
-                                                    </div>
-                                                </div>
-                                            </div> */}
-                                            <label>
-                                                Sort by
+                                            <div className="product-filter">
                                                 <select
-                                                className="form-control"
-                                                value={sort}
-                                                onChange={(e) => {
-                                                   dispatch( sortProducts(
-                                                    filteredItems,
-                                                    e.target.value
-                                                    ));
-                                                }}
-                                                >
-                                                <option value="">Select</option>
-                                                <option value="lowestprice">Lowest to highest</option>
-                                                <option value="highestprice">Highest to lowest</option>
-                                                </select>
-                                            </label>
+                                                           
+                                                            value={cate}
+                                                            onChange={(e) => {
+                                                                dispatch(filterProducts(
+                                                                    products,
+                                                                    e.target.value
+                                                                    )) 
+                                                            }}
+                                                            >
+                                                            <option value="">All Products</option>
+                                                            {
+                                                                category.map(category => (
+                                                                    <option value={category._id} key={category._id}>
+                                                                        {category.name}
+                                                                    </option>
+                                                                ))
+                                                            }
+                                                        </select>
+                                            </div>
+                                                    
+                                              
+                                                
+                                           
+                                        </div>
+                                        <div className="col-md-3">
+                                           
+                                              <div className="product-filter">
+                                                    <select
+                                                        className="product-search"
+                                                        value={sort}
+                                                        onChange={(e) => {
+                                                        dispatch( sortProducts(
+                                                            filteredItems,
+                                                            e.target.value
+                                                            ));
+                                                        }}
+                                                        >
+                                                            <option value="">Sort by</option>
+                                                            <option value="lowestprice">Lowest to highest</option>
+                                                            <option value="highestprice">Highest to lowest</option>
+                                                    </select>
+                                              </div>
+                                             
                                         </div>
                                     </div>
                                 </div>

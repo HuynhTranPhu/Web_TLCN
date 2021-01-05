@@ -29,7 +29,7 @@ const History = () => {
             dispatch(logout());
         }
         else{
-            dispatch(historyGet(userInfo.newUser.id));
+            dispatch(historyGet(userInfo.newUser._id));
         }
         
         return () => {

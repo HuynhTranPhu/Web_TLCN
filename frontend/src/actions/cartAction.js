@@ -92,6 +92,7 @@ const savePayment =(data) => (dispatch) =>{
 }
 const addCart = (id_user,products) => async (dispatch,getState) =>{
     dispatch({type: CART_ADD_POST_REQUEST, payload:{id_user, products}});
+    console.log(id_user,products);
     const { userLogin :{userInfo}}= getState();
     try{
         const {data} = await axios.post("/cart/addcart", {id_user,products}
@@ -100,7 +101,7 @@ const addCart = (id_user,products) => async (dispatch,getState) =>{
         }
         );
         dispatch({type:CART_ADD_POST_SUCCESS,payload:data});
-        //console.log(cartItems);
+      
         
     }catch(error){
         const message=

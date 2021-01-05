@@ -9,7 +9,8 @@ FILTER_PRODUCTS_BY_CATEGORY,
 ORDER_PRODUCTS_BY_PRICE,
 CATEGORY_LIST_REQUEST,
 CATEGORY_LIST_SUCCESS,
-CATEGORY_LIST_FAIL, 
+CATEGORY_LIST_FAIL,
+SEARCH_FILTER_PRODUCTS, 
 } 
 from  '../constants/productConstants';
 //import apiUrl from '../components/Config/apiUrl/apiUrl';
@@ -59,6 +60,25 @@ const detailsProduct = (productId) => async (dispatch) =>{
         dispatch({type: PRODUCT_DETAILS_FAIL, payload: error.message})
     }
 }
+const searchFilterProducts  = (products,search) =>  (dispatch) =>{
+    
+  dispatch({
+      type: SEARCH_FILTER_PRODUCTS, 
+      payload: {
+        search: search,
+          items:
+          products === ""
+              ? products
+              : products.filter(
+                  (x) => x.name.toLowerCase().includes(search.toLowerCase())
+                )
+                
+        }
+       
+  }); 
+  //console.log(category)
+  
+}
 const filterProducts  = (products,category) =>  (dispatch) =>{
     
         dispatch({
@@ -106,5 +126,6 @@ const sortProducts = (items, sort) => (dispatch) => {
 export {listProducts, detailsProduct,
     filterProducts,
     sortProducts,
-    listCategory
+    listCategory,
+    searchFilterProducts
 };

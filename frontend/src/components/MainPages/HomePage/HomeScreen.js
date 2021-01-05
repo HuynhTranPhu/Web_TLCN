@@ -21,6 +21,8 @@ function HomeScreen(props){
     
     const productList = useSelector(state => state.productList);
     const {products,loading , error} = productList;
+    const addCartPost = useSelector(state => state.cartPost);
+    const {success} = addCartPost;
 
     // const cart = useSelector(state => state.cart);
     // const {cartItems} = cart;
@@ -38,10 +40,10 @@ function HomeScreen(props){
     }
  
 
-    const feature = [ {title:'Secure Payment',content:'Lorem ipsum dolor sit amet consectetur elit', icon:'fab fa-cc-mastercard'},
-                    {title:'Worldwide Delivery',content:'Lorem ipsum dolor sit amet consectetur elit',icon:'fa fa-truck'},
-                    {title:'90 Days Return',content:'Lorem ipsum dolor sit amet consectetur elit', icon:'fas fa-sync'},
-                    {title:'24/7 Support',content:'Lorem ipsum dolor sit amet consectetur elit', icon:'fa fa-comments'}
+    const feature = [ {title:'Secure Payment',content:'You can chose payments', icon:'fab fa-cc-mastercard'},
+                    {title:'Worldwide Delivery',content:'Delivery anywhere in the world',icon:'fa fa-truck'},
+                    {title:'90 Days Return',content:'You can return orders in 90 days', icon:'fas fa-sync'},
+                    {title:'24/7 Support',content:'Our staff always support you if you want', icon:'fa fa-comments'}
                     ]
     //let d=0;
     // const addToCartHandler = (productId) =>{
@@ -68,22 +70,15 @@ function HomeScreen(props){
         if(!userInfo){
             props.history.push("/login");
         }else{
-            dispatch(addToCart(id,1));
-            dispatch(addCart(userInfo.newUser.id,carts));
+            dispatch(addCart(userInfo.newUser._id,carts));
+            if(success){
+                dispatch(addToCart(id,1));   
+            }else{
+                alert('Something is wrong');
+            }
         }
-            
-       
-        // d=id;
-        // if(d===id){
-        //     alert("This product has been added to cart");
-        // }
-       // console.log(carts);
-        
     }
-    // const addCartPost = () =>{
-    //     dispatch(addCart(userInfo.user.id,cartItems));
-       
-    // }
+  
     
    
     useEffect(() => {
@@ -148,28 +143,28 @@ function HomeScreen(props){
                               <nav className="navbar bg-light">
                                   <ul className="navbar-nav">
                                       <li className="nav-item">
-                                          <a className="nav-link" href="#"><i className="fa fa-home"></i>Home</a>
+                                          <Link className="nav-link" to="/product-list"><i className="fa fa-home"></i>Home</Link>
                                       </li>
                                       <li className="nav-item">
-                                          <a className="nav-link" href="#"><i className="fa fa-shopping-bag"></i>Best Selling</a>
+                                          <Link className="nav-link" to="/product-list"><i className="fa fa-shopping-bag"></i>Best Selling</Link>
                                       </li>
                                       <li className="nav-item">
-                                          <a className="nav-link" href="#"><i className="fa fa-plus-square"></i>New Arrivals</a>
+                                          <Link className="nav-link" to="/product-list"><i className="fa fa-plus-square"></i>New Arrivals</Link>
                                       </li>
                                       <li className="nav-item">
-                                          <a className="nav-link" href="#"><i className="fa fa-female"></i>Fashion & Beauty</a>
+                                          <Link className="nav-link" to="/product-list"><i className="fa fa-female"></i>Fashion & Beauty</Link>
                                       </li>
                                       <li className="nav-item">
-                                          <a className="nav-link" href="#"><i className="fa fa-child"></i>Kids & Babies Clothes</a>
+                                          <Link className="nav-link" to="/product-list"><i className="fa fa-child"></i>Kids & Babies Clothes</Link>
                                       </li>
                                       <li className="nav-item">
-                                          <a className="nav-link" href="#"><i className="fas fa-tshirt"></i>Men & Women Clothes</a>
+                                          <Link className="nav-link"to="/product-list"><i className="fas fa-tshirt"></i>Men & Women Clothes</Link>
                                       </li>
                                       <li className="nav-item">
-                                          <a className="nav-link" href="#"><i className="fas fa-mobile"></i>Gadgets & Accessories</a>
+                                          <Link className="nav-link" to="/product-list"><i className="fas fa-mobile"></i>Gadgets & Accessories</Link>
                                       </li>
                                       <li className="nav-item">
-                                          <a className="nav-link" href="#"><i className="fa fa-microchip"></i>Electronics & Accessories</a>
+                                          <Link className="nav-link" to="/product-list"><i className="fa fa-microchip"></i>Electronics & Accessories</Link>
                                       </li>
                                   </ul>
                               </nav>
@@ -178,16 +173,16 @@ function HomeScreen(props){
                           <div className="col-md-3">
                               <div className="header-img">
                                   <div className="img-item">
-                                      <img src="img/category-1.jpg" />
-                                      <a className="img-text" href="">
+                                      <img src="/img/category-1.jpg" />
+                                      <Link className="img-text" to="/product-list">
                                           <p>Woman Fashion 2021</p>
-                                      </a>
+                                      </Link>
                                   </div>
                                   <div className="img-item">
-                                      <img src="img/category-2.jpg" />
-                                      <a className="img-text" href="">
+                                      <img src="/img/category-2.jpg" />
+                                      <Link className="img-text" to="/product-list">
                                           <p>Kids Fashion 2021</p>
-                                      </a>
+                                      </Link>
                                   </div>
                               </div>
                           </div>
@@ -218,44 +213,44 @@ function HomeScreen(props){
                           <div className="col-md-3">
                               <div className="category-item ch-400">
                                   <img src="img/category-3.jpg" />
-                                  <a className="category-name" href="">
-                                      <p>Some text goes here that describes the image</p>
-                                  </a>
+                                  <Link className="category-name" >
+                                      <p>Hot trend in 2021</p>
+                                  </Link>
                               </div>
                           </div>
                           <div className="col-md-3">
                               <div className="category-item ch-250">
                                   <img src="img/category-4.jpg" />
-                                  <a className="category-name" href="">
-                                      <p>Some text goes here that describes the image</p>
-                                  </a>
+                                  <Link className="category-name" >
+                                      <p>Hot trend in 2021</p>
+                                  </Link>
                               </div>
                               <div className="category-item ch-150">
                                   <img src="img/category-5.jpg" />
-                                  <a className="category-name" href="">
-                                      <p>Some text goes here that describes the image</p>
-                                  </a>
+                                  <Link className="category-name" >
+                                      <p>Hot trend in 2021</p>
+                                  </Link>
                               </div>
                           </div>
                           <div className="col-md-3">
                               <div className="category-item ch-150">
                                   <img src="img/category-6.jpg" />
-                                  <a className="category-name" href="">
-                                      <p>Some text goes here that describes the image</p>
-                                  </a>
+                                  <Link className="category-name" >
+                                      <p>Hot trend in 2021</p>
+                                  </Link>
                               </div>
                               <div className="category-item ch-250">
                                   <img src="img/category-7.jpg" />
-                                  <a className="category-name" href="">
-                                      <p>Some text goes here that describes the image</p>
-                                  </a>
+                                  <Link className="category-name" >
+                                      <p>Hot trend in 2021</p>
+                                  </Link>
                               </div>
                           </div>
                           <div className="col-md-3">
                               <div className="category-item ch-400">
                                   <img src="img/category-8.jpg" />
-                                  <a className="category-name" href="">
-                                      <p>Some text goes here that describes the image</p>
+                                  <a className="category-name" >
+                                      <p>Hot trend in 2021</p>
                                   </a>
                               </div>
                           </div>
