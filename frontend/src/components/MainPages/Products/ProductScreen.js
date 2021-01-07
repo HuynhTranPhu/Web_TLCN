@@ -56,7 +56,7 @@ function ProductScreen(props){
         return () => {
         };
     }, [pageNumber])
-
+    //Add to cart
     const handleAddToCart = (id,name,price, image) =>{
         let a = {_id: id,
             name: name,
@@ -107,7 +107,7 @@ function ProductScreen(props){
                                 <div className="product-view-top">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            {`${filteredItems.length} products found`}
+                                            {`${filteredItems.length} products found- pages ${pageNumber}`}
                                         </div>
                                         <div className="col-md-3">
                                             <div className="product-search">

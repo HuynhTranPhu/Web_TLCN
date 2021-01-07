@@ -4,12 +4,6 @@ import { PRODUCT_LIST_REQUEST,
     PRODUCT_DETAILS_REQUEST, 
     PRODUCT_DETAILS_SUCCESS, 
     PRODUCT_DETAILS_FAIL, 
-    PRODUCT_SAVE_REQUEST, 
-    PRODUCT_SAVE_SUCCESS, 
-    PRODUCT_SAVE_FAIL, 
-    PRODUCT_DELETE_REQUEST, 
-    PRODUCT_DELETE_SUCCESS, 
-    PRODUCT_DELETE_FAIL, 
     ORDER_PRODUCTS_BY_PRICE,
      CATEGORY_LIST_REQUEST, 
      CATEGORY_LIST_SUCCESS,
@@ -18,6 +12,7 @@ import { PRODUCT_LIST_REQUEST,
       SEARCH_FILTER_PRODUCTS, 
       PRODUCT_LIST_SUCCESS_OF_PAGE} from "../constants/productConstants";
 
+//List product
 function productListReducer (state = { products: [],filteredItems: [], cate: "",sort: "",search:"",numberOfPages:0}, action){
     switch(action.type){
         case PRODUCT_LIST_REQUEST:
@@ -51,6 +46,7 @@ function productListReducer (state = { products: [],filteredItems: [], cate: "",
             return state;
     }
 }
+//Category List
 function categoryListReducer(state={category:[]},action){
     switch(action.type){
         case CATEGORY_LIST_REQUEST:
@@ -64,6 +60,7 @@ function categoryListReducer(state={category:[]},action){
             return state;
     }
 }
+// Detail products
 function productDetailsReducer (state = { product: {}}, action){
     switch(action.type){
         case PRODUCT_DETAILS_REQUEST:
@@ -76,29 +73,7 @@ function productDetailsReducer (state = { product: {}}, action){
             return state;
     }
 }
-function productDeleteReducer (state = { product: {}}, action){
-    switch(action.type){
-        case PRODUCT_DELETE_REQUEST:
-            return {loading: true};
-        case  PRODUCT_DELETE_SUCCESS:
-            return { loading : false , product: action.payload, success: true};
-        case PRODUCT_DELETE_FAIL:
-            return { loading : false, error: action.payload}
-        default:
-            return state;
-    }
-}
-function productSaveReducer (state = { product: {}}, action){
-    switch(action.type){
-        case PRODUCT_SAVE_REQUEST:
-            return {loading: true};
-        case  PRODUCT_SAVE_SUCCESS:
-            return { loading : false , success: true, product: action.payload};
-        case PRODUCT_SAVE_FAIL:
-            return { loading : false, error: action.payload}
-        default:
-            return state;
-    }
-}
 
-export {productListReducer, productDetailsReducer, productSaveReducer, productDeleteReducer,categoryListReducer}
+
+
+export {productListReducer, productDetailsReducer,categoryListReducer}

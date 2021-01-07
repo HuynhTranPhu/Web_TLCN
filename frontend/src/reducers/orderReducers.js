@@ -1,5 +1,7 @@
 import {ORDER_RESET, ADD_ORDER_FAIL, ADD_ORDER_REQUEST, ADD_ORDER_SUCCESS, HISTORY_FAIL, HISTORY_REQUEST, HISTORY_SUCCESS, REMOVE_ORDER_FAIL, REMOVE_ORDER_REQUEST, REMOVE_ORDER_SUCCESS, VIEW_HISTORY_FAIL, VIEW_HISTORY_REQUEST, VIEW_HISTORY_SUCCESS } from "../constants/orderContants";
 
+
+//Add order in database
 function orderPostReducer(state={}, action){
     switch(action.type){
         case ADD_ORDER_REQUEST:
@@ -14,7 +16,7 @@ function orderPostReducer(state={}, action){
     }
 }
 
-
+//Get history order
 function historyReducer (state = { history:[]}, action){
     switch(action.type){
         case HISTORY_REQUEST:
@@ -31,6 +33,8 @@ function historyReducer (state = { history:[]}, action){
             return state;
     }
 }
+
+//View detail history orders
 function viewHistoryReducer (state = { viewHistory:[]}, action){
     switch(action.type){
         case VIEW_HISTORY_REQUEST:
@@ -43,6 +47,7 @@ function viewHistoryReducer (state = { viewHistory:[]}, action){
             return state;
     }
 }
+//Remove orders
 function removeOrderReducer(state={}, action){
     switch(action.type){
         case REMOVE_ORDER_REQUEST:
