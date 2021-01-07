@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Slider from "react-slick";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { detailsProduct } from '../../../actions/productActions';
 import { listProducts } from '../../../actions/productActions';
@@ -17,19 +17,20 @@ import { addCart } from '../../../actions/cartAction';
 
 
 function ProductDetailScreen(props){
-   // const [qty, setQty] = useState(1);
-    //const params = useParams()
+    const params = useParams()
+    const [loading2,setLoading]=useState(false);
     const productDetails = useSelector(state => state.productDetails);
     const {product, loading, error } = productDetails;
-    const productList = useSelector(state => state.productList);
-    const {products} = productList;
-    //const [detailProduct, setDetailProduct] = useState([])
-    //console.log(products);
+  
+    let productList = useSelector(state => state.productList);
+    let {products} = productList;
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo} = userLogin;
 
     const addCartPost = useSelector(state => state.cartPost);
     const {success} = addCartPost;
+
+    const [detailProduct, setDetailProduct] = useState([])
     const dispatch = useDispatch();
 
 
@@ -62,13 +63,31 @@ function ProductDetailScreen(props){
     };
 
     useEffect(() => {
-        dispatch(detailsProduct(props.match.params.id));
-        dispatch(listProducts());
-        
-        return () => {
-            //
-        };
-    }, [])
+        if(params.id){
+
+            products.forEach(product => {
+                if(product._id === params.id) setDetailProduct(product)
+            })
+        }
+        // console.log(productList.products)
+
+         const test = async()=>{
+            await dispatch(listProducts());
+         setLoading(false)
+         }
+      
+       
+            // console.log(props.match.params.id);
+            if (products.length===0)
+            {
+             setLoading(true)
+
+                test(); 
+               // dispatch(detailsProduct(props.match.params.id));
+            }
+     
+    }, [products.length,loading2,params.id])
+    //console.log(detailProduct)
     const handleAddToCart = (id,name,price, image) =>{
         let a = {_id: id,
             name: name,
@@ -89,19 +108,14 @@ function ProductDetailScreen(props){
         }
        
     }
-
+    
+    //if(product.length === 0) return null;
     return <div>
         <TopBar/>
         <NavBar/>
         <BottomBar  ></BottomBar>
-        {loading?(
-            <LoadingBox></LoadingBox>
-        ):
-        error? (
-            <MessageBox variant="danger">{error}</MessageBox>
-        ):
-        (
-            <div className="product-detail">
+       
+        {loading2?<LoadingBox></LoadingBox>:  <div className="product-detail">
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-lg-12">
@@ -110,13 +124,13 @@ function ProductDetailScreen(props){
                                     <div className="row align-items-center">
                                         <div className="col-md-3">
                                             <div className="product-slider-single ">
-                                                <img src={product.img} alt="Product" />  
+                                                <img src={detailProduct.img} alt="Product" />  
                                             </div>
                                         </div>
                                         <div className="col-md-7">
                                             <div className="product-content">
                                                 <div className="title">
-                                                    <h2>{product.name}</h2>
+                                                    <h2>{detailProduct.name}</h2>
                                                 </div>
                                                 <div className="ratting">
                                                     <i className="fa fa-star" />
@@ -127,11 +141,11 @@ function ProductDetailScreen(props){
                                                 </div>
                                                 <div className="price">
                                                     <h4>Price:</h4>
-                                                    <p> ${product.price} <span>$149</span></p>
+                                                    <p> ${detailProduct.price} <span>$149</span></p>
                                                 </div>
                                                 <div className="quantity">
                                                     <h4>Status:</h4>       
-                                                    {product.count > 0? 
+                                                    {detailProduct.count > 0? 
                                                     (
                                                         <span className="success">In Stock</span>
                                                     ):(
@@ -157,8 +171,8 @@ function ProductDetailScreen(props){
                                                 </div> */}
                                                 <div className="action">
                                                 {
-                                                    product.count>0 && 
-                                                    <a className="btn"  onClick={()=>handleAddToCart(product._id,product.name,product.price,product.img)} ><i className="fa fa-shopping-cart" />Add to Cart</a>
+                                                    detailProduct.count>0 && 
+                                                    <a className="btn"  onClick={()=>handleAddToCart(detailProduct._id,detailProduct.name,detailProduct.price,detailProduct.img)} ><i className="fa fa-shopping-cart" />Add to Cart</a>
                                                 }
                                                 </div>
                                             </div>
@@ -182,7 +196,7 @@ function ProductDetailScreen(props){
                                         <div id="description" className="container tab-pane active">
                                             <h4>Product description</h4>
                                             <p>
-                                                {product.description}   
+                                                {detailProduct.description}   
                                             </p>
                                         </div>
                                         <div id="specification" className="container tab-pane fade">
@@ -246,7 +260,7 @@ function ProductDetailScreen(props){
                                 <Slider {...settings}>
                                     {
                                         products.map((pr)=>{
-                                            return  pr.id_category === product.id_category
+                                            return  pr.id_category === detailProduct.id_category && pr._id!== detailProduct._id
                                             ?
                                                 <div className="col-lg-12" key={pr._id}>
                                                 <div className="product-item">
@@ -282,9 +296,10 @@ function ProductDetailScreen(props){
                         </div>
                     </div>
                 </div>
-            </div>
-        )
-    }
+            </div>} 
+      
+          
+     
     <Brand/>
     <FooterPage/>
     <ScrollToTopBtn />

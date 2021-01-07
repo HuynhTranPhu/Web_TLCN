@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterProducts, listCategory, listProducts, searchFilterProducts, sortProducts } from '../../../actions/productActions';
+import { filterProducts, listCategory, listProducts, listProductsOfPage, searchFilterProducts, sortProducts } from '../../../actions/productActions';
 // import { detailsProduct } from '../../../actions/productActions';
 import LoadingBox from '../../Config/LoadingBox';
 import MessageBox from '../../Config/MessageBox';
@@ -12,12 +12,13 @@ import BottomBar from '../../Common/BottomBar/index';
 import FooterPage from '../../Common/Footer/Footer';
 import ScrollToTopBtn from '../../Common/ScrollToTop/ScrollToTop';
 import { addCart } from '../../../actions/cartAction';
+import Axios from 'axios';
 
 
 
 function ProductScreen(props){
     const productList = useSelector(state => state.productList);
-    const {products,filteredItems,cate,sort,search,loading , error} = productList;
+    const {products,filteredItems,cate,sort,search,loading , error,numberOfPages} = productList;
 
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo} = userLogin;
@@ -27,16 +28,35 @@ function ProductScreen(props){
 
     const addCartPost = useSelector(state => state.cartPost);
     const {success} = addCartPost;
+
+
+    const [pageNumber, setPageNumber] = useState(0);
+    // const [numberOfPages, setNumberOfPages] = useState(0);
+    // const [data, setData] = useState([]);
+
+
+    const pages = new Array(numberOfPages).fill(null).map((v, i) => i+1);
+    console.log(pages);
+    console.log(numberOfPages);
    
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(listProducts());
+        //  Axios.get(`/product/getproduct/${pageNumber}`)
+        // .then((response) => response.data)
+        // .then(({data, totalPage  }) => {
+        //   setData(data);
+        //   setNumberOfPages(totalPage);
+        // });
+        // console.log(pageNumber);
+
+        dispatch(listProductsOfPage(pageNumber))
+        //dispatch(listProducts());
         dispatch(listCategory());
         return () => {
         };
-    }, [])
-    console.log(cate)
+    }, [pageNumber])
+    //console.log(cate)
     // const [qty, setQty] = useState(1);
     // const productDetails = useSelector(state => state.productDetails);
     // const {product, loading, error } = productDetails;
@@ -70,6 +90,13 @@ function ProductScreen(props){
        
     }
     
+    const gotoPrevious = () => {
+        setPageNumber(Math.max(0, pageNumber - 1));
+      };
+    
+      const gotoNext = () => {
+        setPageNumber(Math.min(numberOfPages - 1, pageNumber + 1));
+      };
     return <div>
          <TopBar/>
         <NavBar/>
@@ -195,7 +222,7 @@ function ProductScreen(props){
                             
                         </div>
                         {/* Pagination Start */}
-                        <div className="col-md-12">
+                        {/* <div className="col-md-12">
                             <nav aria-label="Page navigation example">
                                 <ul className="pagination justify-content-center">
                                 <li className="page-item disabled">
@@ -209,35 +236,17 @@ function ProductScreen(props){
                                 </li>
                                 </ul>
                             </nav>
-                        </div>
+                        </div> */}
+                         <button onClick={gotoPrevious}>Previous</button>
+                        {pages.map((pageIndex) => (
+                            <button key={pageIndex} onClick={() => setPageNumber(pageIndex)}>
+                            {pageIndex }
+                            </button>
+                        ))}
+                        <button onClick={gotoNext}>Next</button>
                         {/* Pagination Start */}
                     </div>           
-                    {/* <div className="sidebar-widget brands">
-                        <h2 className="title">Our Brands</h2>
-                        <ul>
-                            <li><a href="#">Nulla </a><span>(45)</span></li>
-                            <li><a href="#">Curabitur </a><span>(34)</span></li>
-                            <li><a href="#">Nunc </a><span>(67)</span></li>
-                            <li><a href="#">Ullamcorper</a><span>(74)</span></li>
-                            <li><a href="#">Fusce </a><span>(89)</span></li>
-                            <li><a href="#">Sagittis</a><span>(28)</span></li>
-                        </ul>
-                    </div> */}
-                    {/* <div className="sidebar-widget tag">
-                        <h2 className="title">Tags Cloud</h2>
-                        <a href="#">Lorem ipsum</a>
-                        <a href="#">Vivamus</a>
-                        <a href="#">Phasellus</a>
-                        <a href="#">pulvinar</a>
-                        <a href="#">Curabitur</a>
-                        <a href="#">Fusce</a>
-                        <a href="#">Sem quis</a>
-                        <a href="#">Mollis metus</a>
-                        <a href="#">Sit amet</a>
-                        <a href="#">Vel posuere</a>
-                        <a href="#">orci luctus</a>
-                        <a href="#">Nam lorem</a>
-                    </div> */}
+                    
                 </div>
                 {/* Side Bar End */}
             </div>

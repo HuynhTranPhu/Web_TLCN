@@ -143,7 +143,7 @@ function HomeScreen(props){
                               <nav className="navbar bg-light">
                                   <ul className="navbar-nav">
                                       <li className="nav-item">
-                                          <Link className="nav-link" to="/product-list"><i className="fa fa-home"></i>Home</Link>
+                                          <Link className="nav-link" to="/"><i className="fa fa-home"></i>Home</Link>
                                       </li>
                                       <li className="nav-item">
                                           <Link className="nav-link" to="/product-list"><i className="fa fa-shopping-bag"></i>Best Selling</Link>

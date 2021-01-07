@@ -1,11 +1,32 @@
-import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_DETAILS_FAIL, PRODUCT_SAVE_REQUEST, PRODUCT_SAVE_SUCCESS, PRODUCT_SAVE_FAIL, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_FAIL, ORDER_PRODUCTS_BY_PRICE, CATEGORY_LIST_REQUEST, CATEGORY_LIST_SUCCESS, CATEGORY_LIST_FAIL, FILTER_PRODUCTS_BY_CATEGORY, SEARCH_FILTER_PRODUCTS } from "../constants/productConstants";
+import { PRODUCT_LIST_REQUEST, 
+    PRODUCT_LIST_SUCCESS, 
+    PRODUCT_LIST_FAIL, 
+    PRODUCT_DETAILS_REQUEST, 
+    PRODUCT_DETAILS_SUCCESS, 
+    PRODUCT_DETAILS_FAIL, 
+    PRODUCT_SAVE_REQUEST, 
+    PRODUCT_SAVE_SUCCESS, 
+    PRODUCT_SAVE_FAIL, 
+    PRODUCT_DELETE_REQUEST, 
+    PRODUCT_DELETE_SUCCESS, 
+    PRODUCT_DELETE_FAIL, 
+    ORDER_PRODUCTS_BY_PRICE,
+     CATEGORY_LIST_REQUEST, 
+     CATEGORY_LIST_SUCCESS,
+      CATEGORY_LIST_FAIL, 
+      FILTER_PRODUCTS_BY_CATEGORY, 
+      SEARCH_FILTER_PRODUCTS, 
+      PRODUCT_LIST_SUCCESS_OF_PAGE} from "../constants/productConstants";
 
-function productListReducer (state = { products: [],filteredItems: [], cate: "",sort: "",search:""}, action){
+function productListReducer (state = { products: [],filteredItems: [], cate: "",sort: "",search:"",numberOfPages:0}, action){
     switch(action.type){
         case PRODUCT_LIST_REQUEST:
             return {loading: true, products:[]};
         case  PRODUCT_LIST_SUCCESS:
             return { loading : false , products: action.payload, filteredItems:action.payload};
+        case  PRODUCT_LIST_SUCCESS_OF_PAGE:
+            return { loading : false , products: action.payload.data,
+                 filteredItems:action.payload.data,numberOfPages:action.payload.totalPage};
         case FILTER_PRODUCTS_BY_CATEGORY:
             return {
                   ...state,

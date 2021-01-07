@@ -11,11 +11,27 @@ CATEGORY_LIST_REQUEST,
 CATEGORY_LIST_SUCCESS,
 CATEGORY_LIST_FAIL,
 SEARCH_FILTER_PRODUCTS, 
+PRODUCT_LIST_SUCCESS_OF_PAGE,
 } 
 from  '../constants/productConstants';
 //import apiUrl from '../components/Config/apiUrl/apiUrl';
 import axios from 'axios'
 
+const listProductsOfPage = (pageNumber) => async (dispatch) =>{
+    try{
+        //dispatch({type: PRODUCT_LIST_REQUEST});
+         //const {data} =await axios.get("/api/products");
+         const {data} = await axios.get('/product/getproduct/'+ pageNumber);
+        console.log({data});
+        dispatch({type: PRODUCT_LIST_SUCCESS_OF_PAGE, payload: data});
+        
+    }  
+    catch(error){
+
+        //dispatch({type: PRODUCT_LIST_FAIL, payload: error.message});
+    }
+
+}
 const listProducts = () => async (dispatch) =>{
     try{
         dispatch({type: PRODUCT_LIST_REQUEST});
@@ -71,8 +87,7 @@ const searchFilterProducts  = (products,search) =>  (dispatch) =>{
               ? products
               : products.filter(
                   (x) => x.name.toLowerCase().includes(search.toLowerCase())
-                )
-                
+                ) 
         }
        
   }); 
@@ -90,10 +105,8 @@ const filterProducts  = (products,category) =>  (dispatch) =>{
                     ? products
                     : products.filter(
                         (x) => x.id_category===category
-                      )
-                      
+                      )      
               }
-             
         }); 
         //console.log(category)
         
@@ -127,5 +140,6 @@ export {listProducts, detailsProduct,
     filterProducts,
     sortProducts,
     listCategory,
-    searchFilterProducts
+    searchFilterProducts,
+    listProductsOfPage
 };
