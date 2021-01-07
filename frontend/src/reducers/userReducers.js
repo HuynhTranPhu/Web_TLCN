@@ -28,6 +28,8 @@ import {
     RESET_FORGOT_PASSWORD,
     USER_SIGNIN_FB_SUCCESS,
     USER_SIGNIN_GG_SUCCESS} from  '../constants/userConstant';
+
+//Login 
 function userLoginReducer(state={}, action){
     switch(action.type){
         case USER_SIGNIN_REQUEST:
@@ -45,18 +47,8 @@ function userLoginReducer(state={}, action){
         default : return state;
     }
 }
-// function userLoginFaceBookReducer(state={}, action){
-//     switch(action.type){
-//         case USER_SIGNIN_REQUEST:
-//             return {loading : true};
-//         case USER_SIGNIN_SUCCESS:
-//             return {loading : false, userInfo : action.payload};
-//         case USER_SIGNIN_FAIL:
-//             return {loading : false, error : action.payload};
-//         default : return state;
-//     }
-// }
 
+// register
 function userRegisterReducer(state={}, action){
     switch(action.type){
         case USER_REGISTER_REQUEST:
@@ -68,7 +60,7 @@ function userRegisterReducer(state={}, action){
         default : return state;
     }
 }
-
+//user detail
 function userDetailsReducer(state ={loading:true}, action) {
     switch(action.type){
         case USER_DETAIL_REQUEST:
@@ -80,6 +72,7 @@ function userDetailsReducer(state ={loading:true}, action) {
         default : return state;
     }
 }
+//Update profile
 function userUpdateProfileReducer(state ={}, action){
     switch(action.type){
         case USER_UPDATE_PROFILE_REQUEST:
@@ -94,7 +87,7 @@ function userUpdateProfileReducer(state ={}, action){
             return state;
     }
 }
-
+// Reset password
 function userUpdatePasswordReducer(state ={}, action){
     switch(action.type){
         case USER_UPDATE_PASSWORD_REQUEST:
@@ -109,28 +102,7 @@ function userUpdatePasswordReducer(state ={}, action){
             return state;
     }
 }
-////////Add to cart user/////////////
-function addCartReducer(state={cart:[]}, action){
-    switch(action.type){
-        case CART_ADD_POST_SUCCESS:
-            const product = action.payload.product;
-            const check = state.cart.every(item =>{
-                return item._id !== product._id
-            })
-    
-            if(check){
-                return{ cart:  ([...state.cart, {...product, quantity: 1}]) }
-               
 
-            }else{
-                alert("This product has been added to cart.")
-            }
-            return ;
-        case CART_ADD_POST_FAIL:
-            return {loading : false, error : action.payload};
-        default : return state;
-    }
-}
 
 
 //********Forgot password********////
@@ -190,6 +162,6 @@ function forgotPasswordReducer(state = {}, action){
 export{
     userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer, userUpdatePasswordReducer,
     forgotPasswordReducer,
-    addCartReducer,
+    //addCartReducer,
    // userLoginFaceBookReducer
 }

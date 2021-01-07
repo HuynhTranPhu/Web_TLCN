@@ -30,13 +30,13 @@ function ProductScreen(props){
     const {success} = addCartPost;
 
 
-    const [pageNumber, setPageNumber] = useState(0);
+    const [pageNumber, setPageNumber] = useState(1);
     // const [numberOfPages, setNumberOfPages] = useState(0);
     // const [data, setData] = useState([]);
 
 
     const pages = new Array(numberOfPages).fill(null).map((v, i) => i+1);
-    console.log(pages);
+    console.log(pageNumber);
     console.log(numberOfPages);
    
     const dispatch = useDispatch();
@@ -56,18 +56,7 @@ function ProductScreen(props){
         return () => {
         };
     }, [pageNumber])
-    //console.log(cate)
-    // const [qty, setQty] = useState(1);
-    // const productDetails = useSelector(state => state.productDetails);
-    // const {product, loading, error } = productDetails;
-    // const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     dispatch(detailsProduct(props.match.params.id));
-    //     return () => {
-    //         //
-    //     };
-    // }, [])
     const handleAddToCart = (id,name,price, image) =>{
         let a = {_id: id,
             name: name,
@@ -237,13 +226,16 @@ function ProductScreen(props){
                                 </ul>
                             </nav>
                         </div> */}
-                         <button onClick={gotoPrevious}>Previous</button>
-                        {pages.map((pageIndex) => (
-                            <button key={pageIndex} onClick={() => setPageNumber(pageIndex)}>
-                            {pageIndex }
-                            </button>
-                        ))}
-                        <button onClick={gotoNext}>Next</button>
+                        <div className="col-md-12 pagination justify-content-center">
+                            <button onClick={gotoPrevious}>Previous</button>
+                            {pages.map((pageIndex) => (
+                                <button key={pageIndex} onClick={() => setPageNumber(pageIndex)}>
+                                {pageIndex }
+                                </button>
+                            ))}
+                            <button onClick={gotoNext}>Next</button>
+                        </div>
+                        
                         {/* Pagination Start */}
                     </div>           
                     

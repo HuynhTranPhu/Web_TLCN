@@ -283,3 +283,7 @@ background: #000000;
   .product-item .product-price .btn i {
     margin-right: 5px;
   }
+  .pagination button{
+    color: #FF6F61;
+    background: #000000;
+  }

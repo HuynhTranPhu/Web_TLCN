@@ -9,7 +9,7 @@ import LoadingBox from '../../Config/LoadingBox';
 import MessageBox from '../../Config/MessageBox';
 import config from '../../Config/index';
 
-
+//file config
 const gg = config.REACT_APP_GOOGLE_CLIENT;
 const fb = config.REACT_APP_FACEBOOK_CLIENT;
 //console.log(gg);
@@ -71,7 +71,7 @@ function LoginScreen(props){
       //    props.history.push('/');
     
       // };
-    
+    //Nhan respone tu gg
       const responseGoogle = response => {
         console.log(response);
         dispatch(loginGoogle(response.tokenId));
