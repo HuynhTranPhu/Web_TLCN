@@ -10,7 +10,10 @@ import { PRODUCT_LIST_REQUEST,
       CATEGORY_LIST_FAIL, 
       FILTER_PRODUCTS_BY_CATEGORY, 
       SEARCH_FILTER_PRODUCTS, 
-      PRODUCT_LIST_SUCCESS_OF_PAGE} from "../constants/productConstants";
+      PRODUCT_LIST_SUCCESS_OF_PAGE,
+      SEARCH_REQUEST,
+      SEARCH_SUCCESS,
+      SEARCH_FAIL} from "../constants/productConstants";
 
 //List product
 function productListReducer (state = { products: [],filteredItems: [], cate: "",sort: "",search:"",numberOfPages:0}, action){
@@ -60,6 +63,19 @@ function categoryListReducer(state={category:[]},action){
             return state;
     }
 }
+function searchHeaderReducer(state={productSearch:[]},action){
+    switch(action.type){
+        case SEARCH_REQUEST:
+            return {loading: true, productSearch:[]};
+        case  SEARCH_SUCCESS:
+            return { loading : false , productSearch: action.payload};
+    
+        case SEARCH_FAIL:
+            return { loading : false, error: action.payload}
+        default:
+            return state;
+    }
+}
 // Detail products
 function productDetailsReducer (state = { product: {}}, action){
     switch(action.type){
@@ -76,4 +92,4 @@ function productDetailsReducer (state = { product: {}}, action){
 
 
 
-export {productListReducer, productDetailsReducer,categoryListReducer}
+export {productListReducer, productDetailsReducer,categoryListReducer,searchHeaderReducer}

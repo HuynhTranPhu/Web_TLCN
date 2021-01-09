@@ -1,0 +1,15 @@
+.empty-cart1{
+    margin: auto;
+}
+.empty-cart1 .empty-cart-img{
+    width: 190px;
+    height: 190px;
+    margin-left: 50px;
+}
+.empty-cart1 .empty-cart-note{
+    margin-top: 10px;
+}
+.empty-cart1 .empty-cart-shopping{
+    background-color: yellow;
+    margin-left: 90px;
+}

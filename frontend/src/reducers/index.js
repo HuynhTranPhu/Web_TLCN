@@ -1,7 +1,7 @@
 import { combineReducers} from 'redux';
 import { cartGetReducer, cartPostReducer, cartReducer, decreaseCartReducer, increaseCartReducer, removeCartPostReducer } from './cartReducers';
 import { historyReducer, orderPostReducer, removeOrderReducer, viewHistoryReducer } from './orderReducers';
-import { categoryListReducer, productDetailsReducer, productListReducer } from './productReducers';
+import { categoryListReducer, productDetailsReducer, productListReducer, searchHeaderReducer } from './productReducers';
 import { forgotPasswordReducer, userDetailsReducer, userLoginReducer, userRegisterReducer, userUpdatePasswordReducer, userUpdateProfileReducer } from './userReducers';
 
 
@@ -26,5 +26,6 @@ const reducer = combineReducers({
     historyOrder: historyReducer,
     viewHistoryOrder: viewHistoryReducer,
     removeOrder: removeOrderReducer,
+    searchHeader:searchHeaderReducer,
 });
 export default reducer;

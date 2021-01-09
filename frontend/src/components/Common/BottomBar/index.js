@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
-    BrowserRouter ,
-    Link,
-    NavLink,
-    Route,
-    Switch
+    Link, useHistory
   } from "react-router-dom";
+import { searchHeader } from '../../../actions/productActions';
 
 
 
@@ -18,6 +15,13 @@ function Index(props) {
 
     const cart = useSelector(state => state.cart);
     const {cartItems} = cart;
+    const history =useHistory();
+    const dispatch = useDispatch();
+    
+
+const handelSearch=()=>{
+    history.push('/search');
+}
 return (
         
  <div className="bottom-bar">
@@ -32,8 +36,21 @@ return (
             </div>
             <div className="col-md-6">
                 <div className="search">
-                    <input type="text" placeholder="Search"/>
-                    <button><i className="fa fa-search"></i></button>
+                    <input type="text" placeholder="Search"
+                    //value={e.target.value}
+                    
+                    onChange={(e)=>
+                       {
+                        if (e.target.value!=='')
+                          {
+                            dispatch(searchHeader(
+                                e.target.value
+                            ));
+                          }   
+                       }   
+                    }
+                    />
+                    <button onClick={handelSearch}><i  className="fa fa-search"></i></button> 
                 </div>
             </div>
             <div className="col-md-2">

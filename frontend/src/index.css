@@ -995,3 +995,6 @@ h2 {
 
 /***Order Status*****/
 @import url("./components//OrderStatus/index.css");
+
+/**Empty products***/
+@import url("./components/MainPages/SearchHeader/index.css");

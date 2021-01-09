@@ -31,7 +31,7 @@ function PlaceOrderScreen(props){
     ); 
     const shippingPrice = itemsPrice > 100||itemsPrice===0 ? toPrice(0) : toPrice(10);
     const totalPrice = itemsPrice + shippingPrice ;
-    const paymentStatus= "pending";
+    //const paymentStatus= "pending";
     const dispatch = useDispatch();
     const placeOrderHandler = () =>{
         ///create order

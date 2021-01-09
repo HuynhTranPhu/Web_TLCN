@@ -21,8 +21,8 @@ function HomeScreen(props){
     
     const productList = useSelector(state => state.productList);
     const {products,loading , error} = productList;
-    const addCartPost = useSelector(state => state.cartPost);
-    const {success} = addCartPost;
+    // const addCartPost = useSelector(state => state.cartPost);
+    // const {success} = addCartPost;
 
     // const cart = useSelector(state => state.cart);
     // const {cartItems} = cart;
@@ -32,12 +32,12 @@ function HomeScreen(props){
     const dispatch = useDispatch();
 
  
-    const [cartIte,setcart] =useState(0);
+    // const [cartIte,setcart] =useState(0);
   
-    const addtocartcount= ()=>{
-        const cartupdate = cartIte+1;
-        setcart(cartupdate)   
-    }
+    // const addtocartcount= ()=>{
+    //     const cartupdate = cartIte+1;
+    //     setcart(cartupdate)   
+    // }
  
 
     const feature = [ {title:'Secure Payment',content:'You can chose payments', icon:'fab fa-cc-mastercard'},
@@ -45,19 +45,7 @@ function HomeScreen(props){
                     {title:'90 Days Return',content:'You can return orders in 90 days', icon:'fas fa-sync'},
                     {title:'24/7 Support',content:'Our staff always support you if you want', icon:'fa fa-comments'}
                     ]
-    //let d=0;
-    // const addToCartHandler = (productId) =>{
-    //     dispatch(addToCart(productId,1));
-    //     d=d+1;
-    //     if(d>=2){
-    //         alert("This product has been added to cart");
-    //     }
-    //     //console.log(d);
-    //     //console.log(cartItems);
-    //     //dispatch(addCart(userInfo.user.id,carts));
-    //    // console.log(carts);
-        
-    // }
+    
 
     const addToCartHandler = (id,name,price,image) =>{
         let a = {_id: id,
@@ -71,11 +59,11 @@ function HomeScreen(props){
             props.history.push("/login");
         }else{
             dispatch(addCart(userInfo.newUser._id,carts));
-            if(success){
-                dispatch(addToCart(id,1));   
-            }else{
-                alert('Something is wrong');
-            }
+            // if(success){
+            dispatch(addToCart(id,1));   
+            // }else{
+            //     alert('Something is wrong');
+            // }
         }
     }
   
@@ -324,13 +312,13 @@ function HomeScreen(props){
               {/* <!-- Featured Product End -->           
               
               <!-- Recent Product Start --> */}
-              <div className="recent-product product">
+              {/* <div className="recent-product product">
                   <div className="container-fluid">
                       <div className="section-header">
                           <h1>Recent Product</h1>
-                      </div>
+                      </div> */}
                       {/* <div className="align-items-center"> */}
-                          <Slider {...settings}>
+                          {/* <Slider {...settings}>
                             {
                                 products.map( (product) =>
                                 <div className="col-lg-12" key={product._id}>
@@ -364,10 +352,10 @@ function HomeScreen(props){
                                     </div>
                                 </div>  )
                             } 
-                         </Slider> 
+                         </Slider>  */}
                       {/* </div> */}
-                  </div>
-              </div>
+                  {/* </div>
+              </div> */}
               <Review/>
               <FooterPage/>
               

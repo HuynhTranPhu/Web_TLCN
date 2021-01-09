@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterProducts, listCategory, listProducts, listProductsOfPage, searchFilterProducts, sortProducts } from '../../../actions/productActions';
-// import { detailsProduct } from '../../../actions/productActions';
+import { filterProducts, listCategory, listProductsOfPage, searchFilterProducts, sortProducts } from '../../../actions/productActions';
 import LoadingBox from '../../Config/LoadingBox';
 import MessageBox from '../../Config/MessageBox';
 import Brand from '../../Brand/Brand';
@@ -12,7 +11,7 @@ import BottomBar from '../../Common/BottomBar/index';
 import FooterPage from '../../Common/Footer/Footer';
 import ScrollToTopBtn from '../../Common/ScrollToTop/ScrollToTop';
 import { addCart } from '../../../actions/cartAction';
-import Axios from 'axios';
+
 
 
 
@@ -26,13 +25,12 @@ function ProductScreen(props){
     const categories = useSelector(state => state.categoryList);
     const {category} = categories;
 
-    const addCartPost = useSelector(state => state.cartPost);
-    const {success} = addCartPost;
+    // const addCartPost = useSelector(state => state.cartPost);
+    // const {success} = addCartPost;
 
-
+    //pagination
     const [pageNumber, setPageNumber] = useState(1);
-    // const [numberOfPages, setNumberOfPages] = useState(0);
-    // const [data, setData] = useState([]);
+
 
 
     const pages = new Array(numberOfPages).fill(null).map((v, i) => i+1);
@@ -42,14 +40,6 @@ function ProductScreen(props){
     const dispatch = useDispatch();
 
     useEffect(() => {
-        //  Axios.get(`/product/getproduct/${pageNumber}`)
-        // .then((response) => response.data)
-        // .then(({data, totalPage  }) => {
-        //   setData(data);
-        //   setNumberOfPages(totalPage);
-        // });
-        // console.log(pageNumber);
-
         dispatch(listProductsOfPage(pageNumber))
         //dispatch(listProducts());
         dispatch(listCategory());
@@ -70,11 +60,11 @@ function ProductScreen(props){
         }else{
             
             dispatch(addCart(userInfo.newUser._id,carts));
-            if(success){
-                props.history.push(`/cart/${id}`); 
-            }else{
-                alert('Something is wrong');
-            }
+            // if(success){
+            props.history.push(`/cart/${id}`); 
+            // }else{
+            //     alert('Something is wrong');
+            // }
         }
        
     }
@@ -87,7 +77,7 @@ function ProductScreen(props){
         setPageNumber(Math.min(numberOfPages - 1, pageNumber + 1));
       };
     return <div>
-         <TopBar/>
+        <TopBar/>
         <NavBar/>
         <BottomBar  ></BottomBar>
         {loading?(

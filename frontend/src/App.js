@@ -34,6 +34,7 @@ import ForgotPasswordContainer from './components/MainPages/ForgotPassword/Forgo
 import orderSuccess from './components/MainPages/OrderSuccess/OrderSuccess';
 import History from './components/MainPages/History/index';
 import ViewHistory from './components/MainPages/ViewHistory';
+import SearchScreen from './components/MainPages/SearchHeader';
 
 function App() {
   
@@ -70,6 +71,7 @@ function App() {
                      <Route path="/order-success" exact component={orderSuccess}></Route>
                      <PrivateRoute path="/history" exact component={History}></PrivateRoute>
                      <PrivateRoute path="/view-history" exact component={ViewHistory}></PrivateRoute>
+                     <Route path="/search" exact component={SearchScreen}></Route>
                      <Route path="*" exact component={NotFound}></Route>
                   </Switch>   
             

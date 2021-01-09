@@ -12,6 +12,9 @@ CATEGORY_LIST_SUCCESS,
 CATEGORY_LIST_FAIL,
 SEARCH_FILTER_PRODUCTS, 
 PRODUCT_LIST_SUCCESS_OF_PAGE,
+SEARCH_REQUEST,
+SEARCH_SUCCESS,
+SEARCH_FAIL
 } 
 from  '../constants/productConstants';
 //import apiUrl from '../components/Config/apiUrl/apiUrl';
@@ -42,8 +45,29 @@ const listProducts = () => async (dispatch) =>{
         
     }  
     catch(error){
+        const message=
+        error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+        dispatch({type: PRODUCT_LIST_FAIL, payload: message});
+    }
 
-        dispatch({type: PRODUCT_LIST_FAIL, payload: error.message});
+}
+const searchHeader = (value) => async (dispatch) =>{
+    try{
+        dispatch({type: SEARCH_REQUEST, payload: value});
+         //const {data} =await axios.get("/api/products");
+         const {data} = await axios.get('/product/search/'+value);
+        console.log(data);
+        dispatch({type: SEARCH_SUCCESS, payload: data});
+        
+    }  
+    catch(error){
+        const message=
+        error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+        dispatch({type: SEARCH_FAIL, payload:message});
     }
 
 }
@@ -57,8 +81,11 @@ const listCategory = () => async (dispatch) =>{
         
     }  
     catch(error){
-
-        dispatch({type: CATEGORY_LIST_FAIL, payload: error.message});
+        const message=
+        error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+        dispatch({type: CATEGORY_LIST_FAIL, payload: message});
     }
 
 }
@@ -73,7 +100,11 @@ const detailsProduct = (productId) => async (dispatch) =>{
         dispatch({type: PRODUCT_DETAILS_SUCCESS, payload:data });
     }
     catch(error){
-        dispatch({type: PRODUCT_DETAILS_FAIL, payload: error.message})
+        const message=
+        error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+        dispatch({type: PRODUCT_DETAILS_FAIL, payload: message})
     }
 }
 const searchFilterProducts  = (products,search) =>  (dispatch) =>{
@@ -141,5 +172,6 @@ export {listProducts, detailsProduct,
     sortProducts,
     listCategory,
     searchFilterProducts,
-    listProductsOfPage
+    listProductsOfPage,
+    searchHeader
 };
