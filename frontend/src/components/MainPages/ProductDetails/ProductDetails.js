@@ -27,8 +27,8 @@ function ProductDetailScreen(props){
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo} = userLogin;
 
-    const addCartPost = useSelector(state => state.cartPost);
-    const {success} = addCartPost;
+    // const addCartPost = useSelector(state => state.cartPost);
+    // const {success} = addCartPost;
 
     const [detailProduct, setDetailProduct] = useState([])
     const dispatch = useDispatch();
@@ -100,11 +100,11 @@ function ProductDetailScreen(props){
             props.history.push("/login");
         }else{
             dispatch(addCart(userInfo.newUser._id,carts));
-            if(success){
+            // if(success){
                 props.history.push(`/cart/${id}`); 
-            }else{
-                alert('Something is wrong');
-            }
+            // }else{
+            //     alert('Something is wrong');
+            // }
         }
        
     }

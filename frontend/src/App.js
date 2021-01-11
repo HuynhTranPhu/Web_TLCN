@@ -70,7 +70,7 @@ function App() {
                      <Route path="/place-order" exact component={PlaceOrderScreen}></Route>
                      <Route path="/order-success" exact component={orderSuccess}></Route>
                      <PrivateRoute path="/history" exact component={History}></PrivateRoute>
-                     <PrivateRoute path="/view-history" exact component={ViewHistory}></PrivateRoute>
+                     <PrivateRoute path="/view-history/:id" exact component={ViewHistory}></PrivateRoute>
                      <Route path="/search" exact component={SearchScreen}></Route>
                      <Route path="*" exact component={NotFound}></Route>
                   </Switch>   

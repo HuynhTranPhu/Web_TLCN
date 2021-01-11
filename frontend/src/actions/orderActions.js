@@ -5,13 +5,13 @@ import {REMOVE_ORDER_REQUEST,
         REMOVE_ORDER_FAIL,
         CART_EMPTY,
         ADD_ORDER_FAIL,
-         ADD_ORDER_REQUEST, 
-         ADD_ORDER_SUCCESS, 
-         HISTORY_FAIL, 
-         HISTORY_SUCCESS, 
-         HISTORY_REQUEST, VIEW_HISTORY_FAIL,
-          VIEW_HISTORY_SUCCESS, 
-          VIEW_HISTORY_REQUEST } from "../constants/orderContants";
+        ADD_ORDER_REQUEST, 
+        ADD_ORDER_SUCCESS, 
+        HISTORY_FAIL, 
+        HISTORY_SUCCESS, 
+        HISTORY_REQUEST, VIEW_HISTORY_FAIL,
+        VIEW_HISTORY_SUCCESS, 
+        VIEW_HISTORY_REQUEST } from "../constants/orderContants";
 
 const addOrder = (id_user,city,posteCode,address,phone,payment,shiping) => async (dispatch, getState) =>{
     console.log({id_user,city,posteCode,address,phone,payment,shiping});
@@ -78,16 +78,15 @@ const viewHistoryGet = (id_order) => async (dispatch,getState) =>{
 }
 const removeOrder = (id_order) => async (dispatch,getState) =>{
     const { userLogin :{userInfo}}= getState();
-    //dispatch({type: REMOVE_ORDER_REQUEST, payload:id_order});
-    dispatch({type: REMOVE_ORDER_SUCCESS, payload:id_order});
-    //console.log(id_user,id_product);
+     console.log(id_order);
     try{
-        //console.log(id_order);
+        dispatch({type: REMOVE_ORDER_REQUEST, payload:id_order});
         const {data} = await Axios.put("/order/" +id_order,
         {
             headers: {Authorization:`${userInfo.token}`},
         }
         );
+        dispatch({type: REMOVE_ORDER_SUCCESS, payload:data});
         //dispatch({type:REMOVE_ORDER_SUCCESS,payload:data, success:true});
         
     }catch(error){

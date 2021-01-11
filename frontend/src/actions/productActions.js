@@ -14,7 +14,8 @@ SEARCH_FILTER_PRODUCTS,
 PRODUCT_LIST_SUCCESS_OF_PAGE,
 SEARCH_REQUEST,
 SEARCH_SUCCESS,
-SEARCH_FAIL
+SEARCH_FAIL,
+PRODUCT_LIST_REQUEST_OF_PAGE
 } 
 from  '../constants/productConstants';
 //import apiUrl from '../components/Config/apiUrl/apiUrl';
@@ -22,7 +23,7 @@ import axios from 'axios'
 
 const listProductsOfPage = (pageNumber) => async (dispatch) =>{
     try{
-        //dispatch({type: PRODUCT_LIST_REQUEST});
+        dispatch({type: PRODUCT_LIST_REQUEST_OF_PAGE});
          //const {data} =await axios.get("/api/products");
          const {data} = await axios.get('/product/getproduct/'+ pageNumber);
         console.log({data});

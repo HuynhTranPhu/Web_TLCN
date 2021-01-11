@@ -6,7 +6,7 @@ import NavBar from '../../Common/NavBar/index';
 import BottomBar from '../../Common/BottomBar/index';
 import LoadingBox from '../../Config/LoadingBox';
 import MessageBox from '../../Config/MessageBox';
-import { removeOrder } from '../../../actions/orderActions';
+import { removeOrder, viewHistoryGet } from '../../../actions/orderActions';
 import FooterPage from '../../Common/Footer/Footer';
 import ScrollToTopBtn from '../../Common/ScrollToTop/ScrollToTop';
 import OrderStatus from '../../OrderStatus/index';
@@ -14,19 +14,21 @@ import OrderStatus from '../../OrderStatus/index';
 function ViewHistory(props){
 
 
-    const viewHistoryOrder = useSelector(state => state.viewHistoryOrder);
-    const {viewHistory, loading, error } = viewHistoryOrder;
+     const viewHistoryOrder = useSelector(state => state.viewHistoryOrder);
+     const {viewHistory, loading, error } = viewHistoryOrder;
     const dispatch = useDispatch();
     const removeOrderHandler = (id_order)=>{
         if(window.confirm('Do you want to delete this item?')){
             dispatch(removeOrder(id_order));
             //props.history.push('/history');
         }
-       
     }
+    //const [viewHistory, setViewHistory] = useState([])
     //const dispatch = useDispatch();
     //const cartItems=[];
+    console.log(viewHistory);
     useEffect(() => {
+        dispatch(viewHistoryGet(props.match.params.id));
         return () => {
             //
         };

@@ -13,13 +13,16 @@ import { PRODUCT_LIST_REQUEST,
       PRODUCT_LIST_SUCCESS_OF_PAGE,
       SEARCH_REQUEST,
       SEARCH_SUCCESS,
-      SEARCH_FAIL} from "../constants/productConstants";
+      SEARCH_FAIL,
+      PRODUCT_LIST_REQUEST_OF_PAGE} from "../constants/productConstants";
 
 //List product
 function productListReducer (state = { products: [],filteredItems: [], cate: "",sort: "",search:"",numberOfPages:0}, action){
     switch(action.type){
         case PRODUCT_LIST_REQUEST:
             return {loading: true, products:[]};
+        case PRODUCT_LIST_REQUEST_OF_PAGE:
+            return {loading: true, filteredItems:[]};
         case  PRODUCT_LIST_SUCCESS:
             return { loading : false , products: action.payload, filteredItems:action.payload};
         case  PRODUCT_LIST_SUCCESS_OF_PAGE:
