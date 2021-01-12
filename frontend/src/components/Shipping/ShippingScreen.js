@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveShipping } from '../../actions/cartAction';
 import CheckoutSteps from '../CheckOutStep/CheckoutSteps';
@@ -7,15 +7,16 @@ import NavBar from '../Common/NavBar/index';
 import BottomBar from '../Common/BottomBar/index';
 import FooterPage from '../Common/Footer/Footer';
 import ScrollToTopBtn from '../Common/ScrollToTop/ScrollToTop';
+import Axios from 'axios';
 
 
 
 
 
 function ShippingScreen(props){
-    const cart = useSelector(state => state.cart);
+    // const cart = useSelector(state => state.cart);
 
-    const {cartItems, payment} = cart;
+    // const {cartItems, payment} = cart;
     const userLogin = useSelector((state) => state.userLogin);
     const {userInfo}= userLogin;
     if(!userInfo){
@@ -32,14 +33,15 @@ function ShippingScreen(props){
     
     const submitHandler =(e)=>{
         e.preventDefault();
-        if(cartItems.length>0){
             dispatch(saveShipping({address, city, postalCode, numberPhone}));
             props.history.push('payment');
-        }else{
-            alert("Haven't product in your cart");
-        }
-
     }
+    // useEffect(() => {
+    //     const {data} = Axios.get('/https://thongtindoanhnghiep.co/api/city');
+    //     setAddress(data.Title);
+    //     return () => {
+    //     };
+    // }, [])
     return <div>
             <TopBar/>
             <NavBar/>

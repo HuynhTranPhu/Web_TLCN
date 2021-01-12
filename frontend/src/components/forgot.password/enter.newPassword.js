@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import TopBar from "../Common/TopBar/TopBar";
+import NavBar from "../Common/NavBar/index";
+import BottomBar from "../Common/BottomBar/index";
+import Footer from "../Common/Footer/Footer";
 class EnterNewPassword extends Component {
   constructor() {
     super();
@@ -28,45 +32,52 @@ class EnterNewPassword extends Component {
   }
   render() {
     return (
-      <div className="container text-center">
-        <div className="logo-404">
-          <Link to="/">
-            <img src="/assets/images/home/logo.png" alt="" />
-          </Link>
-        </div>
-        <div className="content-404 forgotpass">
-          <h1>
-            <b>ENTER NEW PASSWORD</b>
-          </h1>
-          <p style={{ color: "tomato" }}>
-            {this.state.noti}
-          </p>
-          <input
-            type="password"
-            placeholder="New Password"
-            onChange={e => {this.props.setNewPassword(e.target.value) 
-                this.setState({newpassword: e.target.value})}}
-          />
-          <br />
-          <input
-            type="password"
-            placeholder="Confirm"
-            onChange={e => {this.props.setConfirm(e.target.value)
-            this.setState({confirm: e.target.value})}}
-          />
-          <br />
-          <button
-            className="btn btn-default"
-            onClick={() => 
-                this.handleSubmit()}
-          >
-            submit
-          </button>
-          <h2>
-            <Link to="/">Bring me back Home</Link>
-          </h2>
-        </div>
+      <div>
+        <TopBar/>
+        <NavBar/>
+        <BottomBar  ></BottomBar>
+             <div className="container text-center">
+              <div className="logo-404">
+                <Link to="/">
+                  <img src="/assets/images/home/logo.png" alt="" />
+                </Link>
+              </div>
+              <div className="content-404 forgotpass">
+                <h1>
+                  <b>ENTER NEW PASSWORD</b>
+                </h1>
+                <p style={{ color: "tomato" }}>
+                  {this.state.noti}
+                </p>
+                <input
+                  type="password"
+                  placeholder="New Password"
+                  onChange={e => {this.props.setNewPassword(e.target.value) 
+                      this.setState({newpassword: e.target.value})}}
+                />
+                <br />
+                <input
+                  type="password"
+                  placeholder="Confirm"
+                  onChange={e => {this.props.setConfirm(e.target.value)
+                  this.setState({confirm: e.target.value})}}
+                />
+                <br />
+                <button
+                  className="btn btn-default"
+                  onClick={() => 
+                      this.handleSubmit()}
+                >
+                  submit
+                </button>
+                <h2>
+                  <Link to="/">Bring me back Home</Link>
+                </h2>
+              </div>
+            </div>
+            <Footer/>
       </div>
+     
     );
   }
 }

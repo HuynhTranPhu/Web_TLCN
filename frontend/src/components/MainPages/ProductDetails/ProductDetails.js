@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Slider from "react-slick";
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { detailsProduct } from '../../../actions/productActions';
+import ReactImageZoom from 'react-image-zoom';
+//import { detailsProduct } from '../../../actions/productActions';
 import { listProducts } from '../../../actions/productActions';
 import LoadingBox from '../../Config/LoadingBox';
-import MessageBox from '../../Config/MessageBox';
+//import MessageBox from '../../Config/MessageBox';
 import Brand from '../../Brand/Brand';
 import TopBar from '../../Common/TopBar/TopBar';
 import NavBar from '../../Common/NavBar/index';
@@ -88,12 +89,13 @@ function ProductDetailScreen(props){
      
     }, [products.length,loading2,params.id])
     //console.log(detailProduct)
+    const prop = {width: 350, height: 292, zoomWidth: 350, zoomPosition :"original",img: `${detailProduct.img}`};
     const handleAddToCart = (id,name,price, image) =>{
         let a = {_id: id,
             name: name,
             price: price,
             img: image,
-            count: 1};
+            quantity: 1};
         let carts =[a];
         
         if(!userInfo){
@@ -122,9 +124,10 @@ function ProductDetailScreen(props){
                             <div className="col-lg-10">
                                 <div className="product-detail-top">
                                     <div className="row align-items-center">
-                                        <div className="col-md-3">
+                                        <div className="col-md-4">
                                             <div className="product-slider-single ">
-                                                <img src={detailProduct.img} alt="Product" />  
+                                                  <ReactImageZoom {...prop} /> 
+                                                {/* <img src={detailProduct.img} alt="Product" />   */}
                                             </div>
                                         </div>
                                         <div className="col-md-7">
@@ -154,21 +157,29 @@ function ProductDetailScreen(props){
                                                 </div>
                                                 {/* <div className="p-size">
                                                     <h4>Size:</h4>
-                                                    <div className="btn-group btn-group-sm">
-                                                        <button type="button" className="btn">S</button>
-                                                        <button type="button" className="btn">M</button>
-                                                        <button type="button" className="btn">L</button>
-                                                        <button type="button" className="btn">XL</button>
-                                                    </div> 
-                                                </div>
+                                                    <select
+                                                        // value={sort}
+                                                        // onChange={(e) => {
+                                                        // dispatch( sortProducts(
+                                                        //     filteredItems,
+                                                        //     e.target.value
+                                                        //     ));
+                                                        // }}
+                                                        >
+                                                            <option value="">Sort by</option>
+                                                            <option value="S">S</option>
+                                                            <option value="M">M</option>
+                                                            <option value="L">L</option>
+                                                            <option value="XL">XL</option>
+                                                            <option value="2XL">2XL</option>
+                                                    </select> 
+                                                </div> */}
                                                 <div className="p-color">
                                                     <h4>Color:</h4>
                                                     <div className="btn-group btn-group-sm">
-                                                        <button type="button" className="btn">White</button>
-                                                        <button type="button" className="btn">Black</button>
-                                                        <button type="button" className="btn">Blue</button>
+                                                        {detailProduct.color}
                                                     </div> 
-                                                </div> */}
+                                                </div>
                                                 <div className="action">
                                                 {
                                                     detailProduct.count>0 && 
@@ -202,16 +213,16 @@ function ProductDetailScreen(props){
                                         <div id="specification" className="container tab-pane fade">
                                             <h4>Product specification</h4>
                                             <ul>
-                                            <li>Lorem ipsum dolor sit amet</li>
-                                            <li>Lorem ipsum dolor sit amet</li>
-                                            <li>Lorem ipsum dolor sit amet</li>
-                                            <li>Lorem ipsum dolor sit amet</li>
-                                            <li>Lorem ipsum dolor sit amet</li>
+                                                <li>This is brand famous now </li>
+                                                <li>Multipurpose：Downhill Skiing, Snowboarding, Snowsports and other winter outdoor sports. </li>
+                                                <li>Professional water repellent coated, fluff lining and durable fabric 
+                                                    guarantees the best heat retention, Relaxed-fit style with quick-dry material. </li>
+                                            
                                             </ul>
                                         </div>
                                         <div id="reviews" className="container tab-pane fade">
                                             <div className="reviews-submitted">
-                                            <div className="reviewer">Phasellus Gravida - <span>01 Jan 2020</span></div>
+                                            <div className="reviewer">Kien Vu - <span>01 Jan 2021</span></div>
                                             <div className="ratting">
                                                 <i className="fa fa-star" />
                                                 <i className="fa fa-star" />

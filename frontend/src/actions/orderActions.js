@@ -87,7 +87,6 @@ const removeOrder = (id_order) => async (dispatch,getState) =>{
         }
         );
         dispatch({type: REMOVE_ORDER_SUCCESS, payload:data});
-        //dispatch({type:REMOVE_ORDER_SUCCESS,payload:data, success:true});
         
     }catch(error){
         const message=

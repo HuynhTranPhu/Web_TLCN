@@ -52,7 +52,8 @@ function HomeScreen(props){
             name: name,
             price: price,
             img: image,
-            count: 1};
+            quantity: 1
+        };
         let carts =[a];
         
         if(!userInfo){

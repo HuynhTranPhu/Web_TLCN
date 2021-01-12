@@ -52,7 +52,7 @@ function ProductScreen(props){
             name: name,
             price: price,
             img: image,
-            count: 1};
+            quantity: 1};
         let carts =[a];
         
         if(!userInfo){
@@ -166,56 +166,48 @@ function ProductScreen(props){
                                 </div>
                             </div>
                             {
-                                filteredItems.map((product) =>
+                                filteredItems.length===0?(                                                 
+                                    <div className="empty-cart1 ">
+                                        <img className="empty-cart-img" src="/images/emptyCart.png" alt="Product" />
+                                        <p className="empty-cart-note">OOPS!!!Products you search is not found!</p>
+                                        <Link className="empty-cart-shopping" to="/">Go to Shopping</Link>
+                                    </div>
+                                    ):
+                                    filteredItems.map((product) =>
 
-                                    <div className="col-md-3" key={product._id}>
-                                        <div className="product-item">
-                                            <div className="product-title">
-                                                <Link to={'/product-detail/' + product._id}>{product.name}</Link>
-                                                <div className="ratting">
-                                                    <i className="fa fa-star" />
-                                                    <i className="fa fa-star" />
-                                                    <i className="fa fa-star" />
-                                                    <i className="fa fa-star" />
-                                                    <i className="fa fa-star" />
+                                        <div className="col-md-3" key={product._id}>
+                                            <div className="product-item">
+                                                <div className="product-title">
+                                                    <Link to={'/product-detail/' + product._id}>{product.name}</Link>
+                                                    <div className="ratting">
+                                                        <i className="fa fa-star" />
+                                                        <i className="fa fa-star" />
+                                                        <i className="fa fa-star" />
+                                                        <i className="fa fa-star" />
+                                                        <i className="fa fa-star" />
+                                                    </div>
+                                                </div>
+                                                <div className="product-image">
+                                                        <img src={product.img} alt="Product" />
+                                                        <div className="product-action">
+                                                            <Link to={'/product-detail/' + product._id}><i className="fas fa-eye" /></Link>             
+                                                        </div>
+                                                </div>
+                                                <div className="product-price">
+                                                <h3><span>$</span>{product.price}</h3>
+                                                {
+                                                    product.count>0 && 
+                                                    <a className="btn" onClick={()=>handleAddToCart(product._id,product.name,product.price,product.img)}>
+                                                        <i className="fa fa-shopping-cart"></i>Buy Now</a>
+                                                }
                                                 </div>
                                             </div>
-                                            <div className="product-image">
-                                                    <img src={product.img} alt="Product" />
-                                                    <div className="product-action">
-                                                        <Link to={'/product-detail/' + product._id}><i className="fas fa-eye" /></Link>             
-                                                    </div>
-                                            </div>
-                                            <div className="product-price">
-                                            <h3><span>$</span>{product.price}</h3>
-                                            {
-                                                product.count>0 && 
-                                                <a className="btn" onClick={()=>handleAddToCart(product._id,product.name,product.price,product.img)}>
-                                                    <i className="fa fa-shopping-cart"></i>Buy Now</a>
-                                            }
-                                            </div>
                                         </div>
-                                    </div>
-                                )
+                                    )
                             }
                             
                         </div>
-                        {/* Pagination Start */}
-                        {/* <div className="col-md-12">
-                            <nav aria-label="Page navigation example">
-                                <ul className="pagination justify-content-center">
-                                <li className="page-item disabled">
-                                    <Link className="page-link" to="#" tabIndex={-1}>Previous</Link>
-                                </li>
-                                <li className="page-item active"><a className="page-link" href="#">1</a></li>
-                                <li className="page-item"><a className="page-link" href="#">2</a></li>
-                                <li className="page-item"><a className="page-link" href="#">3</a></li>
-                                <li className="page-item">
-                                    <Link className="page-link" to="#">Next</Link>
-                                </li>
-                                </ul>
-                            </nav>
-                        </div> */}
+                       { filteredItems.length>0 &&
                         <div className="col-md-12 pagination justify-content-center">
                             <button onClick={gotoPrevious}>Previous</button>
                             {pages.map((pageIndex) => (
@@ -225,6 +217,9 @@ function ProductScreen(props){
                             ))}
                             <button onClick={gotoNext}>Next</button>
                         </div>
+                       
+                       }
+                       
                         
                         {/* Pagination Start */}
                     </div>           
