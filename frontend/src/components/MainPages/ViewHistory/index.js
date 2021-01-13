@@ -105,11 +105,11 @@ function ViewHistory(props){
                                                                                 <div className="qty">
                                                                                     
                                                                                     <input type="text"
-                                                                                    value={i.count}  />
+                                                                                    value={i.quantity}  />
                                                                                     
                                                                                 </div>
                                                                             </td>
-                                                                            <td>${i.price * i.count}</td>
+                                                                            <td>${i.price * i.quantity}</td>
 
                                                                         </tr>
                                                                         

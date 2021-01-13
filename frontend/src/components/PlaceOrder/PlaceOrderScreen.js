@@ -9,13 +9,14 @@ import FooterPage from '../Common/Footer/Footer';
 import ScrollToTopBtn from '../Common/ScrollToTop/ScrollToTop';
 import { addOrder } from '../../actions/orderActions';
 import { ORDER_RESET } from '../../constants/orderContants';
+import PayPalButton from './PayPalButton';
 function PlaceOrderScreen(props){
 
 
     const cart = useSelector(state => state.cart);
     const {cartItems, payment} = cart;
     const addOrderPost = useSelector(state => state.orderPost);
-    const {loading, success,error} = addOrderPost;
+    const { success} = addOrderPost;
     
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo} = userLogin;
@@ -39,9 +40,11 @@ function PlaceOrderScreen(props){
             cart.shipping.postalCode,cart.shipping.address,
             cart.shipping.numberPhone,cart.payment.paymentMethod, shippingPrice.toFixed(2)));
     }
-    // console.log(userInfo.user.id,cart.shipping.city,
-    //     cart.shipping.postalCode,cart.shipping.address,
-    //     cart.shipping.numberPhone,cart.payment.paymentMethod, shippingPrice.toFixed(2));
+    const tranSuccess = async(payment) => {
+        if(payment.paid===true){
+            alert("You have successfully payment,please placed an order!")
+        } 
+    }
     useEffect(()=>{
         if(success){
             props.history.push('/order-success');
@@ -160,7 +163,17 @@ function PlaceOrderScreen(props){
                     </li>
                     <li>
                         <button className="checkout-btn" disabled={cartItems.length===0} onClick={placeOrderHandler}>Place Order</button>
+                        
                     </li>
+                    {
+                        cart.payment.paymentMethod==="Paypal"&&
+                        <li className="payPal">
+                                <PayPalButton   
+                                total={totalPrice.toFixed(2)}
+                                tranSuccess={tranSuccess}/>
+                        </li>
+                    }
+                    
                 </ul>   
             </div>
    

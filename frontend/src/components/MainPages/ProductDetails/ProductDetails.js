@@ -148,7 +148,7 @@ function ProductDetailScreen(props){
                                                 </div>
                                                 <div className="quantity">
                                                     <h4>Status:</h4>       
-                                                    {detailProduct.count > 0? 
+                                                    {detailProduct.quantity > 0? 
                                                     (
                                                         <span className="success">In Stock</span>
                                                     ):(
@@ -182,7 +182,7 @@ function ProductDetailScreen(props){
                                                 </div>
                                                 <div className="action">
                                                 {
-                                                    detailProduct.count>0 && 
+                                                    detailProduct.quantity>0 && 
                                                     <a className="btn"  onClick={()=>handleAddToCart(detailProduct._id,detailProduct.name,detailProduct.price,detailProduct.img)} ><i className="fa fa-shopping-cart" />Add to Cart</a>
                                                 }
                                                 </div>

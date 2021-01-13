@@ -32,16 +32,23 @@ function ShippingScreen(props){
    
     
     const submitHandler =(e)=>{
+        if(address===''||city===''||postalCode===''||numberPhone===''){
+            alert("Information not found")
+        }
         e.preventDefault();
-            dispatch(saveShipping({address, city, postalCode, numberPhone}));
-            props.history.push('payment');
+        dispatch(saveShipping({address, city, postalCode, numberPhone}));
+        props.history.push('payment');
+        
+        
     }
     // useEffect(() => {
-    //     const {data} = Axios.get('/https://thongtindoanhnghiep.co/api/city');
-    //     setAddress(data.Title);
+    //     const {data} = Axios.get('https://thongtindoanhnghiep.co/api/city');
+    //     setAddress(data.LtsItem.Title);
+    //     console.log(data);
     //     return () => {
     //     };
     // }, [])
+    
     return <div>
             <TopBar/>
             <NavBar/>

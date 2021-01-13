@@ -22,10 +22,14 @@ function PaymentScreen(props){
     const [paymentMethod, setPaymentMethod] = useState('');
     const dispatch = useDispatch();
     const submitHandler =(e)=>{
+        if(paymentMethod===""){
+            alert('Payment method not found');
+        }
         e.preventDefault();
         dispatch(savePayment({paymentMethod}));
         props.history.push('/place-order');
-    }
+        }
+
     return <div>
             <TopBar/>
             <NavBar/>
