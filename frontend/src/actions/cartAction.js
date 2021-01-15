@@ -48,7 +48,7 @@ import {CART_INCREASE,
 ///add cart tren man hinh
 const addToCart = (productId, count) => async (dispatch, getState) => {
     try{
-        const {data} = await axios.get("/product/" + productId);
+        const {data} = await axios.get("https://backendheroku112.herokuapp.com/product/" + productId);
         dispatch({
             type: CART_ADD_ITEM, payload:{
             _id: data._id,
@@ -95,7 +95,7 @@ const addCart = (id_user,products) => async (dispatch,getState) =>{
     console.log(id_user,products);
     const { userLogin :{userInfo}}= getState();
     try{
-        const {data} = await axios.post("/cart/addcart", {id_user,products}
+        const {data} = await axios.post("https://backendheroku112.herokuapp.com/cart/addcart", {id_user,products}
         ,{
             headers: {Authorization:`${userInfo.token}`},
         }
@@ -134,7 +134,7 @@ const removeCart = (id_user,id_product) => async (dispatch, getState) =>{
     //console.log(id_user,id_product);
     try{
         //console.log({id_product,id_user});
-        const {data} = await axios.put("/cart/remove", {id_user,id_product}
+        const {data} = await axios.put("https://backendheroku112.herokuapp.com/cart/remove", {id_user,id_product}
         ,{
             headers: {Authorization:`${userInfo.token}`},
         }
@@ -155,7 +155,7 @@ const increaseCart = (id_user,id_product) => async (dispatch, getState) =>{
     //console.log(id_user,id_product);
     try{
         //console.log({id_product,id_user});
-        const {data} = await axios.put("/cart/updatetang", {id_user,id_product}
+        const {data} = await axios.put("https://backendheroku112.herokuapp.com/cart/updatetang", {id_user,id_product}
         ,{
             headers: {Authorization:`${userInfo.token}`},
         }
@@ -175,8 +175,8 @@ const decreaseCart = (id_user,id_product) => async (dispatch, getState) =>{
     const { userLogin :{userInfo}}= getState();
     //console.log(id_user,id_product);
     try{
-        //console.log({id_product,id_user});
-        const {data} = await axios.put("/cart/updategiam", {id_user,id_product}
+        //console.log({id_product,id_user});https://backendheroku112.herokuapp.com
+        const {data} = await axios.put("https://backendheroku112.herokuapp.com/cart/updategiam", {id_user,id_product}
         ,{
             headers: {Authorization:`${userInfo.token}`},
         }

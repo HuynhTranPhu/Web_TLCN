@@ -39,11 +39,14 @@ import {CART_ADD_POST_REQUEST,
 const login = (email,password) => async (dispatch) =>{
     dispatch({type: USER_SIGNIN_REQUEST, payload:{email, password}});
     try{
-        const {data} = await axios.post("/user/login", {email,password});
+        const {data} = await axios.post("https://backendheroku112.herokuapp.com/user/login", {email,password}
+       )
+       console.log(data);
         dispatch({type:USER_SIGNIN_SUCCESS,payload:data});
         //console.log(data);
-        Cookie.set('userInfo', JSON.stringify(data));
+      //  Cookie.set('userInfo', JSON.stringify(data));
     }catch(error){
+        
         const message=
         error.response && error.response.data.message
         ? error.response.data.message
@@ -222,7 +225,7 @@ export const setEmailForgotPassword = (email) => ({
 export const submitForgotPassword = (email) => async (dispatch, getState) => {
     let res
     try {
-        res = await axios.get('/user/request/forgotpassword/' +email)
+        res = await axios.get('https://backendheroku112.herokuapp.com/user/request/forgotpassword/' +email)
     }
     catch (err) {
         dispatch(forgotEmailFail())
@@ -234,7 +237,7 @@ export const submitForgotPassword = (email) => async (dispatch, getState) => {
 export const submitOTP = (otp) => async (dispatch, getState) => {
     let res
     try {
-        res = await axios.post('/user/verify/forgotpassword', {
+        res = await axios.post('https://backendheroku112.herokuapp.com/user/verify/forgotpassword', {
             email: getState().forgotPassword.email,
             otp: otp,
         })
@@ -257,7 +260,7 @@ export const verifyOTPFAIL = () => ({
 export const submitEnterNewPassword = (newPassword) => async (dispatch, getState) => {
     let res
     try {
-        res = await axios.post('/user/forgotpassword', {
+        res = await axios.post('https://backendheroku112.herokuapp.com/user/forgotpassword', {
             email: getState().forgotPassword.email,
             otp: getState().forgotPassword.otp,
             newPassword: newPassword
