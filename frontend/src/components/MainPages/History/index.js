@@ -102,7 +102,7 @@ const History = () => {
                                                         </div>
                                                     </td> */}
                                                     <td><Link to= {"/view-history/"+ item._id} onClick={()=>HandelViewDetails(item._id)}>View Details</Link></td>
-                                                    <td>${item.order_subtotal}</td>
+                                                    <td>${item.order_subtotal }</td>
                                                     <td>{item.paymentStatus}</td>
                                                     {/* <td>
                                                         <button  onClick ={() =>removeOrderHandler(item._id)}>

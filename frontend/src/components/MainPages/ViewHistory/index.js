@@ -16,11 +16,14 @@ function ViewHistory(props){
 
      const viewHistoryOrder = useSelector(state => state.viewHistoryOrder);
      const {viewHistory, loading, error } = viewHistoryOrder;
+     const removeOrder1 = useSelector(state => state.removeOrder);
+     const { success } = removeOrder1;
     const dispatch = useDispatch();
     const removeOrderHandler = (id_order)=>{
         if(window.confirm('Do you want to delete this item?')){
             dispatch(removeOrder(id_order));
-            //props.history.push('/history');
+           
+            
         }
     }
     //const [viewHistory, setViewHistory] = useState([])
@@ -29,10 +32,29 @@ function ViewHistory(props){
     console.log(viewHistory);
     useEffect(() => {
         dispatch(viewHistoryGet(props.match.params.id));
+        if(success===true){
+            props.history.push('/history');
+        }
         return () => {
             //
         };
-    }, [])
+    }, [success])
+    let c=0;
+    const checkOrderStatus =()=>{
+        viewHistory.map(item=>(
+            item.orderStatus.map(i=>(
+                
+               (i.isCompleted===true)&& c++
+                
+                
+            ))
+        ))
+        if(c>2) return true;
+        else return false;
+    }
+    console.log(checkOrderStatus());
+    // const toPrice = (num) => Number(num.toFixed(2));
+    // const totalPrice = toPrice(viewHistory.map(item=>item.order_subtotal ))+toPrice(viewHistory.map(item=>item.shiping ));
     return<div>
         <TopBar/>
         <NavBar/>
@@ -137,7 +159,11 @@ function ViewHistory(props){
                                     SubTotal
                                 </div>
                                 <div>
-                                    ${viewHistory.map(item=>item.order_subtotal.toFixed(2) )}
+                                    ${viewHistory.map(item=>(
+                                        item.cart.map(i=>(i.price*i.quantity).toFixed(2))
+                                    )  
+                                    )
+                                    }
                                 </div>
                             
                             
@@ -163,7 +189,13 @@ function ViewHistory(props){
                             </div>
                         </li>
                         <li>
-                            <button className="checkout-btn"  onClick ={() =>removeOrderHandler(viewHistory.map(item=>item._id ))}>Delete orders</button>
+                            {
+                                <button className="checkout-btn" disabled={c>2}
+                                  onClick ={() =>removeOrderHandler(viewHistory.map(item=>item._id ))}>Delete orders
+                                </button>
+                                
+                            }
+                            
                         </li>
                     </ul>
                     

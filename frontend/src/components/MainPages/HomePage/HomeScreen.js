@@ -296,7 +296,7 @@ function HomeScreen(props){
                                         <div className="product-price">
                                             <h3><span>$</span>{product.price}</h3>                                          
                                             {
-                                                product.count>0 && 
+                                                product.quantity>0 && 
                                                 <a className="btn" 
                                                     onClick={()=>addToCartHandler( product._id,product.name,product.price ,product.img)} >
                                                     <i className="fa fa-shopping-cart"></i>Add To Cart</a>

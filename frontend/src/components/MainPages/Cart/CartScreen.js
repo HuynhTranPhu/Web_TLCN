@@ -22,13 +22,13 @@ function CartScreen(props){
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo} = userLogin;
 
-    const cartDecrease = useSelector(state => state.decreaseCart);
-    const  successDecrease = cartDecrease.success;
-    console.log(successDecrease);
-    const cartIncrease = useSelector(state => state.increaseCart);
-    const  successIncrease = cartIncrease.success;
-    const cartRemove = useSelector(state => state.removeCartPost);
-    const  successRemove = cartRemove.success;
+   // const cartDecrease = useSelector(state => state.decreaseCart);
+    //const  successDecrease = cartDecrease.success;
+    //console.log(successDecrease);
+   // const cartIncrease = useSelector(state => state.increaseCart);
+    //const  successIncrease = cartIncrease.success;
+    //const cartRemove = useSelector(state => state.removeCartPost);
+    //const  successRemove = cartRemove.success;
 
     const productId = props.match.params.id;
     const qty = props.location.search ? Number(props.location.search.split("=")[1]):1;
@@ -120,7 +120,7 @@ function CartScreen(props){
                                                     <td>${item.price}</td>
                                                     <td>
                                                         <div className="qty">
-                                                            <button className="btn-minus" onClick={()=> decreaseHandler(item._id)}><i className="fa fa-minus" /></button>
+                                                            <button className="btn-minus" disabled={item.count===1} onClick={()=> decreaseHandler(item._id)}><i className="fa fa-minus" /></button>
                                                             <input type="text"
                                                             value={item.count} 
                                                             //onChange={(e)=> 

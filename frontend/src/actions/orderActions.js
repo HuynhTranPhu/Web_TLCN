@@ -76,16 +76,10 @@ const viewHistoryGet = (id_order) => async (dispatch,getState) =>{
         dispatch({type: VIEW_HISTORY_FAIL, payload: message})
     }
 }
-const removeOrder = (id_order) => async (dispatch,getState) =>{
-    const { userLogin :{userInfo}}= getState();
-     console.log(id_order);
+const removeOrder = (id_order) => async (dispatch) =>{
     try{
         dispatch({type: REMOVE_ORDER_REQUEST, payload:id_order});
-        const {data} = await Axios.put("/order/" +id_order,
-        {
-            headers: {Authorization:`${userInfo.token}`},
-        }
-        );
+        const {data} = await Axios.put("/order/" +id_order);
         dispatch({type: REMOVE_ORDER_SUCCESS, payload:data});
         
     }catch(error){
